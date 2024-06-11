@@ -1,0 +1,22 @@
+steps:
+  - name: node:20-alpine
+    id: install-dependencies
+    entrypoint: "npm"
+    args: ["install"]
+
+  - name: node:20-alpine
+    id: stencil-build
+    entrypoint: "npm"
+    args: [ "run", "build" ]
+
+  - name: gcr.io/cloud-builders/docker
+    id: docker-build-push
+    entrypoint: /bin/bash
+    args:
+      - "-c"
+      - |
+        set -e
+        ls
+        ls dist
+        docker build -t $_REGISTRY:$_TAG .
+        docker push $_REGISTRY:$_TAG

@@ -16,4 +16,4 @@
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+* Copyright (c) 2022 hoverture team; *

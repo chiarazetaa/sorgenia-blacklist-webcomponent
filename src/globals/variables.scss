@@ -1,0 +1,76 @@
+$font-family-name: 'Raleway', sans-serif;
+$font-size-smaller: 10px;
+$font-size-small: 12px;
+$font-size-regular: 14px;
+$font-size-big: 16px;
+$font-size-bigger: 18px;
+$font-size-h1: 22px;
+$font-normal-weight-bolder: 700;
+$font-normal-weight-medium: 600;
+$font-italic-weight-medium: 500;
+$font-normal-weight-normal: 400;
+$font-italic-weight-normal: 400;
+$font-normal-weight-tiny: 300;
+
+//FONT COLORS
+$font-color-input-text: #3d414b;
+$font-color-primary-button: #f3f3f3;
+$font-color-button-text-hover: #780885;
+$color-delete-button-hover: #BC5252;
+
+//PALETTE COLORS
+$color-accent: #b61cc8;
+$color-main: #495167;
+$color-secondary: #7d7c83;
+$color-tertiary: #afb4bf;
+$color-disabled: #d5d5d5;
+$color-disabled-light: #ffffff87;
+$color-highlight: #f4f4f4;
+$color-highlight2: #cad8ed;
+$color-success: #69be78;
+$color-warning: #f37335;
+$color-accent2: #f37335;
+$color-error: #e06262;
+$color-delete: #e06262;
+$color-text-disabled: #b2b3b5;
+$background-brand: transparent linear-gradient(224deg, #b61cc8 0%, #f37335 100%) 0% 0% no-repeat padding-box;
+$background-input-text: #ffffff;
+$application-background: #ffffff;
+$color-purple-dark: #9414a3;
+$color-neutral: #ffffff;
+$color-tag-icon: #afc0d8;
+
+//FOCUS
+$focus-input: 2px 2px 10px #d0418969;
+$focus-button-primary: 2px 2px 10px #d04189;
+$focus-button-secondary: 2px 2px 10px #d0418969;
+$focus-button-text: 2px 2px 10px #d0418969;
+$focus-checkbox: 2px 2px 10px #d04189;
+$focus-radiobutton: 0px 0px 10px #d04189;
+$focus-toggle: 2px 2px 10px #d04189;
+$focus-dropdown-label: 2px 2px 10px #d0418969;
+$focus-picklist: rgb(208 65 137) 0px 0px 10px;
+$focus-accordion-container-icon: rgb(208 65 137) 0px 0px 10px;
+$focus-imagegallery: 2px 2px 10px #d04189;
+$focus-input-file: 2px 2px 10px #d0418969;
+$focus-tab: 2px 2px 10px #d0418969;
+$focus-button-toolbar: 2px 2px 10px #d0418969;
+$focus-toggle-toolbar: 0px 0px 10px #d04189;
+$focus-obj-formulaeditor: 0 0 6px #f7e7f9;
+
+//ELEMENTS COLORS
+$color-primary-button-hover: #9414a3;
+$color-secondary-button-hover: #f0d0f3;
+$color-input-text-border: #cdd5e6;
+$color-input-text-border-disabled: #e9edf7;
+$color-spinner-color: rgb(255, 255, 255) rgb(255, 255, 255) rgb(255, 255, 255) rgb(255, 255, 255, 0);
+$color-accent-hov2: #f7e7f9;
+$color-secondary-spinner-color: rgb(182, 28, 200) rgb(182, 28, 200) rgb(182, 28, 200) rgb(255, 255, 255, 0);
+
+// FONT LABEL FORM ELEMENTS
+$font-style-label-form-elements: normal;
+$font-weight-label-form-elements: 600;
+$font-size-label-form-elements: 0.875rem;
+$line-height-label-form-elements: 1rem;
+$font-family-label-form-elements: 'Raleway', sans-serif;
+$letter-spacing-label-form-elements: 0.024375rem;

@@ -7,11 +7,11 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/sorgenia-blacklist-webcomponent/sorgenia-blacklist-webcomponent.esm.js",
+  "unpkg": "dist/b2w-blacklist-sorgenia//b2w-blacklist-sorgenia.esm.js",
   "exports": {
     ".": {
-      "import": "./dist/sorgenia-blacklist-webcomponent/sorgenia-blacklist-webcomponent.esm.js",
-      "require": "./dist/sorgenia-blacklist-webcomponent/sorgenia-blacklist-webcomponent.cjs.js"
+      "import": "./dist/b2w-blacklist-sorgenia/b2w-blacklist-sorgenia.esm.js",
+      "require": "./dist/b2w-blacklist-sorgenia/b2w-blacklist-sorgenia.cjs.js"
     },
     "./my-component": {
       "import": "./dist/components/my-component.js",
@@ -36,15 +36,19 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "artifactregistry-login": "npx google-artifactregistry-auth"
   },
   "devDependencies": {
-    "@stencil/core": "^4.7.0",
     "@types/jest": "^29.5.6",
     "@types/node": "^16.18.11",
     "jest": "^29.7.0",
     "jest-cli": "^29.7.0",
     "puppeteer": "^21.9.0"
+  },
+  "dependencies": {
+    "@stencil/core": "^4.7.0",
+    "@stencil/sass": "^3.0.12"
   },
   "license": "MIT"
 }

@@ -1,7 +1,25 @@
 import { Config } from '@stencil/core';
+import path from 'path';
+import { sass } from '@stencil/sass';
+
+const getCdnVariable = () => {
+  //TODO map other branches here
+  const BRANCHES = ['internal-dev', 'internal-test', 'internal-prod', 'customer-dev', 'customer-test', 'customer-prod', 'preview-hotfix', 'hotfix'];
+  console.log(BRANCHES);
+
+  const CURRENT_BRANCH = process.env.BRANCH_NAME;
+
+  if (CURRENT_BRANCH && BRANCHES.includes(CURRENT_BRANCH)) {
+    console.log(`CURRENT BRANCH: ${CURRENT_BRANCH}`);
+    return `src/globals/cdns/${CURRENT_BRANCH}.scss`;
+  } else {
+    console.log(`DEFAULT internal-dev`);
+    return `src/globals/cdns/default.scss`;
+  }
+};
 
 export const config: Config = {
-  namespace: 'sorgenia-blacklist-webcomponent',
+  namespace: 'b2w-blacklist-sorgenia',
   outputTargets: [
     {
       type: 'dist',
@@ -14,11 +32,23 @@ export const config: Config = {
     },
     {
       type: 'docs-readme',
+      footer: '* Copyright (c) 2022 hoverture team; *',
     },
     {
       type: 'www',
       serviceWorker: null, // disable service workers
+      copy: [
+        { src: 'components/assets/*', dest: 'assets' },
+        { src: 'components/assets/fonts/*', dest: 'fonts' },
+      ],
     },
+  ],
+  globalStyle: 'src/globals/mixin.scss',
+  plugins: [
+    sass({
+      includePaths: [path.join(__dirname, 'src/globals')],
+      injectGlobalPaths: ['src/globals/variables.scss', getCdnVariable()],
+    }),
   ],
   testing: {
     browserHeadless: "new",
