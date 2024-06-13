@@ -19,7 +19,7 @@ const getCdnVariable = () => {
 };
 
 export const config: Config = {
-  namespace: 'b2w-blacklist-sorgenia',
+  namespace: 'blacklist',
   outputTargets: [
     {
       type: 'dist',
