@@ -10,13 +10,74 @@ steps:
     args: [ "run", "build" ]
 
   - name: gcr.io/cloud-builders/docker
-    id: docker-build-push
-    entrypoint: /bin/bash
     args:
-      - "-c"
+      - '-c'
       - |
         set -e
-        ls
-        ls dist
-        docker build -t $_REGISTRY:$_TAG .
-        docker push $_REGISTRY:$_TAG
+        docker build -t $_REGISTRY:$_TAG-$SHORT_SHA .
+        docker push $_REGISTRY:$_TAG-$SHORT_SHA
+    id: docker-build-push
+    entrypoint: /bin/bash
+
+  - name: gcr.io/cloud-builders/git
+    args:
+      - '-c'
+      - |
+        echo "$$SSH_KEY" >> /root/.ssh/id_rsa
+        chmod 400 /root/.ssh/id_rsa
+        ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts
+    id: git-ssh-key
+    entrypoint: bash
+    secretEnv:
+      - SSH_KEY
+    volumes:
+      - name: ssh
+        path: /root/.ssh
+
+  - name: gcr.io/cloud-builders/git
+    args:
+      - '-c'
+      - |
+        git clone --branch $_BRANCH $_SSH_URL /helm_chart
+
+    id: git-clone
+    entrypoint: bash
+    volumes:
+      - name: ssh
+        path: /root/.ssh
+      - name: helm-chart
+        path: /helm_chart
+  - name: 'eu.gcr.io/b2w-master/b2w-deploy:dev'
+    args:
+      - '-c'
+      - >
+        set -e
+
+        wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
+
+        cd /helm_chart
+
+        yq -i '$_TAG_PATH = "$_TAG-$SHORT_SHA"' $_FILE
+        
+        echo -e "[user]\n\tname = CI/CDAutomation\n\temail = multicloud-operation@bit2win.com" >> .git/config
+
+        if git pull; then
+          git add --all
+          git commit -m "update $_TAG_PATH in $_FILE"
+          git push
+        fi
+    id: update-tag-image
+    entrypoint: /bin/bash
+    volumes:
+      - name: ssh
+        path: /root/.ssh
+      - name: helm-chart
+        path: /helm_chart
+timeout: 600s
+options:
+  logging: CLOUD_LOGGING_ONLY
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_ID/secrets/SSH_KEY/versions/latest
+      env: SSH_KEY
+
