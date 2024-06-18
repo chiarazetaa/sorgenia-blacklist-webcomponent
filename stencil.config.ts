@@ -1,6 +1,6 @@
 import { Config } from '@stencil/core';
-import path from 'path';
 import { sass } from '@stencil/sass';
+import path from 'path';
 
 const getCdnVariable = () => {
   //TODO map other branches here
@@ -18,6 +18,7 @@ const getCdnVariable = () => {
   }
 };
 
+
 export const config: Config = {
   namespace: 'blacklist',
   outputTargets: [
@@ -32,7 +33,7 @@ export const config: Config = {
     },
     {
       type: 'docs-readme',
-      footer: '* Copyright (c) 2022 hoverture team; *',
+      footer: '* Copyright (c) 2022 bit2win team; *',
     },
     {
       type: 'www',

@@ -6,56 +6,75 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface AbiCabTable {
+        "backendUrl": string;
+    }
+    interface BlacklistDashboard {
+        "backendUrl": string;
+    }
+    interface BlacklistDashboardStyles {
+    }
+    interface SharedModal {
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLAbiCabTableElement extends Components.AbiCabTable, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLAbiCabTableElement: {
+        prototype: HTMLAbiCabTableElement;
+        new (): HTMLAbiCabTableElement;
+    };
+    interface HTMLBlacklistDashboardElement extends Components.BlacklistDashboard, HTMLStencilElement {
+    }
+    var HTMLBlacklistDashboardElement: {
+        prototype: HTMLBlacklistDashboardElement;
+        new (): HTMLBlacklistDashboardElement;
+    };
+    interface HTMLBlacklistDashboardStylesElement extends Components.BlacklistDashboardStyles, HTMLStencilElement {
+    }
+    var HTMLBlacklistDashboardStylesElement: {
+        prototype: HTMLBlacklistDashboardStylesElement;
+        new (): HTMLBlacklistDashboardStylesElement;
+    };
+    interface HTMLSharedModalElement extends Components.SharedModal, HTMLStencilElement {
+    }
+    var HTMLSharedModalElement: {
+        prototype: HTMLSharedModalElement;
+        new (): HTMLSharedModalElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "abi-cab-table": HTMLAbiCabTableElement;
+        "blacklist-dashboard": HTMLBlacklistDashboardElement;
+        "blacklist-dashboard-styles": HTMLBlacklistDashboardStylesElement;
+        "shared-modal": HTMLSharedModalElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface AbiCabTable {
+        "backendUrl"?: string;
+    }
+    interface BlacklistDashboard {
+        "backendUrl"?: string;
+    }
+    interface BlacklistDashboardStyles {
+    }
+    interface SharedModal {
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "abi-cab-table": AbiCabTable;
+        "blacklist-dashboard": BlacklistDashboard;
+        "blacklist-dashboard-styles": BlacklistDashboardStyles;
+        "shared-modal": SharedModal;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "abi-cab-table": LocalJSX.AbiCabTable & JSXBase.HTMLAttributes<HTMLAbiCabTableElement>;
+            "blacklist-dashboard": LocalJSX.BlacklistDashboard & JSXBase.HTMLAttributes<HTMLBlacklistDashboardElement>;
+            "blacklist-dashboard-styles": LocalJSX.BlacklistDashboardStyles & JSXBase.HTMLAttributes<HTMLBlacklistDashboardStylesElement>;
+            "shared-modal": LocalJSX.SharedModal & JSXBase.HTMLAttributes<HTMLSharedModalElement>;
         }
     }
 }

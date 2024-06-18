@@ -3,12 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
-
+    <title>Blacklist</title>
     <script type="module" src="/build/blacklist.esm.js"></script>
     <script nomodule src="/build/blacklist.js"></script>
+    <script type="module"
+            src="https://sorgenia-dev-01.symple.cloud/webcomponents/b2w-design-system/dist/esm/b2w-design-system.esm.js"></script>
+    <script src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+
   </head>
   <body>
-    <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+    <blacklist-dashboard-styles></blacklist-dashboard-styles>
+    <blacklist-dashboard backend-url="http://localhost:8080"></blacklist-dashboard>
+    <shared-modal></shared-modal>
   </body>
 </html>
