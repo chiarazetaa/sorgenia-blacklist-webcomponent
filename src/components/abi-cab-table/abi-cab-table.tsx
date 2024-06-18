@@ -156,7 +156,7 @@ export class AbiCabTable {
                     text="Aggiungi POD/PDR"></b2w-button>
         <b2w-button onB2wButtonClick={() => openEditModal(this.editModalTemplate)} type="primary"
                     disabled={this.selectedRows.length === 0}
-                    custom-style=".B2wButton{width: 250px !important;}"
+                    custom-style=".B2wButton{width: 240px !important;}"
                     text="Modifica data cancellazione"></b2w-button>
       </div>
 

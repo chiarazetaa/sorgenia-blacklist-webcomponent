@@ -16,7 +16,7 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
   {
     text: 'Abi',
     value: 'abi',
-    placeholder: 'Esito Inviato A Crm',
+    placeholder: 'Abi',
     type: 'string',
     title: 'ABI',
     field: 'abi',
