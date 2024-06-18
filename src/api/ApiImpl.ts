@@ -23,6 +23,15 @@ export class ApiImpl {
     return this.apiImpl.post(url, payload || {}, additionalHeaders).promise;
   }
 
+  public async addAbiCabInBlacklist(payload?: any, queryParams?: string | null, authToken?: string | null): Promise<any> {
+    let additionalHeaders = authToken ? { authorization: 'Bearer ' + authToken } : null;
+    let url = '/v1/abi-cab';
+    if (queryParams) {
+      url = url + '?' + queryParams;
+    }
+    return this.apiImpl.post(url, payload || {}, additionalHeaders).promise;
+  }
+
   constructor(backend?: string) {
     this.apiImpl = new Api(backend);
   }

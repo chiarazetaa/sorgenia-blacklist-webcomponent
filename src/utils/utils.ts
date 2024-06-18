@@ -18,6 +18,7 @@ export const MODAL_EVENTS = {
   SHOW: 'show',
   HIDE: 'hide',
   SAVE_EDIT_DATE: 'saveEditDate',
+  SAVE_NEW_ABI_CAB: 'saveNewAbiCab',
   EXIT_LOADING: 'exitLoading',
   LOADING: 'loading',
 };

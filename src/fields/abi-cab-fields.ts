@@ -11,8 +11,6 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     headerSort: false,
     formatter: 'fonts',
     showColumn: false,
-    hozAlign: 'left',
-    frozen: true,
     emitEventOnSorting: true,
   },
   {
@@ -25,8 +23,7 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     headerSort: true,
     formatter: 'fonts',
     showColumn: true,
-    hozAlign: 'left',
-    frozen: true,
+
     emitEventOnSorting: true,
   },
   {
@@ -39,8 +36,7 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     headerSort: true,
     formatter: 'fonts',
     showColumn: true,
-    hozAlign: 'left',
-    frozen: true,
+
     emitEventOnSorting: true,
   },
   {
@@ -53,8 +49,7 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     headerSort: true,
     formatter: 'datetime',
     showColumn: true,
-    hozAlign: 'left',
-    frozen: true,
+
     emitEventOnSorting: true,
   },
   {
@@ -67,8 +62,7 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     headerSort: true,
     formatter: 'datetime',
     showColumn: true,
-    hozAlign: 'left',
-    frozen: true,
+
     emitEventOnSorting: true,
   },
   {
@@ -81,8 +75,7 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     headerSort: true,
     formatter: 'fonts',
     showColumn: true,
-    hozAlign: 'left',
-    frozen: true,
+
     emitEventOnSorting: true,
   }
 ];

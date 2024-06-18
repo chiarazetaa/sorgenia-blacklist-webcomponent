@@ -36,6 +36,7 @@ export class BlacklistDashboard {
           {/*{this.currentTab === 'ABI/CAB' && <business-table backend-url={this.backendUrl}></business-table>}*/}
           {this.currentTab === 'POD/PDR' && <abi-cab-table backend-url={this.backendUrl}></abi-cab-table>}
         </div>
+        <shared-modal></shared-modal>
       </Host>
     );
   }

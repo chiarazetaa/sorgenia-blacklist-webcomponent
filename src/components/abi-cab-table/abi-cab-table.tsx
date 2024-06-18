@@ -5,6 +5,8 @@ import { abiCabFields } from '../../fields/abi-cab-fields';
 import { ApiImpl } from '../../api/ApiImpl';
 import { filterOperators } from '../../fields/filter-operators';
 import { debounce, MODAL_EVENTS } from '../../utils/utils';
+import { EditModalTemplate, openEditModal } from './components/OpenEditModal';
+import { NewModalTemplate, openNewModal } from './components/OpenNewModal';
 
 @Component({
   tag: 'abi-cab-table',
@@ -20,20 +22,24 @@ export class AbiCabTable {
   @State() visibleColumns = abiCabFields.filter
   (field => field.showColumn);
   @State() currentPage = 1;
-  limit = 2;
+  limit = 10;
   @State() filters = [];
   @State() sort: { field: string, direction: 'asc' | 'desc' } = {
     field: this.initialSortField,
     direction: this.initialSortDirection,
   };
   @State() selectedRows = [];
-  @State() selectedEditDate;
+  editModalTemplate: EditModalTemplate = {};
+  newModalTemplate: NewModalTemplate = {};
 
   @Listen('modalEvent', { target: 'window' })
   changeContentHandler(event: CustomEvent) {
     switch (event.detail.type) {
       case MODAL_EVENTS.SAVE_EDIT_DATE:
         this.massiveDateUpdate();
+        break;
+      case MODAL_EVENTS.SAVE_NEW_ABI_CAB:
+        this.addAbiCabInBlacklist();
         break;
     }
   }
@@ -62,22 +68,34 @@ export class AbiCabTable {
     this.isLoading = false;
   }
 
+  async addAbiCabInBlacklist() {
+    window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: MODAL_EVENTS.LOADING } }));
+    let api = new ApiImpl(this.backendUrl);
+    try {
+      //TODO add validation
+      await api.addAbiCabInBlacklist(this.newModalTemplate);
+      this.loadData();
+      window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: MODAL_EVENTS.HIDE } }));
+    } catch (e) {
+      //TODO show toast
+      console.error(e);
+    }
+  }
+
   async massiveDateUpdate() {
     window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: MODAL_EVENTS.LOADING } }));
     let api = new ApiImpl(this.backendUrl);
     try {
-      this.selectedEditDate;
       const payload = {
         document_ids: this.selectedRows.map(sr => sr._id),
-        data_cancellazione: this.selectedEditDate,
+        data_cancellazione: this.editModalTemplate.data_cancellazione,
       };
       await api.bulkUpdateAbiCab(payload);
       this.loadData();
+      window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: MODAL_EVENTS.HIDE } }));
     } catch (e) {
       //TODO show toast
       console.error(e);
-    } finally {
-      window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: MODAL_EVENTS.HIDE } }));
     }
   };
 
@@ -101,32 +119,6 @@ export class AbiCabTable {
       return;
     }
     this.selectedRows = values;
-  };
-
-  openEditModal = () => {
-    const today = new Date();
-    const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    const formattedDate = new Intl.DateTimeFormat('it-IT', options).format(today);
-    const jsxElement = <div>
-      <b2w-date-picker
-        label="Data"
-        locale="it"
-        value={formattedDate}
-        mindate={formattedDate}
-        format="dd/MM/yyyy"
-        onB2wDatePickerEvent={e => {
-          this.selectedEditDate = e.detail.value;
-        }}
-      />
-    </div>;
-    window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, {
-      detail: {
-        component: jsxElement,
-        type: MODAL_EVENTS.SHOW,
-        eventNameOnSave: MODAL_EVENTS.SAVE_EDIT_DATE,
-        modalTitle: 'Modifica data cancellazione',
-      },
-    }));
   };
 
   render() {
@@ -159,10 +151,10 @@ export class AbiCabTable {
       </div>
 
       <div class="d-flex flex-row justify-content-end mb-3 mt-4">
-        <b2w-button onB2wButtonClick={this.openEditModal} type="primary"
+        <b2w-button onB2wButtonClick={() => openNewModal(this.newModalTemplate)} type="primary"
                     custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
                     text="Aggiungi POD/PDR"></b2w-button>
-        <b2w-button onB2wButtonClick={this.openEditModal} type="primary"
+        <b2w-button onB2wButtonClick={() => openEditModal(this.editModalTemplate)} type="primary"
                     disabled={this.selectedRows.length === 0}
                     custom-style=".B2wButton{width: 250px !important;}"
                     text="Modifica data cancellazione"></b2w-button>
