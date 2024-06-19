@@ -22,3 +22,8 @@ export const MODAL_EVENTS = {
   EXIT_LOADING: 'exitLoading',
   LOADING: 'loading',
 };
+
+export const SNACKBAR_EVENTS = {
+  ID: 'snackbarEvent',
+  SHOW: 'show',
+};

@@ -16,6 +16,8 @@ export namespace Components {
     }
     interface SharedModal {
     }
+    interface SharedSnackbar {
+    }
 }
 declare global {
     interface HTMLAbiCabTableElement extends Components.AbiCabTable, HTMLStencilElement {
@@ -42,11 +44,18 @@ declare global {
         prototype: HTMLSharedModalElement;
         new (): HTMLSharedModalElement;
     };
+    interface HTMLSharedSnackbarElement extends Components.SharedSnackbar, HTMLStencilElement {
+    }
+    var HTMLSharedSnackbarElement: {
+        prototype: HTMLSharedSnackbarElement;
+        new (): HTMLSharedSnackbarElement;
+    };
     interface HTMLElementTagNameMap {
         "abi-cab-table": HTMLAbiCabTableElement;
         "blacklist-dashboard": HTMLBlacklistDashboardElement;
         "blacklist-dashboard-styles": HTMLBlacklistDashboardStylesElement;
         "shared-modal": HTMLSharedModalElement;
+        "shared-snackbar": HTMLSharedSnackbarElement;
     }
 }
 declare namespace LocalJSX {
@@ -60,11 +69,14 @@ declare namespace LocalJSX {
     }
     interface SharedModal {
     }
+    interface SharedSnackbar {
+    }
     interface IntrinsicElements {
         "abi-cab-table": AbiCabTable;
         "blacklist-dashboard": BlacklistDashboard;
         "blacklist-dashboard-styles": BlacklistDashboardStyles;
         "shared-modal": SharedModal;
+        "shared-snackbar": SharedSnackbar;
     }
 }
 export { LocalJSX as JSX };
@@ -75,6 +87,7 @@ declare module "@stencil/core" {
             "blacklist-dashboard": LocalJSX.BlacklistDashboard & JSXBase.HTMLAttributes<HTMLBlacklistDashboardElement>;
             "blacklist-dashboard-styles": LocalJSX.BlacklistDashboardStyles & JSXBase.HTMLAttributes<HTMLBlacklistDashboardStylesElement>;
             "shared-modal": LocalJSX.SharedModal & JSXBase.HTMLAttributes<HTMLSharedModalElement>;
+            "shared-snackbar": LocalJSX.SharedSnackbar & JSXBase.HTMLAttributes<HTMLSharedSnackbarElement>;
         }
     }
 }

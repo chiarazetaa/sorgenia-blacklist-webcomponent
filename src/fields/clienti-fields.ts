@@ -1,6 +1,6 @@
-import { FilterField, TableField, ExtendedTableField } from '../interfaces/fields.interface';
+import { FilterField, TableField } from '../interfaces/fields.interface';
 
-export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = [
+export const clientiFields: (FilterField & TableField)[] = [
   {
     text: 'Esito Inviato A Crm',
     value: 'esito_inviato_a_crm',
@@ -10,7 +10,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'esito_inviato_a_crm',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
+    visible: true,
     hozAlign: 'left',
     frozen: true,
     emitEventOnSorting: true,
@@ -24,7 +24,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'id_richiesta',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
+    visible: true,
   },
   {
     text: 'Stato Pratica',
@@ -35,7 +35,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'stato_pratica',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
+    visible: true,
   },
   {
     text: 'Stato Richiesta Cerved',
@@ -46,7 +46,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'stato_richiesta_cerved',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
+    visible: true,
   },
   {
     text: 'Data Inserimento Richiesta',
@@ -57,7 +57,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'data_inserimento_richiesta',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Con Deroga Automatica',
@@ -68,7 +68,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'con_deroga_automatica',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Forzatura Credit Check',
@@ -79,7 +79,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'forzatura_credit_check',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Area Cliente',
@@ -90,7 +90,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'area_cliente',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Codice Proposta Contratto',
@@ -101,7 +101,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'codice_proposta_contratto',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Partita Iva',
@@ -112,7 +112,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'partita_iva',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Codice Fiscale Richiesta',
@@ -123,7 +123,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'codice_fiscale_richiesta',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Codice Cliente',
@@ -134,7 +134,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'codice_cliente',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Req Ragione Sociale',
@@ -145,7 +145,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'req_ragione_sociale',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Pregiudizievoli Esatri',
@@ -156,7 +156,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'pregiudizievoli_esatri',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Pregiudizievoli Gravi',
@@ -167,7 +167,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'pregiudizievoli_gravi',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Protesti',
@@ -178,7 +178,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'protesti',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Esito',
@@ -189,7 +189,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'esito',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Score Sic Descrizione',
@@ -200,7 +200,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'score_sic_descrizione',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Res Score Sic',
@@ -211,7 +211,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'res_score_sic',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Area Geo',
@@ -222,7 +222,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'area_geo',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Type Attiv',
@@ -233,7 +233,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'type_attiv',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Tot Num Contr',
@@ -244,7 +244,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'tot_num_contr',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Origine',
@@ -255,7 +255,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'origine',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Codice Iban',
@@ -266,7 +266,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'codice_iban',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Nome Agenzia',
@@ -277,7 +277,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'nome_agenzia',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Consumi Punti Attivi Ele',
@@ -288,7 +288,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'consumi_punti_attivi_ele',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Consumi Contrattuali Ele',
@@ -299,7 +299,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'consumi_contrattuali_ele',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Consumi Punti Attivi Gas',
@@ -310,7 +310,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'consumi_punti_attivi_gas',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Consumi Contrattuali Gas',
@@ -321,7 +321,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'consumi_contrattuali_gas',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Codice Fiscale Risposta',
@@ -332,7 +332,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'codice_fiscale_risposta',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Commodity Gas',
@@ -343,7 +343,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'commodity_gas',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Commodity Ele',
@@ -354,7 +354,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'commodity_ele',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Punteggio Zone',
@@ -365,7 +365,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'punteggio_zone',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Fascia Zone',
@@ -376,7 +376,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'fascia_zone',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Stato Del Contratto Prisma',
@@ -387,7 +387,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'stato_del_contratto_prisma',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Causale Di Sospensione',
@@ -398,7 +398,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'causale_di_sospensione',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: false,
+    visible: true,
   },
   {
     text: 'Campagna Web',
@@ -409,7 +409,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'campagna_web',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
+    visible: true,
   },
   {
     text: 'Gruppo Campagna Web',
@@ -420,7 +420,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'gruppo_campagna_web',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
+    visible: true,
   },
   {
     text: 'Legittimo Titolo',
@@ -431,7 +431,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'legittimo_titolo',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
+    visible: true,
   },
   {
     text: 'Consumi Contrattuali Ele Real',
@@ -442,7 +442,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'consumi_contrattuali_ele_real',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
+    visible: true,
   },
   {
     text: 'Consumi Contrattuali Gas Real',
@@ -453,7 +453,7 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'consumi_contrattuali_gas_real',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
+    visible: true,
   },
   {
     text: 'Flag Frode',
@@ -464,6 +464,6 @@ export const clientiFields: (FilterField & TableField & ExtendedTableField)[] = 
     field: 'flag_frode',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
+    visible: true,
   },
 ];

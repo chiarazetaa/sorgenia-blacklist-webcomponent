@@ -14,8 +14,5 @@ export type TableField = {
   frozen?: boolean,
   visible?: boolean,
   emitEventOnSorting?: boolean,
-}
-
-export type ExtendedTableField = {
-  showColumn: boolean;
+  formatterParams?: any,
 }

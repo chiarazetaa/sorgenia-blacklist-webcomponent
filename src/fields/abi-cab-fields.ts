@@ -1,6 +1,6 @@
-import { FilterField, TableField, ExtendedTableField } from '../interfaces/fields.interface';
+import { FilterField, TableField } from '../interfaces/fields.interface';
 
-export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
+export const abiCabFields: (FilterField & TableField)[] = [
   {
     text: 'ID',
     value: '_id',
@@ -10,7 +10,7 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     field: '_id',
     headerSort: false,
     formatter: 'fonts',
-    showColumn: false,
+    visible: false,
     emitEventOnSorting: true,
   },
   {
@@ -22,8 +22,7 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     field: 'abi',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
-
+    visible: true,
     emitEventOnSorting: true,
   },
   {
@@ -35,8 +34,7 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     field: 'cab',
     headerSort: true,
     formatter: 'fonts',
-    showColumn: true,
-
+    visible: true,
     emitEventOnSorting: true,
   },
   {
@@ -48,22 +46,32 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     field: 'data_inserimento',
     headerSort: true,
     formatter: 'datetime',
-    showColumn: true,
-
+    visible: true,
     emitEventOnSorting: true,
+    formatterParams: {
+      inputFormat: 'yyyy-MM-dd',
+      outputFormat: 'dd/MM/yyyy',
+      invalidPlaceholder: '-',
+      timezone: 'Europe/Rome',
+    },
   },
   {
     text: 'Data cancellazione',
     value: 'data_cancellazione',
     placeholder: 'Data cancellazione',
-    type: 'string',
+    type: 'date',
     title: 'Data cancellazione',
     field: 'data_cancellazione',
     headerSort: true,
     formatter: 'datetime',
-    showColumn: true,
-
+    visible: true,
     emitEventOnSorting: true,
+    formatterParams: {
+      inputFormat: 'yyyy-MM-dd',
+      outputFormat: 'dd/MM/yyyy',
+      invalidPlaceholder: '-',
+      timezone: 'Europe/Rome',
+    },
   },
   {
     text: 'Operatore forzatura',
@@ -73,9 +81,8 @@ export const abiCabFields: (FilterField & TableField & ExtendedTableField)[] = [
     title: 'Operatore forzatura',
     field: 'operatore_forzatura',
     headerSort: true,
-    formatter: 'fonts',
-    showColumn: true,
-
+    formatter: 'text_replace',
+    visible: true,
     emitEventOnSorting: true,
-  }
+  },
 ];

@@ -4,7 +4,7 @@ import { BlacklistAbiCab } from '../../interfaces/blacklist-abi-cab.interface';
 import { abiCabFields } from '../../fields/abi-cab-fields';
 import { ApiImpl } from '../../api/ApiImpl';
 import { filterOperators } from '../../fields/filter-operators';
-import { debounce, MODAL_EVENTS } from '../../utils/utils';
+import { debounce, MODAL_EVENTS, SNACKBAR_EVENTS } from '../../utils/utils';
 import { EditModalTemplate, openEditModal } from './components/OpenEditModal';
 import { NewModalTemplate, openNewModal } from './components/OpenNewModal';
 
@@ -19,8 +19,7 @@ export class AbiCabTable {
   @State() tableData: DataTableInterface<BlacklistAbiCab>;
   @State() initialSortField = 'id_crm';
   @State() initialSortDirection: 'asc' | 'desc' = 'asc';
-  @State() visibleColumns = abiCabFields.filter
-  (field => field.showColumn);
+  @State() visibleColumns = abiCabFields
   @State() currentPage = 1;
   limit = 10;
   @State() filters = [];
@@ -49,7 +48,7 @@ export class AbiCabTable {
   }
 
   showAndHideColumns = (keys: string[]) => {
-    this.visibleColumns = abiCabFields.filter(field => keys.includes(field.field));
+    this.visibleColumns.forEach(el=>el.visible = keys.includes(el.field));
     this.loadData();
   };
 
@@ -72,13 +71,18 @@ export class AbiCabTable {
     window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: MODAL_EVENTS.LOADING } }));
     let api = new ApiImpl(this.backendUrl);
     try {
-      //TODO add validation
       await api.addAbiCabInBlacklist(this.newModalTemplate);
       this.loadData();
       window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: MODAL_EVENTS.HIDE } }));
     } catch (e) {
-      //TODO show toast
-      console.error(e);
+      window.dispatchEvent(new CustomEvent(SNACKBAR_EVENTS.ID, {
+        detail: {
+          type: SNACKBAR_EVENTS.SHOW,
+          text: JSON.parse(e?.message)?.message || 'Error'
+        },
+      }));
+    } finally {
+      window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: MODAL_EVENTS.EXIT_LOADING } }));
     }
   }
 
@@ -94,8 +98,14 @@ export class AbiCabTable {
       this.loadData();
       window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: MODAL_EVENTS.HIDE } }));
     } catch (e) {
-      //TODO show toast
-      console.error(e);
+      window.dispatchEvent(new CustomEvent(SNACKBAR_EVENTS.ID, {
+        detail: {
+          type: SNACKBAR_EVENTS.SHOW,
+          text: JSON.parse(e?.message)?.message || 'Error'
+        },
+      }));
+    } finally {
+      window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: MODAL_EVENTS.EXIT_LOADING } }));
     }
   };
 
@@ -136,15 +146,15 @@ export class AbiCabTable {
           onB2wFilterEvent={e => {
             this.handleFilterEvent(e?.detail);
           }}
-          customStyle={'.B2wFilter{max-width:100% !important; width: 600px !important;}'}
+          customStyle={'.B2wFilter{max-width:100% !important; width: 800px !important;}'}
         ></b2w-filter>
         <b2w-multiselect
           tagType="secondary"
           label="Visibilità campi"
           placeholder="Seleziona le colonne"
           enableSearch={true}
-          defaultValues={JSON.stringify([...abiCabFields.filter(d => (d.showColumn)).map(d => (d.field))])}
-          options={JSON.stringify(abiCabFields.map(d => ({ text: d.text, value: d.field })))}
+          defaultValues={JSON.stringify([...this.visibleColumns.filter(d => (d.visible)).map(d => (d.field))])}
+          options={JSON.stringify(this.visibleColumns.map(d => ({ text: d.text, value: d.field })))}
           onb2wMultiselectChange={e => this.showAndHideColumnsDebounced(e.detail.values)}
           customStyle={'.b2w-multiselect{max-width:100% !important; width: 300px !important; font-size: 14px !important}'}
         ></b2w-multiselect>
@@ -171,16 +181,21 @@ export class AbiCabTable {
           placeholder={'Nessun dato trovato'}
           payload-columns={JSON.stringify(this.visibleColumns)}
           payload-data={JSON.stringify(this.tableData.data)}
-          horizontalScroll={true}
+          horizontalScroll={false}
+          showDownload={true}
+          downloadFileName={'export-blacklist-abi-cab'}
+          downloadButtonLabel={'Esporta'}
+          downloadStyle={'icon-secondary'}
+          downloadFormat={'xlsx'}
           emitEventOnSorting={true}
-          customStyle={'.B2wFilter{max-width:100% !important; width: 600px !important;}'}
+          customStyle={'.B2wTable{max-width:100% !important;}'}
           onB2wHeaderSortEvent={e => this.handleSortingEvent(e.detail)}
           onB2wTableSelectionEvent={e => this.handleMultiSelect(e.detail.data)}
         ></b2w-table>
       </div>}
       <div class="d-flex w-100 justify-content-end">
         <b2w-pagination
-          className="w-full justify-center"
+          class="w-full justify-center"
           totalPages={Math.ceil(this.tableData?.totalItems / this.limit)}
           currentPageDefault={this.currentPage}
           onB2wPaginationEvent={e => this.handlePaginationEvent(e.detail.currentPage)}
