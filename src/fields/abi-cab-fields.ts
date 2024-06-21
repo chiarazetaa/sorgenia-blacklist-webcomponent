@@ -69,7 +69,7 @@ export const abiCabFields: (FilterField & TableField)[] = [
     formatterParams: {
       inputFormat: 'yyyy-MM-dd',
       outputFormat: 'dd/MM/yyyy',
-      invalidPlaceholder: '-',
+      invalidPlaceholder: '',
       timezone: 'Europe/Rome',
     },
   },
