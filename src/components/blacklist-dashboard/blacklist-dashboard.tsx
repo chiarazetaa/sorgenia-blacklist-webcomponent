@@ -33,8 +33,8 @@ export class BlacklistDashboard {
                   onB2wTabsClick={e => this.selectTab(e)}></b2w-tabs>
         <div class="mt-4">
           {/*{this.currentTab === 'CLIENTI' && <residential-table backend-url={this.backendUrl}></residential-table>}*/}
-          {/*{this.currentTab === 'ABI/CAB' && <business-table backend-url={this.backendUrl}></business-table>}*/}
-          {this.currentTab === 'POD/PDR' && <abi-cab-table backend-url={this.backendUrl}></abi-cab-table>}
+          {this.currentTab === 'POD/PDR' && <pod-pdr-table backend-url={this.backendUrl}></pod-pdr-table>}
+          {this.currentTab === 'ABI/CAB' && <abi-cab-table backend-url={this.backendUrl}></abi-cab-table>}
         </div>
         <shared-modal></shared-modal>
         <shared-snackbar></shared-snackbar>

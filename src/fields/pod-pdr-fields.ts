@@ -5,7 +5,7 @@ import {
   TableField,
 } from '../interfaces/fields.interface';
 
-export const abiCabFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
+export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
   {
     text: 'ID',
     value: '_id',
@@ -36,13 +36,13 @@ export const abiCabFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
     placeholder: 'Tipo',
     type: 'picklist',
     title: 'Tipo',
-    picklistvalues: [{ text: 'ABI', value: 'abi' }, { text: 'CAB', value: 'cab' }],
+    picklistvalues: [{ text: 'POD', value: 'pod' }, { text: 'PDR', value: 'pdr' }],
     field: 'type',
     headerSort: true,
     formatter: 'fonts',
     formatterParams: {
       className: 'table-info bold uppercase color-tertiary',
-      color: { 'abi': 'color-accent2', 'cab': 'color-success' },
+      color: { 'pod': 'color-accent2', 'pdr': 'color-success' },
     },
     visible: true,
     emitEventOnSorting: true,

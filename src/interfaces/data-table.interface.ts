@@ -1,4 +1,4 @@
 export type DataTableInterface<T> = {
   data: T[];
-  totalItems: number;
+  total_items: number;
 }

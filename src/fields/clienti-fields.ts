@@ -1,6 +1,11 @@
-import { FilterField, TableField } from '../interfaces/fields.interface';
+import {
+  FilterFieldBoolean, FilterFieldDate,
+  FilterFieldPicklist,
+  FilterFieldString,
+  TableField,
+} from '../interfaces/fields.interface';
 
-export const clientiFields: (FilterField & TableField)[] = [
+export const abiCabFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
   // {
   //   text: 'Esito Inviato A Crm',
   //   value: 'esito_inviato_a_crm',

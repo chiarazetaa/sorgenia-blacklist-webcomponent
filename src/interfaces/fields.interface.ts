@@ -1,8 +1,35 @@
-export type FilterField = {
+export type FilterFieldString = {
   text: string;
   value: string;
   placeholder: string;
-  type: string;
+  type: "string";
+}
+export type FilterFieldBoolean = {
+  text: string;
+  value: string;
+  type: "boolean";
+}
+
+export type FilterFieldPicklist = {
+  text: string;
+  value: string;
+  placeholder: string;
+  type: "picklist";
+  picklistvalues: { text: string, value: string | boolean | number }[];
+}
+
+export type FilterFieldDate = {
+  text: string;
+  value: string;
+  placeholder: string;
+  type: "date";
+  datevalue?: {
+    labelstart?: "Between",
+    labelend?: "And",
+    dateFormat?: string
+    dateOutputFormat?: string
+    maxdata?: string
+  }
 }
 
 export type TableField = {

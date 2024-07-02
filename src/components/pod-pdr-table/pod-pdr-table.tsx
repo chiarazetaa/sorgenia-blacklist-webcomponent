@@ -1,24 +1,25 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
 import { DataTableInterface } from '../../interfaces/data-table.interface';
-import { BlacklistAbiCab } from '../../interfaces/blacklist-abi-cab.interface';
 import { abiCabFields } from '../../fields/abi-cab-fields';
 import { filterOperators } from '../../fields/filter-operators';
 import { debounce, MODAL_EVENTS } from '../../utils/utils';
-import { AbiCabApi } from '../../api/AbiCabApi';
+import { podPdrFields } from '../../fields/pod-pdr-fields';
+import { PodPdrApi } from '../../api/PodPdrApi';
+import { BlacklistPodPdrInterface } from '../../interfaces/blacklist-pod-pdr.interface';
 import { openModal } from '../../services/modal-service';
 
 @Component({
-  tag: 'abi-cab-table',
-  styleUrl: 'abi-cab-table.css',
+  tag: 'pod-pdr-table',
+  styleUrl: 'pod-pdr-table.css',
   shadow: false,
 })
-export class AbiCabTable {
+export class PodPdrTable {
   @Prop() backendUrl: string;
   @State() isLoading: boolean = true;
-  @State() tableData: DataTableInterface<BlacklistAbiCab>;
+  @State() tableData: DataTableInterface<BlacklistPodPdrInterface>;
   @State() initialSortField = 'data_inserimento';
   @State() initialSortDirection: 'asc' | 'desc' = 'desc';
-  @State() visibleColumns = abiCabFields
+  @State() visibleColumns = podPdrFields;
   @State() currentPage = 1;
   limit = 10;
   @State() filters = [];
@@ -27,22 +28,22 @@ export class AbiCabTable {
     direction: this.initialSortDirection,
   };
   @State() selectedRows = [];
-  api: AbiCabApi;
+  api: PodPdrApi;
 
   @Listen('modalEvent', { target: 'window' })
   changeContentHandler(event: CustomEvent) {
     if([MODAL_EVENTS.SAVE_NEW, MODAL_EVENTS.SAVE_EDIT].includes(event.detail.type)){
-     this.loadData();
+      this.loadData();
     }
   }
 
   componentWillLoad() {
-    this.api = new AbiCabApi(this.backendUrl);
+    this.api = new PodPdrApi(this.backendUrl);
     this.loadData();
   }
 
   showAndHideColumns = (keys: string[]) => {
-    this.visibleColumns.forEach(el=>el.visible = keys.includes(el.field));
+    this.visibleColumns.forEach(el => el.visible = keys.includes(el.field));
     this.loadData();
   };
 
@@ -56,9 +57,10 @@ export class AbiCabTable {
   async loadData() {
     this.isLoading = true;
     this.tableData = { data: [], total_items: 2 };
-    this.tableData = await this.api.getAbiCabBlacklist(this.filters, `skip=${(this.currentPage - 1) * this.limit}&limit=${this.limit}&sort=${this.sort.field}%20${this.sort.direction}`);
+    this.tableData = await this.api.getPodPdrBlacklist(this.filters, `skip=${(this.currentPage - 1) * this.limit}&limit=${this.limit}&sort=${this.sort.field}%20${this.sort.direction}`);
     this.isLoading = false;
   }
+
 
   handleSortingEvent = (e) => {
     this.sort = {
@@ -82,20 +84,20 @@ export class AbiCabTable {
     this.selectedRows = values;
   };
 
-  openEditModalAbiCab = () => {
-    const component = <edit-abi-cab-modal api={this.api} documentIds={this.selectedRows.map(sr => sr._id)}></edit-abi-cab-modal>;
+  openEditModalPodPdr = () => {
+    const component = <edit-pod-pdr-modal api={this.api} documentIds={this.selectedRows.map(sr => sr._id)}></edit-pod-pdr-modal>;
     openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione');
   };
 
-  openNewModalAbiCab = () => {
-    const component = <new-abi-cab-modal api={this.api}></new-abi-cab-modal>;
-    openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi ABI/CAB in Blacklist');
+  openNewModalPodPdr = () => {
+    const component = <new-pod-pdr-modal api={this.api}></new-pod-pdr-modal>;
+    openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi POD/PDR in Blacklist');
   };
-
 
   render() {
     return <Host>
       <div class="d-flex flex-row w-100 b2w-justify-content-between align-items-center">
+
         <b2w-filter
           payloadFilters={JSON.stringify({
             label: 'Filtra',
@@ -123,10 +125,11 @@ export class AbiCabTable {
       </div>
 
       <div class="d-flex flex-row justify-content-end mb-3 mt-4">
-        <b2w-button onB2wButtonClick={() => this.openNewModalAbiCab()} type="primary"
+        <b2w-button onB2wButtonClick={() => this.openNewModalPodPdr()}
+                    type="primary"
                     custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
-                    text="Aggiungi ABI/CAB"></b2w-button>
-        <b2w-button onB2wButtonClick={() => this.openEditModalAbiCab()} type="primary"
+                    text="Aggiungi POD/PDR"></b2w-button>
+        <b2w-button onB2wButtonClick={() => this.openEditModalPodPdr()} type="primary"
                     disabled={this.selectedRows.length === 0}
                     custom-style=".B2wButton{width: 240px !important;}"
                     text="Modifica data cancellazione"></b2w-button>
@@ -138,7 +141,7 @@ export class AbiCabTable {
           initialSortDirection={this.initialSortDirection}
           initialSortField={this.initialSortField}
           use-refresh-data={true}
-          id={'residential-table'}
+          id={'pod-pdr-table'}
           selectable={true}
           placeholder={'Nessun dato trovato'}
           payload-columns={JSON.stringify(this.visibleColumns)}
@@ -164,6 +167,5 @@ export class AbiCabTable {
         />
       </div>
     </Host>;
-
   }
 }

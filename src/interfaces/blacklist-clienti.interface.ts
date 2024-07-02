@@ -1,10 +1,13 @@
-export interface BlacklistClienti {
-  _id: string;
+import { BlacklistBaseInterface } from './blacklist-base.interface';
+
+export interface BlacklistClienti extends BlacklistBaseInterface {
   crm_id:string;
+  codice_fiscale:string;
+  p_iva:string;
+  nome:string;
+  cognome:string;
+  codice_cliente: string;
   causale: string;
   piva: string;
-  data_inserimento:string;
-  data_cancellazione:string;
-  operatore_forzatura:string;
-  _tipo_inserimento: "AUTOMATICO" | "MANUALE";
+  tipo_inserimento: "automatico" | "manuale";
 }

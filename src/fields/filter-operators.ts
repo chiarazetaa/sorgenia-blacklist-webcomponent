@@ -32,5 +32,14 @@ export const filterOperators = [
         value: 'No',
       }
     ],
+  },
+  {
+    type: 'picklist',
+    options: [
+      {
+        key:"in",
+        value:"Includes"
+      }
+    ]
   }
 ]

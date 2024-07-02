@@ -58,7 +58,6 @@ export class SharedModal {
   }
 
   handleSave = () => {
-    console.log(this.eventNameOnSave);
     if (this.eventNameOnSave) {
       window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, { detail: { type: this.eventNameOnSave } }));
     } else {

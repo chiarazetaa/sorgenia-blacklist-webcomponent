@@ -13,12 +13,13 @@ export const debounce = (func, wait) => {
   };
 };
 
+
 export const MODAL_EVENTS = {
   ID: 'modalEvent',
   SHOW: 'show',
   HIDE: 'hide',
-  SAVE_EDIT_DATE: 'saveEditDate',
-  SAVE_NEW_ABI_CAB: 'saveNewAbiCab',
+  SAVE_EDIT: 'saveEditDate',
+  SAVE_NEW: 'saveNew',
   EXIT_LOADING: 'exitLoading',
   LOADING: 'loading',
 };

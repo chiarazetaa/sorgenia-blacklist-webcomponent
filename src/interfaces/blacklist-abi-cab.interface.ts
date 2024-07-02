@@ -1,10 +1,6 @@
-export interface BlacklistAbiCab {
-  _id: string;
-  crm_id:string;
-  causale: string;
-  piva: string;
-  data_inserimento:string;
-  data_cancellazione:string;
-  operatore_forzatura:string;
-  _tipo_inserimento: "AUTOMATICO" | "MANUALE";
+import { BlacklistBaseInterface } from './blacklist-base.interface';
+
+export interface BlacklistAbiCab extends BlacklistBaseInterface {
+  code: string;
+  type: "abi" | "cab";
 }
