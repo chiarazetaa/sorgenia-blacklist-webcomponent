@@ -4,7 +4,7 @@ import { MODAL_EVENTS } from '../../utils/utils';
 @Component({
   tag: 'shared-modal',
   styleUrl: 'shared-modal.css',
-  shadow: true,
+  shadow: false,
 })
 export class SharedModal {
 
@@ -13,6 +13,7 @@ export class SharedModal {
   @State() modalTitle: string;
   @State() eventNameOnSave: string;
   @State() confirmButtonText: string;
+  @State() cancelButtonText: string;
   @State() buttonIsLoading = false;
 
   @Listen("modalEvent", { target: 'window' })
@@ -38,6 +39,9 @@ export class SharedModal {
         if (event.detail?.confirmButtonText) {
           this.confirmButtonText = event.detail?.confirmButtonText;
         }
+        if (event.detail?.cancelButtonText) {
+          this.cancelButtonText = event.detail?.cancelButtonText;
+        }
         if (event.detail?.buttonIsLoading) {
           this.buttonIsLoading = event.detail?.buttonIsLoading;
         }
@@ -55,6 +59,7 @@ export class SharedModal {
     this.content = undefined;
     this.eventNameOnSave = undefined;
     this.confirmButtonText = undefined;
+    this.cancelButtonText = undefined;
   }
 
   handleSave = () => {
@@ -75,9 +80,9 @@ export class SharedModal {
         {this.showModal && <b2w-modal
           visible={true}
           cancelButtonVisible={true}
-          cancelButtonText="Annulla"
+          cancelButtonText={this.cancelButtonText || "Annulla"}
           buttonLoading={this.buttonIsLoading}
-          okButtonVisible={true}
+          okButtonVisible={!!this.confirmButtonText}
           okButtonText={this.confirmButtonText || 'Conferma'}
           onb2wSave={this.handleSave}
           onb2wClose={this.handleClose}

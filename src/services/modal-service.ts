@@ -1,13 +1,15 @@
 import { HTMLStencilElement } from '@stencil/core/internal';
 import { MODAL_EVENTS } from '../utils/utils';
 
-export const openModal = (component: HTMLStencilElement, eventNameOnSave:string, title: string) => {
+export const openModal = (component: HTMLStencilElement, eventNameOnSave:string, title: string, confirmButtonText?:string, cancelButtonText?:string) => {
   window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, {
     detail: {
       component: component,
       type: MODAL_EVENTS.SHOW,
       eventNameOnSave: eventNameOnSave,
       modalTitle: title,
+      confirmButtonText: confirmButtonText,
+      cancelButtonText: cancelButtonText,
     },
   }));
 };

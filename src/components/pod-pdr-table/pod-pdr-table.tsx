@@ -1,6 +1,5 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
 import { DataTableInterface } from '../../interfaces/data-table.interface';
-import { abiCabFields } from '../../fields/abi-cab-fields';
 import { filterOperators } from '../../fields/filter-operators';
 import { debounce, MODAL_EVENTS } from '../../utils/utils';
 import { podPdrFields } from '../../fields/pod-pdr-fields';
@@ -86,25 +85,34 @@ export class PodPdrTable {
 
   openEditModalPodPdr = () => {
     const component = <edit-pod-pdr-modal api={this.api} documentIds={this.selectedRows.map(sr => sr._id)}></edit-pod-pdr-modal>;
-    openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione');
+    openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', "Conferma");
   };
 
   openNewModalPodPdr = () => {
     const component = <new-pod-pdr-modal api={this.api}></new-pod-pdr-modal>;
-    openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi POD/PDR in Blacklist');
+
+    openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi POD/PDR in Blacklist', "Conferma");
+  };
+
+  handleTableActionEvent = (type: 'SHOW-USERS', event: any) => {
+    switch (type.toUpperCase()) {
+      case 'SHOW-USERS':
+        const component = <show-customers-pod-pdr-modal customers={event.clienti}></show-customers-pod-pdr-modal>;
+        openModal(component, undefined, "Clienti associati al POD/PDR",undefined, "Ok");
+        break;
+    }
   };
 
   render() {
     return <Host>
       <div class="d-flex flex-row w-100 b2w-justify-content-between align-items-center">
-
         <b2w-filter
           payloadFilters={JSON.stringify({
             label: 'Filtra',
             placeholder: 'Seleziona un campo',
             labeladdfilter: 'Aggiungi filtro',
             labelclearall: 'Annulla filtri',
-            fields: abiCabFields,
+            fields: podPdrFields,
             operators: filterOperators,
           })}
           onB2wFilterEvent={e => {
@@ -146,16 +154,21 @@ export class PodPdrTable {
           placeholder={'Nessun dato trovato'}
           payload-columns={JSON.stringify(this.visibleColumns)}
           payload-data={JSON.stringify(this.tableData.data)}
-          horizontalScroll={false}
+          payload-action={JSON.stringify({"align":"center","width":10,"fixtoend": true,"actions":["SHOW-USERS"],"customImages":[{"action":"SHOW-USERS","icon":"icon-b2w-users","color":"color-accent"}]})}
+          horizontalScroll={true}
           showDownload={true}
-          downloadFileName={'export-blacklist-abi-cab'}
+          downloadFileName={'export-blacklist-pod-pdr'}
           downloadButtonLabel={'Esporta'}
           downloadStyle={'icon-secondary'}
+          layout={"fitColumns"}
           downloadFormat={'xlsx'}
           emitEventOnSorting={true}
-          customStyle={'.B2wTable{max-width:100% !important;}'}
+          customStyle={``}
           onB2wHeaderSortEvent={e => this.handleSortingEvent(e.detail)}
           onB2wTableSelectionEvent={e => this.handleMultiSelect(e.detail.data)}
+          onB2wTableActionEvent={e => {
+            this.handleTableActionEvent(e.detail?.type, e.detail?.data);
+          }}
         ></b2w-table>
       </div>}
       <div class="d-flex w-100 justify-content-end">

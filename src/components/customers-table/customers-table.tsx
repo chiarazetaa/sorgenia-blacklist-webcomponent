@@ -1,24 +1,24 @@
-import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
+import { Component, Host, h, Prop, State, Listen } from '@stencil/core';
 import { DataTableInterface } from '../../interfaces/data-table.interface';
-import { BlacklistAbiCab } from '../../interfaces/blacklist-abi-cab.interface';
-import { abiCabFields } from '../../fields/abi-cab-fields';
-import { filterOperators } from '../../fields/filter-operators';
 import { debounce, MODAL_EVENTS } from '../../utils/utils';
-import { AbiCabApi } from '../../api/AbiCabApi';
 import { openModal } from '../../services/modal-service';
+import { filterOperators } from '../../fields/filter-operators';
+import { BlacklistClienti } from '../../interfaces/blacklist-clienti.interface';
+import { clientiFields } from '../../fields/clienti-fields';
+import { ClientiApi } from '../../api/ClientiApi';
 
 @Component({
-  tag: 'abi-cab-table',
-  styleUrl: 'abi-cab-table.css',
+  tag: 'customers-table',
+  styleUrl: 'customers-table.css',
   shadow: false,
 })
-export class AbiCabTable {
+export class CustomersTable {
   @Prop() backendUrl: string;
   @State() isLoading: boolean = true;
-  @State() tableData: DataTableInterface<BlacklistAbiCab>;
+  @State() tableData: DataTableInterface<BlacklistClienti>;
   @State() initialSortField = 'data_inserimento';
   @State() initialSortDirection: 'asc' | 'desc' = 'desc';
-  @State() visibleColumns = abiCabFields
+  @State() visibleColumns = clientiFields;
   @State() currentPage = 1;
   limit = 10;
   @State() filters = [];
@@ -27,22 +27,22 @@ export class AbiCabTable {
     direction: this.initialSortDirection,
   };
   @State() selectedRows = [];
-  api: AbiCabApi;
+  api: ClientiApi;
 
   @Listen('modalEvent', { target: 'window' })
   changeContentHandler(event: CustomEvent) {
-    if([MODAL_EVENTS.SAVE_NEW, MODAL_EVENTS.SAVE_EDIT].includes(event.detail.type)){
-     this.loadData();
+    if([MODAL_EVENTS.SAVE_EDIT].includes(event.detail.type)){
+      this.loadData();
     }
   }
 
   componentWillLoad() {
-    this.api = new AbiCabApi(this.backendUrl);
+    this.api = new ClientiApi(this.backendUrl);
     this.loadData();
   }
 
   showAndHideColumns = (keys: string[]) => {
-    this.visibleColumns.forEach(el=>el.visible = keys.includes(el.field));
+    this.visibleColumns.forEach(el => el.visible = keys.includes(el.field));
     this.loadData();
   };
 
@@ -56,9 +56,10 @@ export class AbiCabTable {
   async loadData() {
     this.isLoading = true;
     this.tableData = { data: [], total_items: 2 };
-    this.tableData = await this.api.getAbiCabBlacklist(this.filters, `skip=${(this.currentPage - 1) * this.limit}&limit=${this.limit}&sort=${this.sort.field}%20${this.sort.direction}`);
+    this.tableData = await this.api.getClientiBlacklist(this.filters, `skip=${(this.currentPage - 1) * this.limit}&limit=${this.limit}&sort=${this.sort.field}%20${this.sort.direction}`);
     this.isLoading = false;
   }
+
 
   handleSortingEvent = (e) => {
     this.sort = {
@@ -82,16 +83,10 @@ export class AbiCabTable {
     this.selectedRows = values;
   };
 
-  openEditModalAbiCab = () => {
-    const component = <edit-abi-cab-modal api={this.api} documentIds={this.selectedRows.map(sr => sr._id)}></edit-abi-cab-modal>;
+  openEditModalClienti = () => {
+    const component = <edit-customers-modal api={this.api} documentIds={this.selectedRows.map(sr => sr._id)}></edit-customers-modal>;
     openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', "Conferma");
   };
-
-  openNewModalAbiCab = () => {
-    const component = <new-abi-cab-modal api={this.api}></new-abi-cab-modal>;
-    openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi ABI/CAB in Blacklist', "Conferma");
-  };
-
 
   render() {
     return <Host>
@@ -102,7 +97,7 @@ export class AbiCabTable {
             placeholder: 'Seleziona un campo',
             labeladdfilter: 'Aggiungi filtro',
             labelclearall: 'Annulla filtri',
-            fields: abiCabFields,
+            fields: clientiFields,
             operators: filterOperators,
           })}
           onB2wFilterEvent={e => {
@@ -123,10 +118,7 @@ export class AbiCabTable {
       </div>
 
       <div class="d-flex flex-row justify-content-end mb-3 mt-4">
-        <b2w-button onB2wButtonClick={() => this.openNewModalAbiCab()} type="primary"
-                    custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
-                    text="Aggiungi ABI/CAB"></b2w-button>
-        <b2w-button onB2wButtonClick={() => this.openEditModalAbiCab()} type="primary"
+        <b2w-button onB2wButtonClick={() => this.openEditModalClienti()} type="primary"
                     disabled={this.selectedRows.length === 0}
                     custom-style=".B2wButton{width: 240px !important;}"
                     text="Modifica data cancellazione"></b2w-button>
@@ -138,19 +130,19 @@ export class AbiCabTable {
           initialSortDirection={this.initialSortDirection}
           initialSortField={this.initialSortField}
           use-refresh-data={true}
-          id={'residential-table'}
+          id={'clienti-table'}
           selectable={true}
           placeholder={'Nessun dato trovato'}
           payload-columns={JSON.stringify(this.visibleColumns)}
           payload-data={JSON.stringify(this.tableData.data)}
-          horizontalScroll={false}
           showDownload={true}
-          downloadFileName={'export-blacklist-abi-cab'}
+          downloadFileName={'export-blacklist-customer'}
           downloadButtonLabel={'Esporta'}
           downloadStyle={'icon-secondary'}
+          layout={"fitColumns"}
           downloadFormat={'xlsx'}
           emitEventOnSorting={true}
-          customStyle={'.B2wTable{max-width:100% !important;}'}
+          customStyle={``}
           onB2wHeaderSortEvent={e => this.handleSortingEvent(e.detail)}
           onB2wTableSelectionEvent={e => this.handleMultiSelect(e.detail.data)}
         ></b2w-table>
@@ -164,6 +156,6 @@ export class AbiCabTable {
         />
       </div>
     </Host>;
-
   }
+
 }

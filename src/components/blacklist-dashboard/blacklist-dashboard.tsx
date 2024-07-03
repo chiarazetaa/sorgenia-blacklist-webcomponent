@@ -8,7 +8,7 @@ import { Component, Host, h, Prop, State } from '@stencil/core';
 export class BlacklistDashboard {
 
   @Prop() backendUrl: string;
-  @State() currentTab: 'CLIENTI' | 'ABI/CAB' | 'POD/PDR' = 'POD/PDR';
+  @State() currentTab: 'CLIENTI' | 'ABI/CAB' | 'POD/PDR' = 'CLIENTI';
 
   private tabs: Array<{ label: string, path: 'CLIENTI' | 'ABI/CAB' | 'POD/PDR' }> = [
     { label: 'Clienti', path: 'CLIENTI' },
@@ -32,7 +32,7 @@ export class BlacklistDashboard {
         <b2w-tabs selected-tab-path={this.currentTab} payload={JSON.stringify(this.tabs)} disable-history="true"
                   onB2wTabsClick={e => this.selectTab(e)}></b2w-tabs>
         <div class="mt-4">
-          {/*{this.currentTab === 'CLIENTI' && <residential-table backend-url={this.backendUrl}></residential-table>}*/}
+          {this.currentTab === 'CLIENTI' && <customers-table backend-url={this.backendUrl}></customers-table>}
           {this.currentTab === 'POD/PDR' && <pod-pdr-table backend-url={this.backendUrl}></pod-pdr-table>}
           {this.currentTab === 'ABI/CAB' && <abi-cab-table backend-url={this.backendUrl}></abi-cab-table>}
         </div>

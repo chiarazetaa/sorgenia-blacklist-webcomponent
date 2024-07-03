@@ -1,7 +1,9 @@
 @import '../../globals/mixin.scss';
+
 html {
   font-size: 16px !important;
 }
+
 :root {
   --b2w-webc-accent: 182, 28, 200;
   --b2w-webc-configuration: 243, 115, 53;
@@ -30,9 +32,10 @@ html {
   --b2w-webc-secondary-button-radius: 100px;
 }
 
-.b2w-popover{
+.b2w-popover {
   display: none !important;
 }
+
 .tabulator-edit-select-list {
   position: absolute;
   background: white;
