@@ -95,7 +95,7 @@ export class CustomersTable {
           payloadFilters={JSON.stringify({
             label: 'Filtra',
             placeholder: 'Seleziona un campo',
-            labeladdfilter: 'Aggiungi filtro',
+            labeladdfilter: 'Aggiungi filtri',
             labelclearall: 'Annulla filtri',
             fields: clientiFields,
             operators: filterOperators,
