@@ -26,16 +26,4 @@ export class ClientiApi extends ApiImpl{
     return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${new Date().toISOString()}.csv`,  Method.POST, this.additionalHeaders).promise;
   }
 
-  public async downloadTemplate(): Promise<any> {
-    let url = '/v1/customers/bulk-template';
-    return this.apiImpl.download(url, undefined, `Template import massivo CLIENTI.csv`, Method.GET, this.additionalHeaders).promise;
-  }
-
-  public async uploadTemplateAndDownloadResult(file:File): Promise<any> {
-    let url = '/v1/customers/bulk-insert';
-    let formData = new FormData();
-    formData.append('file', file);
-    return this.apiImpl.upload(url, formData, this.additionalHeaders).promise;
-  }
-
 }

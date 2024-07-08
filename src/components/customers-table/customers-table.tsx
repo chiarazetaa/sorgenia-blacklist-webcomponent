@@ -87,12 +87,6 @@ export class CustomersTable {
     this.api.exportClientiBlacklist(this.filters, `sort=${this.sort.field}%20${this.sort.direction}`);
   };
 
-  openBulkModalCustomers = () => {
-    const component = <bulk-customers-modal api={this.api}></bulk-customers-modal>;
-
-    openModal(component, MODAL_EVENTS.SAVE_NEW, 'Import massivo CLIENTI in Blacklist', 'Conferma');
-  };
-
   openEditModalClienti = () => {
     const component = <edit-customers-modal api={this.api}
                                             documentIds={this.selectedRows.map(sr => sr._id)}></edit-customers-modal>;
@@ -129,10 +123,6 @@ export class CustomersTable {
       </div>
 
       <div class="d-flex flex-row justify-content-end mb-3 mt-4">
-        <b2w-button onB2wButtonClick={() => this.openBulkModalCustomers()}
-                    type="secondary"
-                    custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
-                    text="Import massivo"></b2w-button>
         <b2w-button onB2wButtonClick={() => this.openEditModalClienti()} type="secondary"
                     disabled={this.selectedRows.length === 0}
                     custom-style=".B2wButton{width: 240px !important;}"
