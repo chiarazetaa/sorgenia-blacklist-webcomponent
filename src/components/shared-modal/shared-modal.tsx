@@ -97,6 +97,7 @@ export class SharedModal {
           customStyle={".B2wModal{.modal{width:100% !important; max-width:800px !important;}}"}
           cancelButtonVisible={true}
           cancelButtonText={this.cancelButtonText || 'Annulla'}
+          disabledButton={this.buttonIsDisabled}
           buttonLoading={this.buttonIsLoading}
           okButtonVisible={!!this.confirmButtonText}
           okButtonText={this.confirmButtonText || 'Conferma'}

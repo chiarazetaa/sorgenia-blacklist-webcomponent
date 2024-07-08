@@ -15,3 +15,4 @@ export class ApiImpl {
   protected apiImpl = null;
   protected additionalHeaders = {}
 }
+

@@ -1,6 +1,7 @@
 import { ApiImpl } from './ApiImpl';
 import { DataTableInterface } from '../interfaces/data-table.interface';
 import { BlacklistAbiCab } from '../interfaces/blacklist-abi-cab.interface';
+import { Method } from './Api';
 
 export class AbiCabApi extends ApiImpl{
 
@@ -31,6 +32,18 @@ export class AbiCabApi extends ApiImpl{
     payload = { filters: payload || [] };
     let url = '/v1/abi-cab/search-and-export-csv';
     return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${new Date().toISOString()}.csv`, this.additionalHeaders).promise;
+  }
+
+  public async downloadTemplate(): Promise<any> {
+    let url = '/v1/abi-cab/bulk-template';
+    return this.apiImpl.download(url, undefined, `Template import massivo CLIENTI.csv`, Method.GET, this.additionalHeaders).promise;
+  }
+
+  public async uploadTemplateAndDownloadResult(file:File): Promise<any> {
+    let url = '/v1/abi-cab/bulk-insert';
+    let formData = new FormData();
+    formData.append('file', file);
+    return this.apiImpl.upload(url, formData, this.additionalHeaders).promise;
   }
 
 }

@@ -1,4 +1,4 @@
-enum Method {
+export enum Method {
   GET = 'GET',
   POST = 'POST',
   PATCH = 'PATCH',
@@ -205,6 +205,7 @@ export default class Api {
     path: string,
     body: any,
     fileName: string,
+    method = Method.POST,
     additionalHeaders?: { [key: string]: string },
   ): { controller: AbortController; promise: Promise<void> } {
     const controller = new AbortController();
@@ -224,18 +225,11 @@ export default class Api {
         signal: signal,
         credentials: 'include',
         headers,
-        body: JSON.stringify(body),
-        method: Method.POST,
+        body: body ? JSON.stringify(body) : undefined,
+        method: method,
       }).then(response => {
         if (!response.ok) throw new Error(response.statusText);
-        response.blob().then(_blob => {
-          let elem = window.document.createElement('a');
-          elem.href = window.URL.createObjectURL(_blob);
-          elem.download = fileName
-          document.body.appendChild(elem);
-          elem.click();
-          document.body.removeChild(elem);
-        });
+        this.downloadAttachment(response, fileName);
       }),
     };
   }
@@ -248,7 +242,7 @@ export default class Api {
     const signal = controller.signal;
 
     let headers = {
-      Accept: 'application/json',
+      Accept: '*',
       origin: `${window.location.protocol}//${window.location.host}`,
     };
 
@@ -263,6 +257,10 @@ export default class Api {
         headers,
         body: formaData,
       }).then(response => {
+        if(response.headers.get('Content-Disposition')){
+          this.downloadAttachment(response, 'scarti.csv')
+          return
+        }
         if (response.ok) {
           return this.successParser(response);
         }
@@ -273,6 +271,7 @@ export default class Api {
       }),
     };
   }
+
 
   public getFullUrlForAjax(path: string) {
     return this.getFullUrl(path);
@@ -323,6 +322,17 @@ export default class Api {
     }
 
     throw new Error(JSON.stringify(errorObject));
+  }
+
+  private downloadAttachment(response, fileName){
+    response.blob().then(_blob => {
+      let elem = window.document.createElement('a');
+      elem.href = window.URL.createObjectURL(_blob);
+      elem.download = fileName
+      document.body.appendChild(elem);
+      elem.click();
+      document.body.removeChild(elem);
+    });
   }
 
   /**************************************************

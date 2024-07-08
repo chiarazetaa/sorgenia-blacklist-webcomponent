@@ -5,20 +5,32 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { PodPdrApi } from "./api/PodPdrApi";
 import { AbiCabApi } from "./api/AbiCabApi";
 import { ClientiApi } from "./api/ClientiApi";
-import { PodPdrApi } from "./api/PodPdrApi";
+export { PodPdrApi } from "./api/PodPdrApi";
 export { AbiCabApi } from "./api/AbiCabApi";
 export { ClientiApi } from "./api/ClientiApi";
-export { PodPdrApi } from "./api/PodPdrApi";
 export namespace Components {
     interface AbiCabTable {
         "backendUrl": string;
+    }
+    interface BaseBulkModal {
+        "api": PodPdrApi | AbiCabApi | ClientiApi;
     }
     interface BlacklistDashboard {
         "backendUrl": string;
     }
     interface BlacklistDashboardStyles {
+    }
+    interface BulkAbiCabModal {
+        "api": AbiCabApi;
+    }
+    interface BulkCustomersModal {
+        "api": ClientiApi;
+    }
+    interface BulkPodPdrModal {
+        "api": PodPdrApi;
     }
     interface CustomersTable {
         "backendUrl": string;
@@ -59,6 +71,12 @@ declare global {
         prototype: HTMLAbiCabTableElement;
         new (): HTMLAbiCabTableElement;
     };
+    interface HTMLBaseBulkModalElement extends Components.BaseBulkModal, HTMLStencilElement {
+    }
+    var HTMLBaseBulkModalElement: {
+        prototype: HTMLBaseBulkModalElement;
+        new (): HTMLBaseBulkModalElement;
+    };
     interface HTMLBlacklistDashboardElement extends Components.BlacklistDashboard, HTMLStencilElement {
     }
     var HTMLBlacklistDashboardElement: {
@@ -70,6 +88,24 @@ declare global {
     var HTMLBlacklistDashboardStylesElement: {
         prototype: HTMLBlacklistDashboardStylesElement;
         new (): HTMLBlacklistDashboardStylesElement;
+    };
+    interface HTMLBulkAbiCabModalElement extends Components.BulkAbiCabModal, HTMLStencilElement {
+    }
+    var HTMLBulkAbiCabModalElement: {
+        prototype: HTMLBulkAbiCabModalElement;
+        new (): HTMLBulkAbiCabModalElement;
+    };
+    interface HTMLBulkCustomersModalElement extends Components.BulkCustomersModal, HTMLStencilElement {
+    }
+    var HTMLBulkCustomersModalElement: {
+        prototype: HTMLBulkCustomersModalElement;
+        new (): HTMLBulkCustomersModalElement;
+    };
+    interface HTMLBulkPodPdrModalElement extends Components.BulkPodPdrModal, HTMLStencilElement {
+    }
+    var HTMLBulkPodPdrModalElement: {
+        prototype: HTMLBulkPodPdrModalElement;
+        new (): HTMLBulkPodPdrModalElement;
     };
     interface HTMLCustomersTableElement extends Components.CustomersTable, HTMLStencilElement {
     }
@@ -133,8 +169,12 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "abi-cab-table": HTMLAbiCabTableElement;
+        "base-bulk-modal": HTMLBaseBulkModalElement;
         "blacklist-dashboard": HTMLBlacklistDashboardElement;
         "blacklist-dashboard-styles": HTMLBlacklistDashboardStylesElement;
+        "bulk-abi-cab-modal": HTMLBulkAbiCabModalElement;
+        "bulk-customers-modal": HTMLBulkCustomersModalElement;
+        "bulk-pod-pdr-modal": HTMLBulkPodPdrModalElement;
         "customers-table": HTMLCustomersTableElement;
         "edit-abi-cab-modal": HTMLEditAbiCabModalElement;
         "edit-customers-modal": HTMLEditCustomersModalElement;
@@ -151,10 +191,22 @@ declare namespace LocalJSX {
     interface AbiCabTable {
         "backendUrl"?: string;
     }
+    interface BaseBulkModal {
+        "api"?: PodPdrApi | AbiCabApi | ClientiApi;
+    }
     interface BlacklistDashboard {
         "backendUrl"?: string;
     }
     interface BlacklistDashboardStyles {
+    }
+    interface BulkAbiCabModal {
+        "api"?: AbiCabApi;
+    }
+    interface BulkCustomersModal {
+        "api"?: ClientiApi;
+    }
+    interface BulkPodPdrModal {
+        "api"?: PodPdrApi;
     }
     interface CustomersTable {
         "backendUrl"?: string;
@@ -189,8 +241,12 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "abi-cab-table": AbiCabTable;
+        "base-bulk-modal": BaseBulkModal;
         "blacklist-dashboard": BlacklistDashboard;
         "blacklist-dashboard-styles": BlacklistDashboardStyles;
+        "bulk-abi-cab-modal": BulkAbiCabModal;
+        "bulk-customers-modal": BulkCustomersModal;
+        "bulk-pod-pdr-modal": BulkPodPdrModal;
         "customers-table": CustomersTable;
         "edit-abi-cab-modal": EditAbiCabModal;
         "edit-customers-modal": EditCustomersModal;
@@ -208,8 +264,12 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "abi-cab-table": LocalJSX.AbiCabTable & JSXBase.HTMLAttributes<HTMLAbiCabTableElement>;
+            "base-bulk-modal": LocalJSX.BaseBulkModal & JSXBase.HTMLAttributes<HTMLBaseBulkModalElement>;
             "blacklist-dashboard": LocalJSX.BlacklistDashboard & JSXBase.HTMLAttributes<HTMLBlacklistDashboardElement>;
             "blacklist-dashboard-styles": LocalJSX.BlacklistDashboardStyles & JSXBase.HTMLAttributes<HTMLBlacklistDashboardStylesElement>;
+            "bulk-abi-cab-modal": LocalJSX.BulkAbiCabModal & JSXBase.HTMLAttributes<HTMLBulkAbiCabModalElement>;
+            "bulk-customers-modal": LocalJSX.BulkCustomersModal & JSXBase.HTMLAttributes<HTMLBulkCustomersModalElement>;
+            "bulk-pod-pdr-modal": LocalJSX.BulkPodPdrModal & JSXBase.HTMLAttributes<HTMLBulkPodPdrModalElement>;
             "customers-table": LocalJSX.CustomersTable & JSXBase.HTMLAttributes<HTMLCustomersTableElement>;
             "edit-abi-cab-modal": LocalJSX.EditAbiCabModal & JSXBase.HTMLAttributes<HTMLEditAbiCabModalElement>;
             "edit-customers-modal": LocalJSX.EditCustomersModal & JSXBase.HTMLAttributes<HTMLEditCustomersModalElement>;

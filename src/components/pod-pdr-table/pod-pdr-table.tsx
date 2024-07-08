@@ -95,6 +95,12 @@ export class PodPdrTable {
     openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi POD/PDR in Blacklist', 'Conferma');
   };
 
+  openBulkModalPodPdr = () => {
+    const component = <bulk-pod-pdr-modal api={this.api}></bulk-pod-pdr-modal>;
+
+    openModal(component, MODAL_EVENTS.SAVE_NEW, 'Import massivo POD/PDR in Blacklist', 'Conferma');
+  };
+
   exportData = () => {
     this.api.exportPodPdrBlacklist(this.filters, `sort=${this.sort.field}%20${this.sort.direction}`);
   };
@@ -142,7 +148,11 @@ export class PodPdrTable {
                     type="primary"
                     custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
                     text="Aggiungi POD/PDR"></b2w-button>
-        <b2w-button onB2wButtonClick={() => this.openEditModalPodPdr()} type="primary"
+        <b2w-button onB2wButtonClick={() => this.openBulkModalPodPdr()}
+                    type="secondary"
+                    custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
+                    text="Import massivo"></b2w-button>
+        <b2w-button onB2wButtonClick={() => this.openEditModalPodPdr()} type="secondary"
                     disabled={this.selectedRows.length === 0}
                     custom-style=".B2wButton{width: 240px !important;}"
                     text="Modifica data cancellazione"></b2w-button>

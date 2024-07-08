@@ -92,6 +92,12 @@ export class AbiCabTable {
     openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi ABI/CAB in Blacklist', "Conferma");
   };
 
+  openBulkModalAbiCab = () => {
+    const component = <bulk-abi-cab-modal api={this.api}></bulk-abi-cab-modal>;
+
+    openModal(component, MODAL_EVENTS.SAVE_NEW, 'Import massivo ABI/CAB in Blacklist', 'Conferma');
+  };
+
   exportData = () => {
     this.api.exportAbiCabBlacklist(this.filters, `sort=${this.sort.field}%20${this.sort.direction}`);
   }
@@ -130,7 +136,11 @@ export class AbiCabTable {
         <b2w-button onB2wButtonClick={() => this.openNewModalAbiCab()} type="primary"
                     custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
                     text="Aggiungi ABI/CAB"></b2w-button>
-        <b2w-button onB2wButtonClick={() => this.openEditModalAbiCab()} type="primary"
+        <b2w-button onB2wButtonClick={() => this.openBulkModalAbiCab()}
+                    type="secondary"
+                    custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
+                    text="Import massivo"></b2w-button>
+        <b2w-button onB2wButtonClick={() => this.openEditModalAbiCab()} type="secondary"
                     disabled={this.selectedRows.length === 0}
                     custom-style=".B2wButton{width: 240px !important;}"
                     text="Modifica data cancellazione"></b2w-button>
