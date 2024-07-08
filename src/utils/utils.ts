@@ -18,6 +18,7 @@ export const MODAL_EVENTS = {
   ID: 'modalEvent',
   SHOW: 'show',
   HIDE: 'hide',
+  HIDE_AND_REFRESH: 'hideAndRefresh',
   SAVE_EDIT: 'saveEditDate',
   SAVE_NEW: 'saveNew',
   EXIT_LOADING: 'exitLoading',

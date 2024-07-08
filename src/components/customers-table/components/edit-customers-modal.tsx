@@ -1,6 +1,6 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
 import { MODAL_EVENTS } from '../../../utils/utils';
-import { hideModal, modalExitLoading, modalLoading } from '../../../services/modal-service';
+import { hideModalAndRefreshData, modalExitLoading, modalLoading } from '../../../services/modal-service';
 import { showSnackbar } from '../../../services/snackbar-service';
 import { ClientiApi } from '../../../api/ClientiApi';
 
@@ -40,7 +40,7 @@ export class EditCustomersModal {
         data_cancellazione: this.template.data_cancellazione,
       };
       await this.api.bulkUpdateClienti(payload);
-      hideModal();
+      hideModalAndRefreshData();
     } catch (e) {
       showSnackbar(JSON.parse(e?.message)?.message || 'Error')
     } finally {

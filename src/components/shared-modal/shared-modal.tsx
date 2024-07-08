@@ -16,7 +16,7 @@ export class SharedModal {
   @State() cancelButtonText: string;
   @State() buttonIsLoading = false;
 
-  @Listen("modalEvent", { target: 'window' })
+  @Listen('modalEvent', { target: 'window' })
   changeContentHandler(event: CustomEvent) {
     switch (event.detail.type) {
       case MODAL_EVENTS.LOADING:
@@ -50,6 +50,9 @@ export class SharedModal {
       case MODAL_EVENTS.HIDE:
         this.resetModal();
         break;
+      case MODAL_EVENTS.HIDE_AND_REFRESH:
+        this.resetModal();
+        break;
     }
   }
 
@@ -80,7 +83,7 @@ export class SharedModal {
         {this.showModal && <b2w-modal
           visible={true}
           cancelButtonVisible={true}
-          cancelButtonText={this.cancelButtonText || "Annulla"}
+          cancelButtonText={this.cancelButtonText || 'Annulla'}
           buttonLoading={this.buttonIsLoading}
           okButtonVisible={!!this.confirmButtonText}
           okButtonText={this.confirmButtonText || 'Conferma'}

@@ -1,6 +1,6 @@
 import { MODAL_EVENTS } from '../../../utils/utils';
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
-import { hideModal, modalExitLoading, modalLoading } from '../../../services/modal-service';
+import { hideModalAndRefreshData, modalExitLoading, modalLoading } from '../../../services/modal-service';
 import { showSnackbar } from '../../../services/snackbar-service';
 import { AbiCabApi } from '../../../api/AbiCabApi';
 
@@ -35,7 +35,7 @@ export class NewAbiCabModal {
     modalLoading();
     try {
       await this.api.addAbiCabInBlacklist(this.template);
-      hideModal();
+      hideModalAndRefreshData();
     } catch (e) {
       showSnackbar(JSON.parse(e?.message)?.message || 'Error');
     } finally {

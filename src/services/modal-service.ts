@@ -14,10 +14,18 @@ export const openModal = (component: HTMLStencilElement, eventNameOnSave:string,
   }));
 };
 
-export const  hideModal = () => {
+export const hideModal = () => {
   window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, {
     detail: {
       type: MODAL_EVENTS.HIDE,
+    },
+  }));
+};
+
+export const hideModalAndRefreshData = () => {
+  window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, {
+    detail: {
+      type: MODAL_EVENTS.HIDE_AND_REFRESH,
     },
   }));
 };

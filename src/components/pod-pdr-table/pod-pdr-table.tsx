@@ -31,7 +31,7 @@ export class PodPdrTable {
 
   @Listen('modalEvent', { target: 'window' })
   changeContentHandler(event: CustomEvent) {
-    if([MODAL_EVENTS.SAVE_NEW, MODAL_EVENTS.SAVE_EDIT].includes(event.detail.type)){
+    if([MODAL_EVENTS.HIDE_AND_REFRESH].includes(event.detail.type)){
       this.loadData();
     }
   }

@@ -1,7 +1,7 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
 import { PodPdrApi } from '../../../api/PodPdrApi';
 import { MODAL_EVENTS } from '../../../utils/utils';
-import { hideModal, modalExitLoading, modalLoading } from '../../../services/modal-service';
+import { hideModalAndRefreshData, modalExitLoading, modalLoading } from '../../../services/modal-service';
 import { showSnackbar } from '../../../services/snackbar-service';
 
 @Component({
@@ -35,13 +35,12 @@ export class EditPodPdrModal {
   async massiveDateUpdate() {
     modalLoading();
     try {
-      console.log(this.documentIds);
       const payload = {
         document_ids: this.documentIds,
         data_cancellazione: this.template.data_cancellazione,
       };
       await this.api.bulkUpdatePodPdr(payload);
-      hideModal();
+      hideModalAndRefreshData();
     } catch (e) {
       showSnackbar(JSON.parse(e?.message)?.message || 'Error')
     } finally {

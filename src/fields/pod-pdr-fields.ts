@@ -39,6 +39,23 @@ export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
   },
   ...baseFields,
   {
+    text: 'Tipo inserimento',
+    value: 'tipo_inserimento',
+    placeholder: 'Tipo inserimento',
+    type: 'picklist',
+    title: 'Tipo inserimento',
+    picklistvalues: [{ text: 'MANUALE', value: 'manuale' }, { text: 'AUTOMATICO', value: 'automatico' }],
+    field: 'tipo_inserimento',
+    headerSort: true,
+    formatter: 'fonts',
+    formatterParams: {
+      className: 'table-info bold uppercase color-tertiary',
+      color: { 'manuale': 'color-accent2', 'automatico': 'color-success' },
+    },
+    visible: true,
+    emitEventOnSorting: true,
+  },
+  {
     text: 'Blacklist attiva',
     value: 'is_blacklist_active',
     type: "string",

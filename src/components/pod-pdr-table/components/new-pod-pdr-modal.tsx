@@ -1,7 +1,7 @@
 import { debounce, MODAL_EVENTS } from '../../../utils/utils';
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
 import { PodPdrApi } from '../../../api/PodPdrApi';
-import { hideModal, modalExitLoading, modalLoading } from '../../../services/modal-service';
+import { hideModalAndRefreshData, modalExitLoading, modalLoading } from '../../../services/modal-service';
 import { showSnackbar } from '../../../services/snackbar-service';
 
 @Component({
@@ -53,7 +53,7 @@ export class NewPodPdrModal {
     modalLoading();
     try {
       await this.api.addPodPdrInBlacklist(this.template);
-      hideModal();
+      hideModalAndRefreshData();
     } catch (e) {
       showSnackbar(JSON.parse(e?.message)?.message || 'Error');
     } finally {
