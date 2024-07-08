@@ -24,12 +24,7 @@ export class BlacklistDashboard {
     return (
       <Host class="mx-4">
         <blacklist-dashboard-styles></blacklist-dashboard-styles>
-        <div class="d-flex w-100 justify-content-start mb-4">
-          <h3 class="open-title">
-            <b>Cruscotto blacklist</b>
-          </h3>
-        </div>
-        <b2w-tabs selected-tab-path={this.currentTab} payload={JSON.stringify(this.tabs)} disable-history="true"
+        <b2w-tabs class="mt-4" selected-tab-path={this.currentTab} payload={JSON.stringify(this.tabs)} disable-history="true"
                   onB2wTabsClick={e => this.selectTab(e)}></b2w-tabs>
         <div class="mt-4">
           {this.currentTab === 'CLIENTI' && <customers-table backend-url={this.backendUrl}></customers-table>}

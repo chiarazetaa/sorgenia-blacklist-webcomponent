@@ -1,5 +1,5 @@
 import { Component, h, Listen, State } from '@stencil/core';
-import { MODAL_EVENTS } from '../../utils/utils';
+import { MODAL_EVENTS, ModalEvents } from '../../utils/utils';
 
 @Component({
   tag: 'shared-modal',
@@ -15,35 +15,46 @@ export class SharedModal {
   @State() confirmButtonText: string;
   @State() cancelButtonText: string;
   @State() buttonIsLoading = false;
+  @State() buttonIsDisabled = false;
 
   @Listen('modalEvent', { target: 'window' })
   changeContentHandler(event: CustomEvent) {
-    switch (event.detail.type) {
+    const detail = event.detail as ModalEventDetail;
+    switch (detail.type) {
       case MODAL_EVENTS.LOADING:
         this.buttonIsLoading = true;
         break;
       case MODAL_EVENTS.EXIT_LOADING:
         this.buttonIsLoading = false;
         break;
+      case MODAL_EVENTS.DISABLE:
+        this.buttonIsDisabled = true;
+        break;
+      case MODAL_EVENTS.EXIT_DISABLE:
+        this.buttonIsDisabled = false;
+        break;
       case MODAL_EVENTS.SHOW:
         this.resetModal();
-        if (event.detail?.component) {
-          this.content = event.detail?.component;
+        if (detail?.component) {
+          this.content = detail?.component;
         }
-        if (event.detail?.eventNameOnSave) {
-          this.eventNameOnSave = event.detail?.eventNameOnSave;
+        if (detail?.eventNameOnSave) {
+          this.eventNameOnSave = detail?.eventNameOnSave;
         }
-        if (event.detail?.modalTitle) {
-          this.modalTitle = event.detail?.modalTitle;
+        if (detail?.modalTitle) {
+          this.modalTitle = detail?.modalTitle;
         }
-        if (event.detail?.confirmButtonText) {
-          this.confirmButtonText = event.detail?.confirmButtonText;
+        if (detail?.confirmButtonText) {
+          this.confirmButtonText = detail?.confirmButtonText;
         }
-        if (event.detail?.cancelButtonText) {
-          this.cancelButtonText = event.detail?.cancelButtonText;
+        if (detail?.cancelButtonText) {
+          this.cancelButtonText = detail?.cancelButtonText;
         }
-        if (event.detail?.buttonIsLoading) {
-          this.buttonIsLoading = event.detail?.buttonIsLoading;
+        if (detail?.buttonIsLoading) {
+          this.buttonIsLoading = detail?.buttonIsLoading;
+        }
+        if (detail?.buttonIsDisabled) {
+          this.buttonIsDisabled = detail?.buttonIsDisabled;
         }
         this.showModal = true;
         break;
@@ -63,6 +74,7 @@ export class SharedModal {
     this.eventNameOnSave = undefined;
     this.confirmButtonText = undefined;
     this.cancelButtonText = undefined;
+    this.buttonIsDisabled = undefined;
   }
 
   handleSave = () => {
@@ -98,4 +110,16 @@ export class SharedModal {
     );
   }
 
+}
+
+
+export interface ModalEventDetail {
+  type: ModalEvents;
+  component?: any;
+  eventNameOnSave?: string;
+  modalTitle?: string;
+  confirmButtonText?: string;
+  cancelButtonText?: string;
+  buttonIsLoading?: boolean;
+  buttonIsDisabled?: boolean;
 }

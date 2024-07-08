@@ -45,3 +45,19 @@ export const  modalExitLoading = () => {
     },
   }));
 };
+
+export const modalDisable = () => {
+  window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, {
+    detail: {
+      type: MODAL_EVENTS.DISABLE,
+    },
+  }));
+};
+
+export const modalExitDisable = () => {
+  window.dispatchEvent(new CustomEvent(MODAL_EVENTS.ID, {
+    detail: {
+      type: MODAL_EVENTS.EXIT_DISABLE,
+    },
+  }));
+};

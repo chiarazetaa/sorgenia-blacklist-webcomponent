@@ -18,14 +18,20 @@ export const MODAL_EVENTS = {
   ID: 'modalEvent',
   SHOW: 'show',
   HIDE: 'hide',
+  DISABLE: 'disable',
+  EXIT_DISABLE: 'exitDisable',
   HIDE_AND_REFRESH: 'hideAndRefresh',
   SAVE_EDIT: 'saveEditDate',
   SAVE_NEW: 'saveNew',
   EXIT_LOADING: 'exitLoading',
   LOADING: 'loading',
-};
+} as const;
+
+export type ModalEvents = typeof MODAL_EVENTS[keyof typeof MODAL_EVENTS]
 
 export const SNACKBAR_EVENTS = {
   ID: 'snackbarEvent',
   SHOW: 'show',
-};
+} as const;
+
+export type SnackbarEvents = typeof SNACKBAR_EVENTS[keyof typeof SNACKBAR_EVENTS]
