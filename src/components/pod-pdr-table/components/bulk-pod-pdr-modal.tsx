@@ -69,6 +69,7 @@ export class BulkPodPdrModal {
           selectMultipleFiles={false}
         />
         {this.file && <p>File selezionato: <b>{this.file.name}</b></p>}
+        <p>Nota: Al termine del caricamento viene restituito un file con le eventuali righe contenenti errori.</p>
       </div>
     </Host>
   }
