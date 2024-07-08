@@ -31,7 +31,7 @@ export class CustomersTable {
 
   @Listen('modalEvent', { target: 'window' })
   changeContentHandler(event: CustomEvent) {
-    if([MODAL_EVENTS.HIDE_AND_REFRESH].includes(event.detail.type)){
+    if ([MODAL_EVENTS.HIDE_AND_REFRESH].includes(event.detail.type)) {
       this.loadData();
     }
   }
@@ -85,11 +85,12 @@ export class CustomersTable {
 
   exportData = () => {
     this.api.exportClientiBlacklist(this.filters, `sort=${this.sort.field}%20${this.sort.direction}`);
-  }
+  };
 
   openEditModalClienti = () => {
-    const component = <edit-customers-modal api={this.api} documentIds={this.selectedRows.map(sr => sr._id)}></edit-customers-modal>;
-    openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', "Conferma");
+    const component = <edit-customers-modal api={this.api}
+                                            documentIds={this.selectedRows.map(sr => sr._id)}></edit-customers-modal>;
+    openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', 'Conferma');
   };
 
   render() {
@@ -134,12 +135,17 @@ export class CustomersTable {
           initialSortDirection={this.initialSortDirection}
           initialSortField={this.initialSortField}
           use-refresh-data={true}
+          customFormatters={{
+            'nome': (cell) => cell.getValue() || '-',
+            'cognome': (cell) => cell.getValue() || '-',
+            'p_iva': (cell) => cell.getValue() || '-',
+          }}
           id={'clienti-table'}
           selectable={true}
           placeholder={'Nessun dato trovato'}
           payload-columns={JSON.stringify(this.visibleColumns)}
           payload-data={JSON.stringify(this.tableData.data)}
-          layout={"fitColumns"}
+          layout={'fitColumns'}
           downloadFormat={'xlsx'}
           emitEventOnSorting={true}
           customStyle={``}

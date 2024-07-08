@@ -58,14 +58,14 @@ export const clientiFields: ((FilterFieldString | FilterFieldBoolean | FilterFie
     headerSort: true,
     formatter: 'fonts',
     visible: true,
-    emitEventOnSorting: true,
+    emitEventOnSorting: true
   },
   {
     text: 'Cognome',
     value: 'cognome',
-    placeholder: 'Nome',
+    placeholder: 'Cognome',
     type: 'string',
-    title: 'Nome',
+    title: 'Cognome',
     field: 'cognome',
     headerSort: true,
     formatter: 'fonts',

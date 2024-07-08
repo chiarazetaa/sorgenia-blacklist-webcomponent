@@ -21,7 +21,7 @@ export class ClientiApi extends ApiImpl{
 
   public async exportClientiBlacklist(payload?: any, queryParams?: string | null): Promise<any> {
     payload = { filters: payload || [] };
-    let url = '/v1/customers/search-and-export-xsv';
+    let url = '/v1/customers/search-and-export-csv';
     return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${new Date().toISOString()}.csv`, this.additionalHeaders).promise;
   }
 
