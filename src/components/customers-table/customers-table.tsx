@@ -83,6 +83,10 @@ export class CustomersTable {
     this.selectedRows = values;
   };
 
+  exportData = () => {
+    this.api.exportClientiBlacklist(this.filters, `sort=${this.sort.field}%20${this.sort.direction}`);
+  }
+
   openEditModalClienti = () => {
     const component = <edit-customers-modal api={this.api} documentIds={this.selectedRows.map(sr => sr._id)}></edit-customers-modal>;
     openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', "Conferma");
@@ -135,10 +139,6 @@ export class CustomersTable {
           placeholder={'Nessun dato trovato'}
           payload-columns={JSON.stringify(this.visibleColumns)}
           payload-data={JSON.stringify(this.tableData.data)}
-          showDownload={true}
-          downloadFileName={'export-blacklist-customer'}
-          downloadButtonLabel={'Esporta'}
-          downloadStyle={'icon-secondary'}
           layout={"fitColumns"}
           downloadFormat={'xlsx'}
           emitEventOnSorting={true}
@@ -147,6 +147,12 @@ export class CustomersTable {
           onB2wTableSelectionEvent={e => this.handleMultiSelect(e.detail.data)}
         ></b2w-table>
       </div>}
+      <div class="my-3 d-flex justify-content-end">
+        <b2w-button onB2wButtonClick={() => this.exportData()} type="icon-secondary"
+                    iconName="download"
+                    custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
+                    text="Download"></b2w-button>
+      </div>
       <div class="d-flex w-100 justify-content-end">
         <b2w-pagination
           class="w-full justify-center"

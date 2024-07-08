@@ -30,4 +30,10 @@ export class PodPdrApi extends ApiImpl{
     return this.apiImpl.post(this.composeQueryparams(url, queryParams), payload || {}, this.additionalHeaders).promise;
   }
 
+  public async exportPodPdrBlacklist(payload?: any, queryParams?: string | null): Promise<any> {
+    payload = { filters: payload || [] };
+    let url = '/v1/pod-pdr/search-and-export-csv';
+    return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${new Date().toISOString()}.csv`, this.additionalHeaders).promise;
+  }
+
 }

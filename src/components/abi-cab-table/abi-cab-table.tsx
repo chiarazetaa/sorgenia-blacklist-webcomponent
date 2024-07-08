@@ -92,6 +92,10 @@ export class AbiCabTable {
     openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi ABI/CAB in Blacklist', "Conferma");
   };
 
+  exportData = () => {
+    this.api.exportAbiCabBlacklist(this.filters, `sort=${this.sort.field}%20${this.sort.direction}`);
+  }
+
 
   render() {
     return <Host>
@@ -144,17 +148,18 @@ export class AbiCabTable {
           payload-columns={JSON.stringify(this.visibleColumns)}
           payload-data={JSON.stringify(this.tableData.data)}
           horizontalScroll={false}
-          showDownload={true}
-          downloadFileName={'export-blacklist-abi-cab'}
-          downloadButtonLabel={'Esporta'}
-          downloadStyle={'icon-secondary'}
-          downloadFormat={'xlsx'}
           emitEventOnSorting={true}
           customStyle={'.B2wTable{max-width:100% !important;}'}
           onB2wHeaderSortEvent={e => this.handleSortingEvent(e.detail)}
           onB2wTableSelectionEvent={e => this.handleMultiSelect(e.detail.data)}
         ></b2w-table>
       </div>}
+      <div class="my-3 d-flex justify-content-end">
+        <b2w-button onB2wButtonClick={() => this.exportData()} type="icon-secondary"
+                    iconName="download"
+                    custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
+                    text="Download"></b2w-button>
+      </div>
       <div class="d-flex w-100 justify-content-end">
         <b2w-pagination
           class="w-full justify-center"

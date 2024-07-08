@@ -27,4 +27,10 @@ export class AbiCabApi extends ApiImpl{
     return this.apiImpl.post(this.composeQueryparams(url, queryParams), payload || {}, this.additionalHeaders).promise;
   }
 
+  public async exportAbiCabBlacklist(payload?: any, queryParams?: string | null): Promise<any> {
+    payload = { filters: payload || [] };
+    let url = '/v1/abi-cab/search-and-export-csv';
+    return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${new Date().toISOString()}.csv`, this.additionalHeaders).promise;
+  }
+
 }

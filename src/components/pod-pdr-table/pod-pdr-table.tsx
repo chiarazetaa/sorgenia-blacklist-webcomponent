@@ -31,7 +31,7 @@ export class PodPdrTable {
 
   @Listen('modalEvent', { target: 'window' })
   changeContentHandler(event: CustomEvent) {
-    if([MODAL_EVENTS.HIDE_AND_REFRESH].includes(event.detail.type)){
+    if ([MODAL_EVENTS.HIDE_AND_REFRESH].includes(event.detail.type)) {
       this.loadData();
     }
   }
@@ -84,21 +84,26 @@ export class PodPdrTable {
   };
 
   openEditModalPodPdr = () => {
-    const component = <edit-pod-pdr-modal api={this.api} documentIds={this.selectedRows.map(sr => sr._id)}></edit-pod-pdr-modal>;
-    openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', "Conferma");
+    const component = <edit-pod-pdr-modal api={this.api}
+                                          documentIds={this.selectedRows.map(sr => sr._id)}></edit-pod-pdr-modal>;
+    openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', 'Conferma');
   };
 
   openNewModalPodPdr = () => {
     const component = <new-pod-pdr-modal api={this.api}></new-pod-pdr-modal>;
 
-    openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi POD/PDR in Blacklist', "Conferma");
+    openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi POD/PDR in Blacklist', 'Conferma');
+  };
+
+  exportData = () => {
+    this.api.exportPodPdrBlacklist(this.filters, `sort=${this.sort.field}%20${this.sort.direction}`);
   };
 
   handleTableActionEvent = (type: 'SHOW-USERS', event: any) => {
     switch (type.toUpperCase()) {
       case 'SHOW-USERS':
         const component = <show-customers-pod-pdr-modal customers={event.clienti}></show-customers-pod-pdr-modal>;
-        openModal(component, undefined, "Clienti associati al POD/PDR",undefined, "Ok");
+        openModal(component, undefined, 'Clienti associati al POD/PDR', undefined, 'Ok');
         break;
     }
   };
@@ -154,13 +159,15 @@ export class PodPdrTable {
           placeholder={'Nessun dato trovato'}
           payload-columns={JSON.stringify(this.visibleColumns)}
           payload-data={JSON.stringify(this.tableData.data)}
-          payload-action={JSON.stringify({"align":"center","width":10,"fixtoend": true,"actions":["SHOW-USERS"],"customImages":[{"action":"SHOW-USERS","icon":"icon-b2w-users","color":"color-accent"}]})}
+          payload-action={JSON.stringify({
+            'align': 'center',
+            'width': 10,
+            'fixtoend': true,
+            'actions': ['SHOW-USERS'],
+            'customImages': [{ 'action': 'SHOW-USERS', 'icon': 'icon-b2w-users', 'color': 'color-accent' }],
+          })}
           horizontalScroll={true}
-          showDownload={true}
-          downloadFileName={'export-blacklist-pod-pdr'}
-          downloadButtonLabel={'Esporta'}
-          downloadStyle={'icon-secondary'}
-          layout={"fitColumns"}
+          layout={'fitColumns'}
           downloadFormat={'xlsx'}
           emitEventOnSorting={true}
           customStyle={``}
@@ -171,6 +178,13 @@ export class PodPdrTable {
           }}
         ></b2w-table>
       </div>}
+
+      <div class="my-3 d-flex justify-content-end">
+        <b2w-button onB2wButtonClick={() => this.exportData()} type="icon-secondary"
+                    iconName="download"
+                    custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
+                    text="Download"></b2w-button>
+      </div>
       <div class="d-flex w-100 justify-content-end">
         <b2w-pagination
           class="w-full justify-center"
