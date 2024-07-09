@@ -1,6 +1,11 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
 import { MODAL_EVENTS } from '../../../utils/utils';
-import { hideModalAndRefreshData, modalExitLoading, modalLoading } from '../../../services/modal-service';
+import {
+  hideModalAndRefreshData, modalDisable,
+  modalExitDisable,
+  modalExitLoading,
+  modalLoading,
+} from '../../../services/modal-service';
 import { showSnackbar } from '../../../services/snackbar-service';
 import { ClientiApi } from '../../../api/ClientiApi';
 
@@ -30,6 +35,13 @@ export class EditCustomersModal {
     this.formattedDate = new Intl.DateTimeFormat('it-IT', options).format(today);
     const [day, month, year] = this.formattedDate.split('/');
     this.template.data_cancellazione = `${year}-${month}-${day}`;
+    this.checkFormValidity();
+  }
+
+  checkFormValidity() {
+    if(this.template.data_cancellazione) {
+      modalExitDisable();
+    } else modalDisable();
   }
 
   async massiveDateUpdate() {
@@ -58,6 +70,7 @@ export class EditCustomersModal {
         format="dd/MM/yyyy"
         onB2wDatePickerEvent={e => {
           this.template.data_cancellazione = e.detail.value;
+          this.checkFormValidity();
         }}
       />
     </Host>;

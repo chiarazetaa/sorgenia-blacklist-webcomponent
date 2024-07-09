@@ -1,6 +1,11 @@
 import { MODAL_EVENTS } from '../../../utils/utils';
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
-import { hideModalAndRefreshData, modalExitLoading, modalLoading } from '../../../services/modal-service';
+import {
+  hideModalAndRefreshData, modalDisable,
+  modalExitDisable,
+  modalExitLoading,
+  modalLoading,
+} from '../../../services/modal-service';
 import { showSnackbar } from '../../../services/snackbar-service';
 import { AbiCabApi } from '../../../api/AbiCabApi';
 
@@ -22,6 +27,12 @@ export class NewAbiCabModal {
     }
   }
 
+  checkFormValidity() {
+    if(this.template.type && this.template.code && this.template.data_inserimento) {
+      modalExitDisable();
+    } else modalDisable();
+  }
+
   componentWillLoad() {
     const today = new Date();
     const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -29,6 +40,7 @@ export class NewAbiCabModal {
     const [day, month, year] = this.formattedDate.split('/');
     this.template.data_inserimento = `${year}-${month}-${day}`;
     this.template.type = 'abi';
+    this.checkFormValidity();
   }
 
   async addAbiCabInBlacklist() {
@@ -49,9 +61,11 @@ export class NewAbiCabModal {
                         payload={JSON.stringify([{ text: 'ABI', value: 'abi' }, { text: 'CAB', value: 'cab' }])}
                         onB2wRadioButtonEvent={e => {
                           this.template.type = e.detail.value;
+                          this.checkFormValidity();
                         }}></b2w-radio-button>
       <b2w-input-text label="Codice ABI/CAB" style={{ 'margin-bottom': '1rem' }} onB2wInputEvent={e => {
         this.template.code = e.detail.value;
+        this.checkFormValidity();
       }} />
       <b2w-date-picker
         label="Data inserimento"
@@ -61,6 +75,7 @@ export class NewAbiCabModal {
         format="dd/MM/yyyy"
         onB2wDatePickerEvent={e => {
           this.template.data_inserimento = e.detail.value;
+          this.checkFormValidity();
         }}
       />
     </Host>

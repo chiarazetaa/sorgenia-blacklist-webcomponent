@@ -12,8 +12,8 @@ export class BlacklistDashboard {
 
   private tabs: Array<{ label: string, path: 'CLIENTI' | 'ABI/CAB' | 'POD/PDR' }> = [
     { label: 'Clienti', path: 'CLIENTI' },
-    { label: 'ABI / CAB', path: 'ABI/CAB' },
     { label: 'POD / PDR', path: 'POD/PDR' },
+    { label: 'ABI / CAB', path: 'ABI/CAB' },
   ];
 
   public selectTab(evt) {

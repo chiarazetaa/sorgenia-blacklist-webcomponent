@@ -1,7 +1,13 @@
 import { debounce, MODAL_EVENTS } from '../../../utils/utils';
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
 import { PodPdrApi } from '../../../api/PodPdrApi';
-import { hideModalAndRefreshData, modalExitLoading, modalLoading } from '../../../services/modal-service';
+import {
+  hideModalAndRefreshData,
+  modalDisable,
+  modalExitDisable,
+  modalExitLoading,
+  modalLoading,
+} from '../../../services/modal-service';
 import { showSnackbar } from '../../../services/snackbar-service';
 
 @Component({
@@ -32,6 +38,7 @@ export class NewPodPdrModal {
     const [day, month, year] = this.formattedDate.split('/');
     this.template.data_inserimento = `${year}-${month}-${day}`;
     this.template.type = 'pod';
+    this.checkFormValidity();
   }
 
   searchCodiceCliente = async (codiceCliente: string) => {
@@ -48,6 +55,12 @@ export class NewPodPdrModal {
       this.loadingCustomerData = false;
     }
   };
+
+  checkFormValidity() {
+    if(this.template.type && this.template.data_inserimento && this.template.code && this.template.codice_cliente) {
+      modalExitDisable();
+    } else modalDisable();
+  }
 
   async addPodPdrInBlacklist() {
     modalLoading();
@@ -67,15 +80,18 @@ export class NewPodPdrModal {
                         payload={JSON.stringify([{ text: 'POD', value: 'pod' }, { text: 'PDR', value: 'pdr' }])}
                         onB2wRadioButtonEvent={e => {
                           this.template.type = e.detail.value;
+                          this.checkFormValidity();
                         }}></b2w-radio-button>
       <b2w-input-text label="Codice POD/PDR" style={{ 'margin-bottom': '1rem' }} onB2wInputEvent={e => {
         this.template.code = e.detail.value;
+        this.checkFormValidity();
       }} />
       <div style={{ 'margin-bottom': '1rem' }}>
         <b2w-input-text label="Codice cliente"
                         onB2wInputEvent={e => {
                           debounce(this.searchCodiceCliente(e.detail.value), 1000);
                           this.template.codice_cliente = e.detail.value;
+                          this.checkFormValidity();
                         }} />
         {this.loadingCustomerData ? <b2w-spinner style={{ 'margin-top': '1rem' }} type="small" visible="true" fixed="false"></b2w-spinner> : <div>
           <p>{this.customerName} {this.customerFiscalCode ? "- " + this.customerFiscalCode : ""}</p>
@@ -90,6 +106,7 @@ export class NewPodPdrModal {
         format="dd/MM/yyyy"
         onB2wDatePickerEvent={e => {
           this.template.data_inserimento = e.detail.value;
+          this.checkFormValidity();
         }}
       />
     </Host>
