@@ -58,8 +58,7 @@ export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
   {
     text: 'Blacklist attiva',
     value: 'is_blacklist_active',
-    type: "string",
-    placeholder: 'Blacklist attiva',
+    type: "boolean",
     title: 'Blacklist attiva',
     field: 'is_blacklist_active',
     headerSort: true,
