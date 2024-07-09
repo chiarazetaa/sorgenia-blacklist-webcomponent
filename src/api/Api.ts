@@ -234,9 +234,9 @@ export default class Api {
     };
   }
 
-  public upload<T>(path: string, formaData: FormData, additionalHeaders?: { [key: string]: string }): {
+  public upload(path: string, formaData: FormData, additionalHeaders?: { [key: string]: string }): {
     controller: AbortController;
-    promise: Promise<T>
+    promise: Promise<{status: string}>
   } {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -257,17 +257,10 @@ export default class Api {
         headers,
         body: formaData,
       }).then(response => {
-        if(response.headers.get('Content-Disposition')){
           this.downloadAttachment(response, 'scarti.csv')
-          return
-        }
-        if (response.ok) {
-          return this.successParser(response);
-        }
-        let statusCode = response.status;
-        return response.text().then(text => {
-          this.errorParser(text, statusCode);
-        });
+          return new Promise((resolve) => {
+             resolve({status: "ok"});
+          })
       }),
     };
   }
@@ -296,32 +289,7 @@ export default class Api {
   }
 
   private errorParser(text, statusCode) {
-    let jsonError = {
-      detail: {
-        code: statusCode,
-        message: 'Generic Error',
-      },
-    };
-    try {
-      jsonError = JSON.parse(text);
-    } catch (e) {
-    }
-
-    let errorObject = {};
-    errorObject['status'] = statusCode;
-    if (statusCode == 422) {
-      // manage validation error
-      errorObject['message'] = jsonError.detail[0].msg;
-      errorObject['code'] = 'B2W-422';
-    } else if (jsonError.hasOwnProperty('detail')) {
-      errorObject['message'] = jsonError.detail.message;
-      errorObject['code'] = jsonError.detail.code;
-    } else {
-      errorObject['message'] = jsonError;
-      errorObject['code'] = 'B2W-GENeRIC';
-    }
-
-    throw new Error(JSON.stringify(errorObject));
+    throw new Error(JSON.stringify({...JSON.parse(text), code: statusCode}));
   }
 
   private downloadAttachment(response, fileName){

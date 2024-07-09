@@ -33,7 +33,7 @@ export class BulkPodPdrModal {
       await this.api.uploadTemplateAndDownloadResult(this.file);
       hideModalAndRefreshData();
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.message || 'Error');
+      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
     } finally {
       modalExitLoading();
     }

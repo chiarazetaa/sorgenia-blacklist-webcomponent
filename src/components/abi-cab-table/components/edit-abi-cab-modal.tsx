@@ -35,7 +35,6 @@ export class EditAbiCabModal {
   async massiveDateUpdate() {
     modalLoading();
     try {
-      console.log(this.documentIds);
       const payload = {
         document_ids: this.documentIds,
         data_cancellazione: this.template.data_cancellazione,
@@ -43,7 +42,7 @@ export class EditAbiCabModal {
       await this.api.bulkUpdateAbiCab(payload);
       hideModalAndRefreshData();
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.message || 'Error')
+      showSnackbar(JSON.parse(e?.message)?.detail || 'Error')
     } finally {
       modalExitLoading();
     }

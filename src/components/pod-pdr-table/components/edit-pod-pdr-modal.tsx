@@ -42,7 +42,7 @@ export class EditPodPdrModal {
       await this.api.bulkUpdatePodPdr(payload);
       hideModalAndRefreshData();
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.message || 'Error')
+      showSnackbar(JSON.parse(e?.message)?.detail || 'Error')
     } finally {
       modalExitLoading();
     }
