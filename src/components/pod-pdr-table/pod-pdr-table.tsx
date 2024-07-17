@@ -6,6 +6,7 @@ import { podPdrFields } from '../../fields/pod-pdr-fields';
 import { PodPdrApi } from '../../api/PodPdrApi';
 import { BlacklistPodPdrInterface } from '../../interfaces/blacklist-pod-pdr.interface';
 import { openModal } from '../../services/modal-service';
+import { showSnackbar } from '../../services/snackbar-service';
 
 @Component({
   tag: 'pod-pdr-table',
@@ -55,9 +56,15 @@ export class PodPdrTable {
 
   async loadData() {
     this.isLoading = true;
-    this.tableData = { data: [], total_items: 2 };
-    this.tableData = await this.api.getPodPdrBlacklist(this.filters, `skip=${(this.currentPage - 1) * this.limit}&limit=${this.limit}&sort=${this.sort.field}%20${this.sort.direction}`);
-    this.isLoading = false;
+    try{
+      this.tableData = { data: [], total_items: 2 };
+      this.tableData = await this.api.getPodPdrBlacklist(this.filters, `skip=${(this.currentPage - 1) * this.limit}&limit=${this.limit}&sort=${this.sort.field}%20${this.sort.direction}`);
+    } catch (e) {
+      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+    } finally {
+      this.isLoading = false;
+    }
+
   }
 
 

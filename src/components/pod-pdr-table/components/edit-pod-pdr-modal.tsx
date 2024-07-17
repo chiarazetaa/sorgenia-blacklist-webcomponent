@@ -30,11 +30,6 @@ export class EditPodPdrModal {
   }
 
   componentWillLoad() {
-    const today = new Date();
-    const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    this.formattedDate = new Intl.DateTimeFormat('it-IT', options).format(today);
-    const [day, month, year] = this.formattedDate.split('/');
-    this.template.data_cancellazione = `${year}-${month}-${day}`;
     this.checkFormValidity();
   }
 

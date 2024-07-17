@@ -6,6 +6,7 @@ import { filterOperators } from '../../fields/filter-operators';
 import { BlacklistClienti } from '../../interfaces/blacklist-clienti.interface';
 import { clientiFields } from '../../fields/clienti-fields';
 import { ClientiApi } from '../../api/ClientiApi';
+import { showSnackbar } from '../../services/snackbar-service';
 
 @Component({
   tag: 'customers-table',
@@ -55,9 +56,14 @@ export class CustomersTable {
 
   async loadData() {
     this.isLoading = true;
-    this.tableData = { data: [], total_items: 2 };
-    this.tableData = await this.api.getClientiBlacklist(this.filters, `skip=${(this.currentPage - 1) * this.limit}&limit=${this.limit}&sort=${this.sort.field}%20${this.sort.direction}`);
-    this.isLoading = false;
+    try{
+      this.tableData = { data: [], total_items: 2 };
+      this.tableData = await this.api.getClientiBlacklist(this.filters, `skip=${(this.currentPage - 1) * this.limit}&limit=${this.limit}&sort=${this.sort.field}%20${this.sort.direction}`);
+    } catch (e) {
+      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+    } finally {
+      this.isLoading = false;
+    }
   }
 
 

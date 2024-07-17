@@ -24,11 +24,11 @@ export type FilterFieldDate = {
   placeholder: string;
   type: "date";
   datevalue?: {
-    labelstart?: "Between",
-    labelend?: "And",
+    labelstart?: string
+    labelend?: string
     dateFormat?: string
     dateOutputFormat?: string
-    maxdata?: string
+    maxdate?: string
   }
 }
 

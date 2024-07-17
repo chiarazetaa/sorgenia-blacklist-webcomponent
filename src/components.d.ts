@@ -17,6 +17,7 @@ export namespace Components {
     }
     interface BlacklistDashboard {
         "backendUrl": string;
+        "singleCustomerCrmId": number;
     }
     interface BlacklistDashboardStyles {
     }
@@ -163,6 +164,7 @@ declare namespace LocalJSX {
     }
     interface BlacklistDashboard {
         "backendUrl"?: string;
+        "singleCustomerCrmId"?: number;
     }
     interface BlacklistDashboardStyles {
     }
