@@ -1,0 +1,34 @@
+:host {
+  display: block;
+}
+
+.Loading-Mask {
+  height: 100%;
+  width: 100%;
+}
+
+.skeleton-loader {
+  position: relative;
+}
+
+.skeleton-loader:after {
+  border-radius: 5px;
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(90deg, #ebebed 0%, #ebebed 40%, rgba(255, 255, 255, 1) 50%, #ebebed 60%, #ebebed 100%);
+  background-size: 200% 500%;
+  animation: skeleton_loader 1s linear infinite;
+}
+
+@keyframes skeleton_loader {
+  0% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}

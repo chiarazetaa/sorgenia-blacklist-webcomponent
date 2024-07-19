@@ -35,3 +35,9 @@ export const SNACKBAR_EVENTS = {
 } as const;
 
 export type SnackbarEvents = typeof SNACKBAR_EVENTS[keyof typeof SNACKBAR_EVENTS]
+
+export const TABLE_STYLES= `
+    .B2wTable .tabulator .tabulator-header {margin-bottom: 5px !important; font-weight: bold !important}
+
+
+    `

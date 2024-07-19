@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+.filter-wrapper {
+  background-color: rgb(245, 246, 250);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}

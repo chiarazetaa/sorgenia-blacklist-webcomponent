@@ -6,7 +6,7 @@ import {
 } from '../interfaces/fields.interface';
 import { baseFields } from './base-fields';
 
-export const clientiFields: ((FilterFieldString | FilterFieldNumber | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
+export const customersFields: ((FilterFieldString | FilterFieldNumber | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
   {
     text: 'ID CRM',
     value: 'crm_id',
@@ -56,7 +56,6 @@ export const clientiFields: ((FilterFieldString | FilterFieldNumber | FilterFiel
     title: 'Nome',
     field: 'nome',
     headerSort: true,
-    formatter: 'fonts',
     visible: true,
     emitEventOnSorting: true
   },
@@ -68,7 +67,6 @@ export const clientiFields: ((FilterFieldString | FilterFieldNumber | FilterFiel
     title: 'Cognome',
     field: 'cognome',
     headerSort: true,
-    formatter: 'fonts',
     visible: true,
     emitEventOnSorting: true,
   },
@@ -80,7 +78,6 @@ export const clientiFields: ((FilterFieldString | FilterFieldNumber | FilterFiel
     title: 'P.IVA',
     field: 'p_iva',
     headerSort: true,
-    formatter: 'fonts',
     visible: true,
     emitEventOnSorting: true,
   },

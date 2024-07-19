@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop, State, Listen } from '@stencil/core';
-import { clientiFields } from '../../fields/clienti-fields';
+import { customersFields } from '../../fields/clienti-fields';
 import { DataTableInterface } from '../../interfaces/data-table.interface';
 import { BlacklistClienti } from '../../interfaces/blacklist-clienti.interface';
 import { ClientiApi } from '../../api/ClientiApi';
@@ -19,7 +19,7 @@ export class SingleCustomerTable {
   @State() tableData: DataTableInterface<BlacklistClienti>;
   @State() initialSortField = 'data_inserimento';
   @State() initialSortDirection: 'asc' | 'desc' = 'desc';
-  @State() visibleColumns = clientiFields;
+  @State() visibleColumns = customersFields;
   @State() currentPage = 1;
   limit = 10;
   @State() filters = [];

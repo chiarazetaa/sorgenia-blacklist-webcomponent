@@ -77,7 +77,6 @@ export const baseFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldP
     title: 'Operatore forzatura',
     field: 'operatore_forzatura',
     headerSort: true,
-    formatter: 'text_replace',
     visible: true,
     hozAlign: 'left',
     emitEventOnSorting: true,
