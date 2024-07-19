@@ -27,7 +27,7 @@ export class BlacklistDashboard {
       <Host class="mx-4 pt-4">
         <blacklist-dashboard-styles></blacklist-dashboard-styles>
         {this.singleCustomerCrmId ?
-          <single-customer-card odoo-id={this.singleCustomerCrmId} backend-url={this.backendUrl}></single-customer-card> :
+          <single-customer-table odoo-id={this.singleCustomerCrmId} backend-url={this.backendUrl}></single-customer-table> :
           <div>
             <b2w-tabs selected-tab-path={this.currentTab} payload={JSON.stringify(this.tabs)} disable-history="true"
                       onB2wTabsClick={e => this.selectTab(e)}></b2w-tabs>

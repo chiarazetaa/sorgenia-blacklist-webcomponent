@@ -26,4 +26,14 @@ export class ClientiApi extends ApiImpl{
     return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${new Date().toISOString()}.csv`,  Method.POST, this.additionalHeaders).promise;
   }
 
+  public async getAdditionalCustomerData(crmId): Promise<any> {
+    let url = '/v1/customers/additional-crm-data/' + crmId;
+    return this.apiImpl.get(url, undefined, this.additionalHeaders).promise;
+  }
+
+  public async addCustomerInBlacklist(payload?: any, queryParams?: string | null): Promise<any> {
+    let url = '/v1/customers';
+    return this.apiImpl.post(this.composeQueryparams(url, queryParams), payload || {}, this.additionalHeaders).promise;
+  }
+
 }

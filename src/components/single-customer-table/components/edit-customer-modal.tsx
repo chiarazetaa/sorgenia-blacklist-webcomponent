@@ -10,10 +10,10 @@ import { showSnackbar } from '../../../services/snackbar-service';
 import { ClientiApi } from '../../../api/ClientiApi';
 
 @Component({
-  tag: 'edit-customers-modal',
+  tag: 'edit-customer-modal',
   shadow: false,
 })
-export class EditCustomersModal {
+export class EditCustomerModal {
   @Prop() api: ClientiApi;
   @Prop() documentIds: any[];
   @State() formattedDate: string;

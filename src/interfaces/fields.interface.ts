@@ -4,6 +4,14 @@ export type FilterFieldString = {
   placeholder: string;
   type: "string";
 }
+
+export type FilterFieldNumber = {
+  text: string;
+  value: number;
+  placeholder: string;
+  type: "number";
+}
+
 export type FilterFieldBoolean = {
   text: string;
   value: string;

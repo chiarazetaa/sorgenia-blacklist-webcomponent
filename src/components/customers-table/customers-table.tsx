@@ -58,7 +58,18 @@ export class CustomersTable {
     this.isLoading = true;
     try{
       this.tableData = { data: [], total_items: 2 };
-      this.tableData = await this.api.getClientiBlacklist(this.filters, `skip=${(this.currentPage - 1) * this.limit}&limit=${this.limit}&sort=${this.sort.field}%20${this.sort.direction}`);
+      const parsedFilters = []
+      this.filters.forEach(filter => {
+        if(Array.isArray(filter.value) && filter.operator !== 'in'){
+          filter.value.forEach(value => {
+            parsedFilters.push({ key: filter.key, operator: filter.operator, value });
+          });
+        } else {
+          parsedFilters.push(filter);
+        }
+
+      });
+      this.tableData = await this.api.getClientiBlacklist(parsedFilters, `skip=${(this.currentPage - 1) * this.limit}&limit=${this.limit}&sort=${this.sort.field}%20${this.sort.direction}`);
     } catch (e) {
       showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
     } finally {

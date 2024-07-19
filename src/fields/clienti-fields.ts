@@ -1,12 +1,12 @@
 import {
-  FilterFieldBoolean, FilterFieldDate,
+  FilterFieldBoolean, FilterFieldDate, FilterFieldNumber,
   FilterFieldPicklist,
   FilterFieldString,
   TableField,
 } from '../interfaces/fields.interface';
 import { baseFields } from './base-fields';
 
-export const clientiFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
+export const clientiFields: ((FilterFieldString | FilterFieldNumber | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
   {
     text: 'ID CRM',
     value: 'crm_id',
@@ -21,7 +21,7 @@ export const clientiFields: ((FilterFieldString | FilterFieldBoolean | FilterFie
   },
   {
     text: 'Codice',
-    value: 'code',
+    value: 'codice_cliente',
     placeholder: 'Code',
     type: 'string',
     title: 'Codice',

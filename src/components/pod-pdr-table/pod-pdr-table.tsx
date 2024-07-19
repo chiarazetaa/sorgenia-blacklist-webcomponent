@@ -98,7 +98,6 @@ export class PodPdrTable {
 
   openNewModalPodPdr = () => {
     const component = <new-pod-pdr-modal api={this.api}></new-pod-pdr-modal>;
-
     openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi POD/PDR in Blacklist', 'Conferma');
   };
 
