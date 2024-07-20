@@ -25,6 +25,9 @@ export class AbiCabDashboard {
 
   @Listen(INTERNAL_EVENTS.REFRESH_DATA, { target: 'window' })
   reloadDataHandler() {
+    if(!this.api){
+      return
+    }
     this.loadData();
   }
 
