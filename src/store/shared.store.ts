@@ -65,7 +65,6 @@ stores.forEach(store=> {
   const refreshOnFieldChange: (keyof StorePayloadWithData<BlacklistClienti>)[] = ['parsedFilters', 'sortDirection', 'currentPage'];
   refreshOnFieldChange.forEach(key => {
     store.onChange(key, () => {
-      console.log(key);
       window.dispatchEvent(new CustomEvent(INTERNAL_EVENTS.REFRESH_DATA, {}));
     });
   })
