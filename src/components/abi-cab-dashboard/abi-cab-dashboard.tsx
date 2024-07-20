@@ -58,9 +58,9 @@ export class AbiCabDashboard {
     openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi ABI/CAB in Blacklist', "Conferma");
   };
 
-  exportData = () => {
+  exportData = async () => {
     try {
-      this.api.exportAbiCabBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
+      await this.api.exportAbiCabBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
     } catch (e) {
       showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
     }

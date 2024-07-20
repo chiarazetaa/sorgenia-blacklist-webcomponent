@@ -48,9 +48,9 @@ export class CustomersDashboard {
     }
   }
 
-  exportData = () => {
+  exportData = async () => {
     try {
-      this.api.exportClientiBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
+      await this.api.exportClientiBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
     } catch (e) {
       showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
     }
