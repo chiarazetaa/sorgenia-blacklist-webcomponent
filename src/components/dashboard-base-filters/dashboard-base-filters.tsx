@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop } from '@stencil/core';
-import { customersFields } from '../../fields/clienti-fields';
+import { customersFields } from '../../fields/customers-fields';
 import { filterOperators } from '../../fields/filter-operators';
 import { StoreKeys, getStore, ObservableMapValue } from '../../store/shared.store';
 import { debounce } from '../../utils/utils';
@@ -52,7 +52,7 @@ export class DashboardBaseFilters {
             label="Visibilità campi"
             placeholder="Seleziona le colonne"
             enableSearch={true}
-            defaultValues={JSON.stringify([...this?.store?.state?.visibleColumns.filter(d => (d.visible)).map(d => (d.field))])}
+            defaultValues={JSON.stringify([...this.store.state.visibleColumns.filter(d => (d.visible)).map(d => (d.field))])}
             options={JSON.stringify(this?.store?.state?.visibleColumns.map(d => ({ text: d.text, value: d.field })))}
             onb2wMultiselectChange={e => this.showAndHideColumnsDebounced(e.detail.values)}
             customStyle={'.b2w-multiselect{max-width:100% !important; width: 300px !important; font-size: 14px !important}'}

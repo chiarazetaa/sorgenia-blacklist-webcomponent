@@ -32,6 +32,12 @@ export namespace Components {
     interface DashboardBaseFilters {
         "storeKey": StoreKeys;
     }
+    interface DashboardBaseTable {
+        "exportFn": ()=>void;
+        "isLoading": boolean;
+        "payloadAction": any[];
+        "storeKey": StoreKeys;
+    }
     interface EditAbiCabModal {
         "api": AbiCabApi;
         "documentIds": any[];
@@ -75,6 +81,10 @@ export namespace Components {
         "odooId": string;
     }
 }
+export interface DashboardBaseTableCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashboardBaseTableElement;
+}
 declare global {
     interface HTMLAbiCabTableElement extends Components.AbiCabTable, HTMLStencilElement {
     }
@@ -111,6 +121,23 @@ declare global {
     var HTMLDashboardBaseFiltersElement: {
         prototype: HTMLDashboardBaseFiltersElement;
         new (): HTMLDashboardBaseFiltersElement;
+    };
+    interface HTMLDashboardBaseTableElementEventMap {
+        "tableActionEvent": {type:string, data: any};
+    }
+    interface HTMLDashboardBaseTableElement extends Components.DashboardBaseTable, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDashboardBaseTableElementEventMap>(type: K, listener: (this: HTMLDashboardBaseTableElement, ev: DashboardBaseTableCustomEvent<HTMLDashboardBaseTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDashboardBaseTableElementEventMap>(type: K, listener: (this: HTMLDashboardBaseTableElement, ev: DashboardBaseTableCustomEvent<HTMLDashboardBaseTableElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLDashboardBaseTableElement: {
+        prototype: HTMLDashboardBaseTableElement;
+        new (): HTMLDashboardBaseTableElement;
     };
     interface HTMLEditAbiCabModalElement extends Components.EditAbiCabModal, HTMLStencilElement {
     }
@@ -197,6 +224,7 @@ declare global {
         "bulk-pod-pdr-modal": HTMLBulkPodPdrModalElement;
         "customers-table": HTMLCustomersTableElement;
         "dashboard-base-filters": HTMLDashboardBaseFiltersElement;
+        "dashboard-base-table": HTMLDashboardBaseTableElement;
         "edit-abi-cab-modal": HTMLEditAbiCabModalElement;
         "edit-customer-modal": HTMLEditCustomerModalElement;
         "edit-customers-modal": HTMLEditCustomersModalElement;
@@ -229,6 +257,13 @@ declare namespace LocalJSX {
         "backendUrl"?: string;
     }
     interface DashboardBaseFilters {
+        "storeKey"?: StoreKeys;
+    }
+    interface DashboardBaseTable {
+        "exportFn"?: ()=>void;
+        "isLoading"?: boolean;
+        "onTableActionEvent"?: (event: DashboardBaseTableCustomEvent<{type:string, data: any}>) => void;
+        "payloadAction"?: any[];
         "storeKey"?: StoreKeys;
     }
     interface EditAbiCabModal {
@@ -280,6 +315,7 @@ declare namespace LocalJSX {
         "bulk-pod-pdr-modal": BulkPodPdrModal;
         "customers-table": CustomersTable;
         "dashboard-base-filters": DashboardBaseFilters;
+        "dashboard-base-table": DashboardBaseTable;
         "edit-abi-cab-modal": EditAbiCabModal;
         "edit-customer-modal": EditCustomerModal;
         "edit-customers-modal": EditCustomersModal;
@@ -305,6 +341,7 @@ declare module "@stencil/core" {
             "bulk-pod-pdr-modal": LocalJSX.BulkPodPdrModal & JSXBase.HTMLAttributes<HTMLBulkPodPdrModalElement>;
             "customers-table": LocalJSX.CustomersTable & JSXBase.HTMLAttributes<HTMLCustomersTableElement>;
             "dashboard-base-filters": LocalJSX.DashboardBaseFilters & JSXBase.HTMLAttributes<HTMLDashboardBaseFiltersElement>;
+            "dashboard-base-table": LocalJSX.DashboardBaseTable & JSXBase.HTMLAttributes<HTMLDashboardBaseTableElement>;
             "edit-abi-cab-modal": LocalJSX.EditAbiCabModal & JSXBase.HTMLAttributes<HTMLEditAbiCabModalElement>;
             "edit-customer-modal": LocalJSX.EditCustomerModal & JSXBase.HTMLAttributes<HTMLEditCustomerModalElement>;
             "edit-customers-modal": LocalJSX.EditCustomersModal & JSXBase.HTMLAttributes<HTMLEditCustomersModalElement>;

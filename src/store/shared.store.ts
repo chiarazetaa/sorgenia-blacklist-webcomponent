@@ -24,7 +24,7 @@ const sharedStoreFields: StorePayload = {
   parsedFilters: [],
   visibleColumns: [],
   sortField: "data_inserimento",
-  sortDirection: 'asc',
+  sortDirection: 'desc',
   currentPage: 1,
   limit: 10,
   selectedRows: []

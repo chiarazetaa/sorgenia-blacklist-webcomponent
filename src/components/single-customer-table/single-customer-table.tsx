@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop, State, Listen } from '@stencil/core';
-import { customersFields } from '../../fields/clienti-fields';
+import { customersFields } from '../../fields/customers-fields';
 import { DataTableInterface } from '../../interfaces/data-table.interface';
 import { BlacklistClienti } from '../../interfaces/blacklist-clienti.interface';
 import { ClientiApi } from '../../api/ClientiApi';
