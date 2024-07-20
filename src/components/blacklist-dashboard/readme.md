@@ -17,7 +17,7 @@
 ### Depends on
 
 - [blacklist-dashboard-styles](../blacklist-dashboard-styles)
-- [abi-cab-table](../abi-cab-table)
+- [abi-cab-table](../abi-cab-dashboard)
 - [shared-modal](../shared-modal)
 - [shared-snackbar](../shared-snackbar)
 

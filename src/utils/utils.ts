@@ -29,6 +29,12 @@ export const MODAL_EVENTS = {
 
 export type ModalEvents = typeof MODAL_EVENTS[keyof typeof MODAL_EVENTS]
 
+export const INTERNAL_EVENTS = {
+  REFRESH_DATA: 'refresh',
+} as const
+
+export type InternalEvents = typeof INTERNAL_EVENTS[keyof typeof INTERNAL_EVENTS]
+
 export const SNACKBAR_EVENTS = {
   ID: 'snackbarEvent',
   SHOW: 'show',
@@ -38,6 +44,4 @@ export type SnackbarEvents = typeof SNACKBAR_EVENTS[keyof typeof SNACKBAR_EVENTS
 
 export const TABLE_STYLES= `
     .B2wTable .tabulator .tabulator-header {margin-bottom: 5px !important; font-weight: bold !important}
-
-
-    `
+   `

@@ -14,7 +14,7 @@ export { StoreKeys } from "./store/shared.store";
 export { AbiCabApi } from "./api/AbiCabApi";
 export { ClientiApi } from "./api/ClientiApi";
 export namespace Components {
-    interface AbiCabTable {
+    interface AbiCabDashboard {
         "backendUrl": string;
     }
     interface BlacklistDashboard {
@@ -26,16 +26,16 @@ export namespace Components {
     interface BulkPodPdrModal {
         "api": PodPdrApi;
     }
-    interface CustomersTable {
+    interface CustomersDashboard {
         "backendUrl": string;
     }
     interface DashboardBaseFilters {
         "storeKey": StoreKeys;
     }
     interface DashboardBaseTable {
-        "exportFn": ()=>void;
+        "exportFn": () => void;
         "isLoading": boolean;
-        "payloadAction": any[];
+        "payloadAction": any;
         "storeKey": StoreKeys;
     }
     interface EditAbiCabModal {
@@ -64,7 +64,7 @@ export namespace Components {
     interface NewPodPdrModal {
         "api": PodPdrApi;
     }
-    interface PodPdrTable {
+    interface PodPdrDashboard {
         "backendUrl": string;
     }
     interface SharedModal {
@@ -86,11 +86,11 @@ export interface DashboardBaseTableCustomEvent<T> extends CustomEvent<T> {
     target: HTMLDashboardBaseTableElement;
 }
 declare global {
-    interface HTMLAbiCabTableElement extends Components.AbiCabTable, HTMLStencilElement {
+    interface HTMLAbiCabDashboardElement extends Components.AbiCabDashboard, HTMLStencilElement {
     }
-    var HTMLAbiCabTableElement: {
-        prototype: HTMLAbiCabTableElement;
-        new (): HTMLAbiCabTableElement;
+    var HTMLAbiCabDashboardElement: {
+        prototype: HTMLAbiCabDashboardElement;
+        new (): HTMLAbiCabDashboardElement;
     };
     interface HTMLBlacklistDashboardElement extends Components.BlacklistDashboard, HTMLStencilElement {
     }
@@ -110,11 +110,11 @@ declare global {
         prototype: HTMLBulkPodPdrModalElement;
         new (): HTMLBulkPodPdrModalElement;
     };
-    interface HTMLCustomersTableElement extends Components.CustomersTable, HTMLStencilElement {
+    interface HTMLCustomersDashboardElement extends Components.CustomersDashboard, HTMLStencilElement {
     }
-    var HTMLCustomersTableElement: {
-        prototype: HTMLCustomersTableElement;
-        new (): HTMLCustomersTableElement;
+    var HTMLCustomersDashboardElement: {
+        prototype: HTMLCustomersDashboardElement;
+        new (): HTMLCustomersDashboardElement;
     };
     interface HTMLDashboardBaseFiltersElement extends Components.DashboardBaseFilters, HTMLStencilElement {
     }
@@ -181,11 +181,11 @@ declare global {
         prototype: HTMLNewPodPdrModalElement;
         new (): HTMLNewPodPdrModalElement;
     };
-    interface HTMLPodPdrTableElement extends Components.PodPdrTable, HTMLStencilElement {
+    interface HTMLPodPdrDashboardElement extends Components.PodPdrDashboard, HTMLStencilElement {
     }
-    var HTMLPodPdrTableElement: {
-        prototype: HTMLPodPdrTableElement;
-        new (): HTMLPodPdrTableElement;
+    var HTMLPodPdrDashboardElement: {
+        prototype: HTMLPodPdrDashboardElement;
+        new (): HTMLPodPdrDashboardElement;
     };
     interface HTMLSharedModalElement extends Components.SharedModal, HTMLStencilElement {
     }
@@ -218,11 +218,11 @@ declare global {
         new (): HTMLSingleCustomerTableElement;
     };
     interface HTMLElementTagNameMap {
-        "abi-cab-table": HTMLAbiCabTableElement;
+        "abi-cab-dashboard": HTMLAbiCabDashboardElement;
         "blacklist-dashboard": HTMLBlacklistDashboardElement;
         "blacklist-dashboard-styles": HTMLBlacklistDashboardStylesElement;
         "bulk-pod-pdr-modal": HTMLBulkPodPdrModalElement;
-        "customers-table": HTMLCustomersTableElement;
+        "customers-dashboard": HTMLCustomersDashboardElement;
         "dashboard-base-filters": HTMLDashboardBaseFiltersElement;
         "dashboard-base-table": HTMLDashboardBaseTableElement;
         "edit-abi-cab-modal": HTMLEditAbiCabModalElement;
@@ -232,7 +232,7 @@ declare global {
         "new-abi-cab-modal": HTMLNewAbiCabModalElement;
         "new-customer-modal": HTMLNewCustomerModalElement;
         "new-pod-pdr-modal": HTMLNewPodPdrModalElement;
-        "pod-pdr-table": HTMLPodPdrTableElement;
+        "pod-pdr-dashboard": HTMLPodPdrDashboardElement;
         "shared-modal": HTMLSharedModalElement;
         "shared-snackbar": HTMLSharedSnackbarElement;
         "shared-table-skeleton": HTMLSharedTableSkeletonElement;
@@ -241,7 +241,7 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface AbiCabTable {
+    interface AbiCabDashboard {
         "backendUrl"?: string;
     }
     interface BlacklistDashboard {
@@ -253,17 +253,17 @@ declare namespace LocalJSX {
     interface BulkPodPdrModal {
         "api"?: PodPdrApi;
     }
-    interface CustomersTable {
+    interface CustomersDashboard {
         "backendUrl"?: string;
     }
     interface DashboardBaseFilters {
         "storeKey"?: StoreKeys;
     }
     interface DashboardBaseTable {
-        "exportFn"?: ()=>void;
+        "exportFn"?: () => void;
         "isLoading"?: boolean;
         "onTableActionEvent"?: (event: DashboardBaseTableCustomEvent<{type:string, data: any}>) => void;
-        "payloadAction"?: any[];
+        "payloadAction"?: any;
         "storeKey"?: StoreKeys;
     }
     interface EditAbiCabModal {
@@ -292,7 +292,7 @@ declare namespace LocalJSX {
     interface NewPodPdrModal {
         "api"?: PodPdrApi;
     }
-    interface PodPdrTable {
+    interface PodPdrDashboard {
         "backendUrl"?: string;
     }
     interface SharedModal {
@@ -309,11 +309,11 @@ declare namespace LocalJSX {
         "odooId"?: string;
     }
     interface IntrinsicElements {
-        "abi-cab-table": AbiCabTable;
+        "abi-cab-dashboard": AbiCabDashboard;
         "blacklist-dashboard": BlacklistDashboard;
         "blacklist-dashboard-styles": BlacklistDashboardStyles;
         "bulk-pod-pdr-modal": BulkPodPdrModal;
-        "customers-table": CustomersTable;
+        "customers-dashboard": CustomersDashboard;
         "dashboard-base-filters": DashboardBaseFilters;
         "dashboard-base-table": DashboardBaseTable;
         "edit-abi-cab-modal": EditAbiCabModal;
@@ -323,7 +323,7 @@ declare namespace LocalJSX {
         "new-abi-cab-modal": NewAbiCabModal;
         "new-customer-modal": NewCustomerModal;
         "new-pod-pdr-modal": NewPodPdrModal;
-        "pod-pdr-table": PodPdrTable;
+        "pod-pdr-dashboard": PodPdrDashboard;
         "shared-modal": SharedModal;
         "shared-snackbar": SharedSnackbar;
         "shared-table-skeleton": SharedTableSkeleton;
@@ -335,11 +335,11 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "abi-cab-table": LocalJSX.AbiCabTable & JSXBase.HTMLAttributes<HTMLAbiCabTableElement>;
+            "abi-cab-dashboard": LocalJSX.AbiCabDashboard & JSXBase.HTMLAttributes<HTMLAbiCabDashboardElement>;
             "blacklist-dashboard": LocalJSX.BlacklistDashboard & JSXBase.HTMLAttributes<HTMLBlacklistDashboardElement>;
             "blacklist-dashboard-styles": LocalJSX.BlacklistDashboardStyles & JSXBase.HTMLAttributes<HTMLBlacklistDashboardStylesElement>;
             "bulk-pod-pdr-modal": LocalJSX.BulkPodPdrModal & JSXBase.HTMLAttributes<HTMLBulkPodPdrModalElement>;
-            "customers-table": LocalJSX.CustomersTable & JSXBase.HTMLAttributes<HTMLCustomersTableElement>;
+            "customers-dashboard": LocalJSX.CustomersDashboard & JSXBase.HTMLAttributes<HTMLCustomersDashboardElement>;
             "dashboard-base-filters": LocalJSX.DashboardBaseFilters & JSXBase.HTMLAttributes<HTMLDashboardBaseFiltersElement>;
             "dashboard-base-table": LocalJSX.DashboardBaseTable & JSXBase.HTMLAttributes<HTMLDashboardBaseTableElement>;
             "edit-abi-cab-modal": LocalJSX.EditAbiCabModal & JSXBase.HTMLAttributes<HTMLEditAbiCabModalElement>;
@@ -349,7 +349,7 @@ declare module "@stencil/core" {
             "new-abi-cab-modal": LocalJSX.NewAbiCabModal & JSXBase.HTMLAttributes<HTMLNewAbiCabModalElement>;
             "new-customer-modal": LocalJSX.NewCustomerModal & JSXBase.HTMLAttributes<HTMLNewCustomerModalElement>;
             "new-pod-pdr-modal": LocalJSX.NewPodPdrModal & JSXBase.HTMLAttributes<HTMLNewPodPdrModalElement>;
-            "pod-pdr-table": LocalJSX.PodPdrTable & JSXBase.HTMLAttributes<HTMLPodPdrTableElement>;
+            "pod-pdr-dashboard": LocalJSX.PodPdrDashboard & JSXBase.HTMLAttributes<HTMLPodPdrDashboardElement>;
             "shared-modal": LocalJSX.SharedModal & JSXBase.HTMLAttributes<HTMLSharedModalElement>;
             "shared-snackbar": LocalJSX.SharedSnackbar & JSXBase.HTMLAttributes<HTMLSharedSnackbarElement>;
             "shared-table-skeleton": LocalJSX.SharedTableSkeleton & JSXBase.HTMLAttributes<HTMLSharedTableSkeletonElement>;

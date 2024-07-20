@@ -1,8 +1,8 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 import { TABLE_STYLES } from '../../utils/utils';
 import { getStore, ObservableMapValue, StoreKeys } from '../../store/shared.store';
-import { tableFieldsMapping } from '../../fields/table-fields-mapping';
 import { Event, EventEmitter } from '@stencil/core';
+import { tableFieldsMapping } from '../../fields/table-fields-mapping';
 
 @Component({
   tag: 'dashboard-base-table',
@@ -14,14 +14,14 @@ export class DashboardBaseTable {
   store: ObservableMapValue
 
   @Prop() storeKey: StoreKeys;
-  @Prop() payloadAction: any[];
+  @Prop() payloadAction: any;
   @Prop() isLoading: boolean;
-  @Prop() exportFn: ()=>void;
+  @Prop() exportFn: () => void;
   @Event() tableActionEvent: EventEmitter<{type:string, data: any}>;
 
   componentWillLoad() {
     this.store = getStore(this.storeKey);
-    this.store.state.visibleColumns = tableFieldsMapping[this.storeKey];
+    this.store.state.visibleColumns = [...tableFieldsMapping[this.storeKey]];
   }
 
   handleSortingEvent = (e) => {
@@ -47,6 +47,10 @@ export class DashboardBaseTable {
             }}
             id={'shared--table'}
             selectable={true}
+            horizontalScroll={true}
+            layout={'fitColumns'}
+            paginationSize={this.store.state.limit}
+            externalPagination={true}
             placeholder={'Nessun dato trovato'}
             payload-columns={JSON.stringify(this.store.state.visibleColumns)}
             payload-data={JSON.stringify(this.store.state.tableData?.data || [])}
@@ -67,8 +71,8 @@ export class DashboardBaseTable {
           </div>
           <div class="d-flex w-100 justify-content-center b2w-align-items-center">
             <b2w-pagination
-              labelPreview="←"
-              labelNext="→"
+              labelPreview="Prec"
+              labelNext="Succ"
               class="w-full justify-center"
               totalPages={this.store.state.tableData?.total_items ? Math.ceil(this.store.state.tableData?.total_items / this.store.state.limit) : 0}
               currentPageDefault={this.store.state.currentPage}

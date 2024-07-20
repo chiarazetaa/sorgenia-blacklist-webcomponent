@@ -1,21 +1,19 @@
 import { Component, Host, h, Prop, State, Listen } from '@stencil/core';
-import { MODAL_EVENTS } from '../../utils/utils';
+import { INTERNAL_EVENTS, MODAL_EVENTS } from '../../utils/utils';
 import { openModal } from '../../services/modal-service';
 import { ClientiApi } from '../../api/ClientiApi';
 import { showSnackbar } from '../../services/snackbar-service';
-import { getStore, StoreKey, StorePayloadWithData } from '../../store/shared.store';
-import { BlacklistClienti } from '../../interfaces/blacklist-clienti.interface';
-import { customersFields } from '../../fields/customers-fields';
+import { getStore, StoreKey } from '../../store/shared.store';
 
 @Component({
-  tag: 'customers-table',
-  styleUrl: 'customers-table.css',
+  tag: 'customers-dashboard',
+  styleUrl: 'customers-dashboard.css',
   shadow: false,
 })
-export class CustomersTable {
+export class CustomersDashboard {
   store = getStore(StoreKey.CUSTOMERS);
   @Prop() backendUrl: string;
-  @State() isLoading: boolean = true;
+  @State() isLoading: boolean;
   api: ClientiApi;
 
   @Listen('modalEvent', { target: 'window' })
@@ -25,15 +23,13 @@ export class CustomersTable {
     }
   }
 
+  @Listen(INTERNAL_EVENTS.REFRESH_DATA, { target: 'window' })
+  reloadDataHandler() {
+    this.loadData();
+  }
+
   componentWillLoad() {
     this.api = new ClientiApi(this.backendUrl);
-    this.store.state.visibleColumns = customersFields;
-    const refreshOnFieldChange: (keyof StorePayloadWithData<BlacklistClienti>)[] = ['visibleColumns', 'parsedFilters', 'sortDirection', 'currentPage'];
-    refreshOnFieldChange.forEach(key => {
-      this.store.onChange(key, () => {
-        this.loadData();
-      });
-    });
     this.loadData();
   }
 
@@ -45,7 +41,6 @@ export class CustomersTable {
         total_items,
       } = await this.api.getClientiBlacklist(this.store.state.parsedFilters, `skip=${(this.store.state.currentPage - 1) * this.store.state.limit}&limit=${this.store.state.limit}&sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
       this.store.state.tableData = { data: [...newData], total_items };
-
     } catch (e) {
       showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
     } finally {
@@ -54,7 +49,12 @@ export class CustomersTable {
   }
 
   exportData = () => {
-    this.api.exportClientiBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
+    try {
+      this.api.exportClientiBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
+    } catch (e) {
+      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+    }
+
   };
 
   openEditModalClienti = () => {
@@ -62,6 +62,10 @@ export class CustomersTable {
                                             documentIds={this.store.state.selectedRows.map(sr => sr._id)}></edit-customers-modal>;
     openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', 'Conferma');
   };
+
+  disconnectedCallback() {
+    this.store.reset();
+  }
 
   render() {
     return <Host>
@@ -80,7 +84,7 @@ export class CustomersTable {
         exportFn={this.exportData}
       ></dashboard-base-table>
 
-    </Host>
+    </Host>;
   }
 
 }

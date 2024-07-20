@@ -27,14 +27,14 @@ export class BlacklistDashboard {
       <Host class="mx-4 pt-4">
         <blacklist-dashboard-styles></blacklist-dashboard-styles>
         {this.singleCustomerCrmId ?
-          <single-customer-table odoo-id={this.singleCustomerCrmId} backend-url={this.backendUrl}></single-customer-table> :
+          <single-customer-dashboard odoo-id={this.singleCustomerCrmId} backend-url={this.backendUrl}></single-customer-dashboard> :
           <div>
             <b2w-tabs selected-tab-path={this.currentTab} payload={JSON.stringify(this.tabs)} disable-history="true"
                       onB2wTabsClick={e => this.selectTab(e)}></b2w-tabs>
             <div class="mt-4">
-              {this.currentTab === 'CLIENTI' && <customers-table backend-url={this.backendUrl}></customers-table>}
-              {this.currentTab === 'POD/PDR' && <pod-pdr-table backend-url={this.backendUrl}></pod-pdr-table>}
-              {this.currentTab === 'ABI/CAB' && <abi-cab-table backend-url={this.backendUrl}></abi-cab-table>}
+              {this.currentTab === 'CLIENTI' && <customers-dashboard backend-url={this.backendUrl}></customers-dashboard>}
+              {this.currentTab === 'POD/PDR' && <pod-pdr-dashboard backend-url={this.backendUrl}></pod-pdr-dashboard>}
+              {this.currentTab === 'ABI/CAB' && <abi-cab-dashboard backend-url={this.backendUrl}></abi-cab-dashboard>}
             </div>
           </div>
         }

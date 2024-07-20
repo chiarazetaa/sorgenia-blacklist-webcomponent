@@ -3,6 +3,7 @@ import { DataTableInterface } from '../interfaces/data-table.interface';
 import { BlacklistClienti } from '../interfaces/blacklist-clienti.interface';
 import { BlacklistPodPdrInterface } from '../interfaces/blacklist-pod-pdr.interface';
 import { BlacklistAbiCab } from '../interfaces/blacklist-abi-cab.interface';
+import { INTERNAL_EVENTS } from '../utils/utils';
 
 export interface StorePayload {
   filters: any[];
@@ -45,7 +46,7 @@ const abiCabStore = createStore<StorePayloadWithData<BlacklistAbiCab>>({
   tableData: { data: [], total_items: 2 }
 });
 
-const stores = [customerStore, abiCabStore, abiCabStore];
+const stores = [customerStore, podPdrStore, abiCabStore];
 stores.forEach(store=> {
   store.onChange('filters', (filters) => {
     const parsedFilters = []
@@ -61,6 +62,13 @@ stores.forEach(store=> {
     });
     store.state.parsedFilters = [...parsedFilters];
   });
+  const refreshOnFieldChange: (keyof StorePayloadWithData<BlacklistClienti>)[] = ['parsedFilters', 'sortDirection', 'currentPage'];
+  refreshOnFieldChange.forEach(key => {
+    store.onChange(key, () => {
+      window.dispatchEvent(new CustomEvent(INTERNAL_EVENTS.REFRESH_DATA, {}));
+    });
+  })
+
 })
 
 export const StoreKey = {

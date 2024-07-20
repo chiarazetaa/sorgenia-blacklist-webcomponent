@@ -38,7 +38,7 @@ export const filterOperators = [
     options: [
       {
         key:"in",
-        value:"Includes"
+        value:"Include"
       }
     ]
   }
