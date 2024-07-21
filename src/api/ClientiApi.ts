@@ -36,4 +36,9 @@ export class ClientiApi extends ApiImpl{
     return this.apiImpl.post(this.composeQueryparams(url, queryParams), payload || {}, this.additionalHeaders).promise;
   }
 
+  public async editCustomerBlacklist(documentId:string, payload?: any): Promise<any> {
+    let url = `/v1/customers/${documentId}`;
+    return this.apiImpl.patch(url, payload || {}, this.additionalHeaders).promise;
+  }
+
 }

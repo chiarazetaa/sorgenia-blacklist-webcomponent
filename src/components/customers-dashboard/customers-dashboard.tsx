@@ -57,7 +57,6 @@ export class CustomersDashboard {
     } catch (e) {
       showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
     }
-
   };
 
   openEditModalClienti = () => {

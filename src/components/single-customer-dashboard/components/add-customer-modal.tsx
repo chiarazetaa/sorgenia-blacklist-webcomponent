@@ -11,10 +11,10 @@ import { showSnackbar } from '../../../services/snackbar-service';
 import { ClientiApi } from '../../../api/ClientiApi';
 
 @Component({
-  tag: 'new-customer-modal',
+  tag: 'add-customer-modal',
   shadow: false,
 })
-export class NewCustomerModal {
+export class AddCustomerModal {
   @Prop() api: ClientiApi;
   @Prop() crmId:string;
   @State() formattedDate: string;

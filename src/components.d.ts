@@ -5,17 +5,23 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ClientiApi } from "./api/ClientiApi";
 import { PodPdrApi } from "./api/PodPdrApi";
 import { StoreKeys } from "./store/shared.store";
 import { AbiCabApi } from "./api/AbiCabApi";
-import { ClientiApi } from "./api/ClientiApi";
+import { CustomerRow } from "./components/single-customer-dashboard/single-customer-dashboard";
+export { ClientiApi } from "./api/ClientiApi";
 export { PodPdrApi } from "./api/PodPdrApi";
 export { StoreKeys } from "./store/shared.store";
 export { AbiCabApi } from "./api/AbiCabApi";
-export { ClientiApi } from "./api/ClientiApi";
+export { CustomerRow } from "./components/single-customer-dashboard/single-customer-dashboard";
 export namespace Components {
     interface AbiCabDashboard {
         "backendUrl": string;
+    }
+    interface AddCustomerModal {
+        "api": ClientiApi;
+        "crmId": string;
     }
     interface BlacklistDashboard {
         "backendUrl": string;
@@ -42,9 +48,13 @@ export namespace Components {
         "api": AbiCabApi;
         "documentIds": any[];
     }
-    interface EditCustomerModal {
+    interface EditCustomerDateOnlyModal {
         "api": ClientiApi;
         "documentIds": any[];
+    }
+    interface EditCustomerModal {
+        "api": ClientiApi;
+        "customerBlacklistRow": CustomerRow;
     }
     interface EditCustomersModal {
         "api": ClientiApi;
@@ -56,10 +66,6 @@ export namespace Components {
     }
     interface NewAbiCabModal {
         "api": AbiCabApi;
-    }
-    interface NewCustomerModal {
-        "api": ClientiApi;
-        "crmId": string;
     }
     interface NewPodPdrModal {
         "api": PodPdrApi;
@@ -76,9 +82,9 @@ export namespace Components {
     interface ShowCustomersPodPdrModal {
         "customers": any[];
     }
-    interface SingleCustomerTable {
+    interface SingleCustomerDashboard {
         "backendUrl": string;
-        "odooId": string;
+        "crmId": string;
     }
 }
 export interface DashboardBaseTableCustomEvent<T> extends CustomEvent<T> {
@@ -91,6 +97,12 @@ declare global {
     var HTMLAbiCabDashboardElement: {
         prototype: HTMLAbiCabDashboardElement;
         new (): HTMLAbiCabDashboardElement;
+    };
+    interface HTMLAddCustomerModalElement extends Components.AddCustomerModal, HTMLStencilElement {
+    }
+    var HTMLAddCustomerModalElement: {
+        prototype: HTMLAddCustomerModalElement;
+        new (): HTMLAddCustomerModalElement;
     };
     interface HTMLBlacklistDashboardElement extends Components.BlacklistDashboard, HTMLStencilElement {
     }
@@ -123,7 +135,7 @@ declare global {
         new (): HTMLDashboardBaseFiltersElement;
     };
     interface HTMLDashboardBaseTableElementEventMap {
-        "tableActionEvent": {type:string, data: any};
+        "tableActionEvent": { type: string, data: any };
     }
     interface HTMLDashboardBaseTableElement extends Components.DashboardBaseTable, HTMLStencilElement {
         addEventListener<K extends keyof HTMLDashboardBaseTableElementEventMap>(type: K, listener: (this: HTMLDashboardBaseTableElement, ev: DashboardBaseTableCustomEvent<HTMLDashboardBaseTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -144,6 +156,12 @@ declare global {
     var HTMLEditAbiCabModalElement: {
         prototype: HTMLEditAbiCabModalElement;
         new (): HTMLEditAbiCabModalElement;
+    };
+    interface HTMLEditCustomerDateOnlyModalElement extends Components.EditCustomerDateOnlyModal, HTMLStencilElement {
+    }
+    var HTMLEditCustomerDateOnlyModalElement: {
+        prototype: HTMLEditCustomerDateOnlyModalElement;
+        new (): HTMLEditCustomerDateOnlyModalElement;
     };
     interface HTMLEditCustomerModalElement extends Components.EditCustomerModal, HTMLStencilElement {
     }
@@ -168,12 +186,6 @@ declare global {
     var HTMLNewAbiCabModalElement: {
         prototype: HTMLNewAbiCabModalElement;
         new (): HTMLNewAbiCabModalElement;
-    };
-    interface HTMLNewCustomerModalElement extends Components.NewCustomerModal, HTMLStencilElement {
-    }
-    var HTMLNewCustomerModalElement: {
-        prototype: HTMLNewCustomerModalElement;
-        new (): HTMLNewCustomerModalElement;
     };
     interface HTMLNewPodPdrModalElement extends Components.NewPodPdrModal, HTMLStencilElement {
     }
@@ -211,14 +223,15 @@ declare global {
         prototype: HTMLShowCustomersPodPdrModalElement;
         new (): HTMLShowCustomersPodPdrModalElement;
     };
-    interface HTMLSingleCustomerTableElement extends Components.SingleCustomerTable, HTMLStencilElement {
+    interface HTMLSingleCustomerDashboardElement extends Components.SingleCustomerDashboard, HTMLStencilElement {
     }
-    var HTMLSingleCustomerTableElement: {
-        prototype: HTMLSingleCustomerTableElement;
-        new (): HTMLSingleCustomerTableElement;
+    var HTMLSingleCustomerDashboardElement: {
+        prototype: HTMLSingleCustomerDashboardElement;
+        new (): HTMLSingleCustomerDashboardElement;
     };
     interface HTMLElementTagNameMap {
         "abi-cab-dashboard": HTMLAbiCabDashboardElement;
+        "add-customer-modal": HTMLAddCustomerModalElement;
         "blacklist-dashboard": HTMLBlacklistDashboardElement;
         "blacklist-dashboard-styles": HTMLBlacklistDashboardStylesElement;
         "bulk-pod-pdr-modal": HTMLBulkPodPdrModalElement;
@@ -226,23 +239,27 @@ declare global {
         "dashboard-base-filters": HTMLDashboardBaseFiltersElement;
         "dashboard-base-table": HTMLDashboardBaseTableElement;
         "edit-abi-cab-modal": HTMLEditAbiCabModalElement;
+        "edit-customer-date-only-modal": HTMLEditCustomerDateOnlyModalElement;
         "edit-customer-modal": HTMLEditCustomerModalElement;
         "edit-customers-modal": HTMLEditCustomersModalElement;
         "edit-pod-pdr-modal": HTMLEditPodPdrModalElement;
         "new-abi-cab-modal": HTMLNewAbiCabModalElement;
-        "new-customer-modal": HTMLNewCustomerModalElement;
         "new-pod-pdr-modal": HTMLNewPodPdrModalElement;
         "pod-pdr-dashboard": HTMLPodPdrDashboardElement;
         "shared-modal": HTMLSharedModalElement;
         "shared-snackbar": HTMLSharedSnackbarElement;
         "shared-table-skeleton": HTMLSharedTableSkeletonElement;
         "show-customers-pod-pdr-modal": HTMLShowCustomersPodPdrModalElement;
-        "single-customer-table": HTMLSingleCustomerTableElement;
+        "single-customer-dashboard": HTMLSingleCustomerDashboardElement;
     }
 }
 declare namespace LocalJSX {
     interface AbiCabDashboard {
         "backendUrl"?: string;
+    }
+    interface AddCustomerModal {
+        "api"?: ClientiApi;
+        "crmId"?: string;
     }
     interface BlacklistDashboard {
         "backendUrl"?: string;
@@ -262,7 +279,7 @@ declare namespace LocalJSX {
     interface DashboardBaseTable {
         "exportFn"?: () => void;
         "isLoading"?: boolean;
-        "onTableActionEvent"?: (event: DashboardBaseTableCustomEvent<{type:string, data: any}>) => void;
+        "onTableActionEvent"?: (event: DashboardBaseTableCustomEvent<{ type: string, data: any }>) => void;
         "payloadAction"?: any;
         "storeKey"?: StoreKeys;
     }
@@ -270,9 +287,13 @@ declare namespace LocalJSX {
         "api"?: AbiCabApi;
         "documentIds"?: any[];
     }
-    interface EditCustomerModal {
+    interface EditCustomerDateOnlyModal {
         "api"?: ClientiApi;
         "documentIds"?: any[];
+    }
+    interface EditCustomerModal {
+        "api"?: ClientiApi;
+        "customerBlacklistRow"?: CustomerRow;
     }
     interface EditCustomersModal {
         "api"?: ClientiApi;
@@ -284,10 +305,6 @@ declare namespace LocalJSX {
     }
     interface NewAbiCabModal {
         "api"?: AbiCabApi;
-    }
-    interface NewCustomerModal {
-        "api"?: ClientiApi;
-        "crmId"?: string;
     }
     interface NewPodPdrModal {
         "api"?: PodPdrApi;
@@ -304,12 +321,13 @@ declare namespace LocalJSX {
     interface ShowCustomersPodPdrModal {
         "customers"?: any[];
     }
-    interface SingleCustomerTable {
+    interface SingleCustomerDashboard {
         "backendUrl"?: string;
-        "odooId"?: string;
+        "crmId"?: string;
     }
     interface IntrinsicElements {
         "abi-cab-dashboard": AbiCabDashboard;
+        "add-customer-modal": AddCustomerModal;
         "blacklist-dashboard": BlacklistDashboard;
         "blacklist-dashboard-styles": BlacklistDashboardStyles;
         "bulk-pod-pdr-modal": BulkPodPdrModal;
@@ -317,18 +335,18 @@ declare namespace LocalJSX {
         "dashboard-base-filters": DashboardBaseFilters;
         "dashboard-base-table": DashboardBaseTable;
         "edit-abi-cab-modal": EditAbiCabModal;
+        "edit-customer-date-only-modal": EditCustomerDateOnlyModal;
         "edit-customer-modal": EditCustomerModal;
         "edit-customers-modal": EditCustomersModal;
         "edit-pod-pdr-modal": EditPodPdrModal;
         "new-abi-cab-modal": NewAbiCabModal;
-        "new-customer-modal": NewCustomerModal;
         "new-pod-pdr-modal": NewPodPdrModal;
         "pod-pdr-dashboard": PodPdrDashboard;
         "shared-modal": SharedModal;
         "shared-snackbar": SharedSnackbar;
         "shared-table-skeleton": SharedTableSkeleton;
         "show-customers-pod-pdr-modal": ShowCustomersPodPdrModal;
-        "single-customer-table": SingleCustomerTable;
+        "single-customer-dashboard": SingleCustomerDashboard;
     }
 }
 export { LocalJSX as JSX };
@@ -336,6 +354,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "abi-cab-dashboard": LocalJSX.AbiCabDashboard & JSXBase.HTMLAttributes<HTMLAbiCabDashboardElement>;
+            "add-customer-modal": LocalJSX.AddCustomerModal & JSXBase.HTMLAttributes<HTMLAddCustomerModalElement>;
             "blacklist-dashboard": LocalJSX.BlacklistDashboard & JSXBase.HTMLAttributes<HTMLBlacklistDashboardElement>;
             "blacklist-dashboard-styles": LocalJSX.BlacklistDashboardStyles & JSXBase.HTMLAttributes<HTMLBlacklistDashboardStylesElement>;
             "bulk-pod-pdr-modal": LocalJSX.BulkPodPdrModal & JSXBase.HTMLAttributes<HTMLBulkPodPdrModalElement>;
@@ -343,18 +362,18 @@ declare module "@stencil/core" {
             "dashboard-base-filters": LocalJSX.DashboardBaseFilters & JSXBase.HTMLAttributes<HTMLDashboardBaseFiltersElement>;
             "dashboard-base-table": LocalJSX.DashboardBaseTable & JSXBase.HTMLAttributes<HTMLDashboardBaseTableElement>;
             "edit-abi-cab-modal": LocalJSX.EditAbiCabModal & JSXBase.HTMLAttributes<HTMLEditAbiCabModalElement>;
+            "edit-customer-date-only-modal": LocalJSX.EditCustomerDateOnlyModal & JSXBase.HTMLAttributes<HTMLEditCustomerDateOnlyModalElement>;
             "edit-customer-modal": LocalJSX.EditCustomerModal & JSXBase.HTMLAttributes<HTMLEditCustomerModalElement>;
             "edit-customers-modal": LocalJSX.EditCustomersModal & JSXBase.HTMLAttributes<HTMLEditCustomersModalElement>;
             "edit-pod-pdr-modal": LocalJSX.EditPodPdrModal & JSXBase.HTMLAttributes<HTMLEditPodPdrModalElement>;
             "new-abi-cab-modal": LocalJSX.NewAbiCabModal & JSXBase.HTMLAttributes<HTMLNewAbiCabModalElement>;
-            "new-customer-modal": LocalJSX.NewCustomerModal & JSXBase.HTMLAttributes<HTMLNewCustomerModalElement>;
             "new-pod-pdr-modal": LocalJSX.NewPodPdrModal & JSXBase.HTMLAttributes<HTMLNewPodPdrModalElement>;
             "pod-pdr-dashboard": LocalJSX.PodPdrDashboard & JSXBase.HTMLAttributes<HTMLPodPdrDashboardElement>;
             "shared-modal": LocalJSX.SharedModal & JSXBase.HTMLAttributes<HTMLSharedModalElement>;
             "shared-snackbar": LocalJSX.SharedSnackbar & JSXBase.HTMLAttributes<HTMLSharedSnackbarElement>;
             "shared-table-skeleton": LocalJSX.SharedTableSkeleton & JSXBase.HTMLAttributes<HTMLSharedTableSkeletonElement>;
             "show-customers-pod-pdr-modal": LocalJSX.ShowCustomersPodPdrModal & JSXBase.HTMLAttributes<HTMLShowCustomersPodPdrModalElement>;
-            "single-customer-table": LocalJSX.SingleCustomerTable & JSXBase.HTMLAttributes<HTMLSingleCustomerTableElement>;
+            "single-customer-dashboard": LocalJSX.SingleCustomerDashboard & JSXBase.HTMLAttributes<HTMLSingleCustomerDashboardElement>;
         }
     }
 }

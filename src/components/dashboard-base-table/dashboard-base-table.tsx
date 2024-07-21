@@ -11,13 +11,13 @@ import { tableFieldsMapping } from '../../fields/table-fields-mapping';
 })
 export class DashboardBaseTable {
 
-  store: ObservableMapValue
+  store: ObservableMapValue;
 
   @Prop() storeKey: StoreKeys;
   @Prop() payloadAction: any;
   @Prop() isLoading: boolean;
   @Prop() exportFn: () => void;
-  @Event() tableActionEvent: EventEmitter<{type:string, data: any}>;
+  @Event() tableActionEvent: EventEmitter<{ type: string, data: any }>;
 
   componentWillLoad() {
     this.store = getStore(this.storeKey);
@@ -63,14 +63,16 @@ export class DashboardBaseTable {
               this.tableActionEvent.emit({ type: e.detail?.type, data: e.detail?.data });
             }}
           ></b2w-table>
-          <div class="my-3 d-flex w-full justify-content-end">
-            <b2w-button onB2wButtonClick={this.exportFn} type="icon-secondary"
-                        iconName="download"
-                        custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
-                        text="Download"></b2w-button>
-          </div>
+          {this.store.state.tableData.total_items > 0 &&
+            <div class="my-3 d-flex w-full justify-content-end">
+              <b2w-button onB2wButtonClick={this.exportFn} type="icon-secondary"
+                          iconName="download"
+                          custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
+                          text="Download"></b2w-button>
+            </div>}
         </div>
         }
+        {this.store.state.tableData.total_items > 0 &&
           <div class="d-flex w-100 justify-content-center b2w-align-items-center">
             <b2w-pagination
               labelPreview="Prec"
@@ -80,7 +82,7 @@ export class DashboardBaseTable {
               currentPageDefault={this.store.state.currentPage}
               onB2wPaginationEvent={e => this.handlePaginationEvent(e.detail.currentPage)}
             />
-          </div>
+          </div>}
       </Host>
     );
   }

@@ -10,18 +10,18 @@ import { showSnackbar } from '../../../services/snackbar-service';
 import { ClientiApi } from '../../../api/ClientiApi';
 
 @Component({
-  tag: 'edit-customer-modal',
+  tag: 'edit-customer-date-only-modal',
   shadow: false,
 })
-export class EditCustomerModal {
+export class EditCustomerDateOnlyModal {
   @Prop() api: ClientiApi;
   @Prop() documentIds: any[];
   @State() formattedDate: string;
 
-  @State() template: EditModalTemplateClienti = {};
+  @State() template: EditDateModalTemplateClienti = {};
 
   @Listen('modalEvent', { target: 'window' })
-  changeContentHandler(event: CustomEvent) {
+  changeContentHandler(event: any) {
     switch (event.detail.type) {
       case MODAL_EVENTS.SAVE_EDIT:
         this.massiveDateUpdate();
@@ -72,6 +72,6 @@ export class EditCustomerModal {
   }
 }
 
-export interface EditModalTemplateClienti {
+export interface EditDateModalTemplateClienti {
   data_cancellazione?: string;
 }
