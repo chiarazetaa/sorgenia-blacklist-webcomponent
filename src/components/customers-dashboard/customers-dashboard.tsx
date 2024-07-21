@@ -1,8 +1,7 @@
 import { Component, Host, h, Prop, State, Listen } from '@stencil/core';
-import { INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from '../../utils/utils';
+import { handleError, INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from '../../utils/utils';
 import { openModal } from '../../services/modal-service';
 import { ClientiApi } from '../../api/ClientiApi';
-import { showSnackbar } from '../../services/snackbar-service';
 import { getStore, StoreKey } from '../../store/shared.store';
 
 @Component({
@@ -45,7 +44,7 @@ export class CustomersDashboard {
       } = await this.api.getClientiBlacklist(this.store.state.parsedFilters, `skip=${(this.store.state.currentPage - 1) * this.store.state.limit}&limit=${this.store.state.limit}&sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
       this.store.state.tableData = { data: [...newData], total_items };
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+      handleError(e);
     } finally {
       this.isLoading = false;
     }
@@ -55,7 +54,7 @@ export class CustomersDashboard {
     try {
       await this.api.exportClientiBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+      handleError(e);
     }
   };
 

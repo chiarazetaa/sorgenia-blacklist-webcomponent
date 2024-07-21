@@ -1,12 +1,11 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
-import { MODAL_EVENTS } from '../../../utils/utils';
+import { handleError, MODAL_EVENTS } from '../../../utils/utils';
 import {
   hideModalAndRefreshData, modalDisable,
   modalExitDisable,
   modalExitLoading,
   modalLoading,
 } from '../../../services/modal-service';
-import { showSnackbar } from '../../../services/snackbar-service';
 import { ClientiApi } from '../../../api/ClientiApi';
 import { CustomerRow } from '../single-customer-dashboard';
 
@@ -78,7 +77,7 @@ export class EditCustomerModal {
       await this.api.editCustomerBlacklist(this.customerBlacklistRow._id, payload);
       hideModalAndRefreshData();
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+      handleError(e);
     } finally {
       modalExitLoading();
     }

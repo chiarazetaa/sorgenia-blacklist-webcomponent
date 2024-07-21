@@ -1,4 +1,4 @@
-import { MODAL_EVENTS } from '../../../utils/utils';
+import { handleError, MODAL_EVENTS } from '../../../utils/utils';
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
 import {
   hideModalAndRefreshData,
@@ -50,7 +50,7 @@ export class AddCustomerModal {
       this.template.codice_cliente = user_sequence;
       this.additionalCustomerData = { displayName: display_name, fiscalCode: fiscal_code, vat };
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+      handleError(e);
     }
     finally {
       this.loadingCustomerData = false;

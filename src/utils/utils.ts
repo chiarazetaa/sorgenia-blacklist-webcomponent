@@ -1,3 +1,5 @@
+import { showSnackbar } from '../services/snackbar-service';
+
 export function format(first: string, middle: string, last: string): string {
   return (first || '') + (middle ? ` ${middle}` : '') + (last ? ` ${last}` : '');
 }
@@ -12,6 +14,15 @@ export const debounce = (func, wait) => {
     }, wait);
   };
 };
+
+export const handleError = (error:any) => {
+  let message = "Errore generico"
+  try{
+    message = JSON.parse(error?.message)?.detail
+  }catch(e){} finally {
+    showSnackbar( message);
+  }
+}
 
 
 export const MODAL_EVENTS = {

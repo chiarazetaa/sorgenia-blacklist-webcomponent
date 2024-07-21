@@ -1,8 +1,7 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
-import { INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from '../../utils/utils';
+import { handleError, INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from '../../utils/utils';
 import { PodPdrApi } from '../../api/PodPdrApi';
 import { openModal } from '../../services/modal-service';
-import { showSnackbar } from '../../services/snackbar-service';
 import { getStore, StoreKey } from '../../store/shared.store';
 
 @Component({
@@ -57,7 +56,7 @@ export class PodPdrDashboard {
       this.store.state.tableData = { data: [...newData], total_items };
 
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+      handleError(e);
     } finally {
       this.isLoading = false;
     }
@@ -83,7 +82,7 @@ export class PodPdrDashboard {
     try {
       await this.api.exportPodPdrBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+      handleError(e);
     }
   };
 

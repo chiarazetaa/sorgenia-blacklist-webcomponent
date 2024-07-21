@@ -1,13 +1,12 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
 import { PodPdrApi } from '../../../api/PodPdrApi';
-import { MODAL_EVENTS } from '../../../utils/utils';
+import { handleError, MODAL_EVENTS } from '../../../utils/utils';
 import {
   hideModalAndRefreshData, modalDisable,
   modalExitDisable,
   modalExitLoading,
   modalLoading,
 } from '../../../services/modal-service';
-import { showSnackbar } from '../../../services/snackbar-service';
 
 @Component({
   tag: 'edit-pod-pdr-modal',
@@ -49,7 +48,7 @@ export class EditPodPdrModal {
       await this.api.bulkUpdatePodPdr(payload);
       hideModalAndRefreshData();
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.detail || 'Error')
+      handleError(e);
     } finally {
       modalExitLoading();
     }

@@ -1,5 +1,5 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
-import { INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from '../../utils/utils';
+import { handleError, INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from '../../utils/utils';
 import { AbiCabApi } from '../../api/AbiCabApi';
 import { openModal } from '../../services/modal-service';
 import { showSnackbar } from '../../services/snackbar-service';
@@ -45,7 +45,7 @@ export class AbiCabDashboard {
       } = await this.api.getAbiCabBlacklist(this.store.state.parsedFilters, `skip=${(this.store.state.currentPage - 1) * this.store.state.limit}&limit=${this.store.state.limit}&sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
       this.store.state.tableData = { data: [...newData], total_items };
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+      handleError(e);
     } finally {
       this.isLoading = false;
     }
@@ -65,7 +65,7 @@ export class AbiCabDashboard {
     try {
       await this.api.exportAbiCabBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
     } catch (e) {
-      showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
+      handleError(e);
     }
   }
 
