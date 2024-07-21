@@ -41,6 +41,7 @@ export class NewPodPdrModal {
   }
 
   searchCodiceCliente = async (codiceCliente: string) => {
+    if(!codiceCliente?.length) return;
     try {
       this.loadingCustomerData = true;
       const rawResult = await this.api.searchCodiceCliente(codiceCliente);
