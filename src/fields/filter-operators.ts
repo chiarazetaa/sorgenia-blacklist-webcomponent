@@ -41,5 +41,18 @@ export const filterOperators = [
         value:"Include"
       }
     ]
+  },
+  {
+    type: 'number',
+    options: [
+      {
+        key: '=',
+        value: 'Uguale a',
+      },
+      {
+        key: '!=',
+        value: 'Non è uguale a',
+      },
+    ],
   }
 ]

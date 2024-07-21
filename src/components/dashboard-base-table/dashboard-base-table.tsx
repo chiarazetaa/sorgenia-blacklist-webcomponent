@@ -47,7 +47,7 @@ export class DashboardBaseTable {
             }}
             id={'shared--table'}
             selectable={true}
-            horizontalScroll={true}
+            horizontalScroll={false}
             layout={'fitColumns'}
             paginationSize={this.store.state.limit}
             externalPagination={true}
@@ -69,6 +69,8 @@ export class DashboardBaseTable {
                         custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
                         text="Download"></b2w-button>
           </div>
+        </div>
+        }
           <div class="d-flex w-100 justify-content-center b2w-align-items-center">
             <b2w-pagination
               labelPreview="Prec"
@@ -79,7 +81,6 @@ export class DashboardBaseTable {
               onB2wPaginationEvent={e => this.handlePaginationEvent(e.detail.currentPage)}
             />
           </div>
-        </div>}
       </Host>
     );
   }

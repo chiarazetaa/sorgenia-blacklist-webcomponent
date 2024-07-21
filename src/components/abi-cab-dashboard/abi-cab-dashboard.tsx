@@ -1,5 +1,5 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
-import { INTERNAL_EVENTS, MODAL_EVENTS } from '../../utils/utils';
+import { INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from '../../utils/utils';
 import { AbiCabApi } from '../../api/AbiCabApi';
 import { openModal } from '../../services/modal-service';
 import { showSnackbar } from '../../services/snackbar-service';
@@ -78,11 +78,20 @@ export class AbiCabDashboard {
     return <Host>
       <dashboard-base-filters storeKey={StoreKey.ABI_CAB}></dashboard-base-filters>
 
-      <div class="d-flex flex-row justify-content-end mb-3 mt-4">
-        <b2w-button onB2wButtonClick={() => this.openEditModalAbiCab()} type="secondary"
-                    disabled={this.store.state.selectedRows.length === 0}
-                    custom-style=".B2wButton{width: 240px !important;}"
-                    text="Modifica data cancellazione"></b2w-button>
+      <div class="d-flex flex-row justify-content-end mb-5 mt-4">
+        <div class="button-container">
+          <b2w-button class="button-left" onB2wButtonClick={() => this.openNewModalAbiCab()}
+                      type="icon-secondary"
+                      icon-name="add"
+                      customStyle={MAIN_BUTTONS_STYLES}
+                      text="Aggiungi ABI/CAB"></b2w-button>
+          <div class="divider"></div>
+          <b2w-button class="button-right" onB2wButtonClick={() => this.openEditModalAbiCab()} type="icon-secondary"
+                      icon-name="edit"
+                      disabled={this.store.state?.selectedRows.length === 0}
+                      customStyle={MAIN_BUTTONS_STYLES}
+                      text="Modifica data cancellazione"></b2w-button>
+        </div>
       </div>
 
       <dashboard-base-table

@@ -31,7 +31,7 @@ export const abiCabFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
     formatter: 'fonts',
     formatterParams: {
       className: 'table-info bold uppercase color-tertiary',
-      color: { 'abi': 'color-accent2', 'cab': 'color-success' },
+      color: { 'abi': 'color-type-1', 'cab': 'color-type-2' },
     },
     visible: true,
     emitEventOnSorting: true,

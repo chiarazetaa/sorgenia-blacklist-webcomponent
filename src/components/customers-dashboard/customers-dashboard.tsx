@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop, State, Listen } from '@stencil/core';
-import { INTERNAL_EVENTS, MODAL_EVENTS } from '../../utils/utils';
+import { INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from '../../utils/utils';
 import { openModal } from '../../services/modal-service';
 import { ClientiApi } from '../../api/ClientiApi';
 import { showSnackbar } from '../../services/snackbar-service';
@@ -75,10 +75,15 @@ export class CustomersDashboard {
       <dashboard-base-filters storeKey={StoreKey.CUSTOMERS}></dashboard-base-filters>
 
       <div class="d-flex flex-row justify-content-end mb-3 mt-4">
-        <b2w-button onB2wButtonClick={() => this.openEditModalClienti()} type="secondary"
-                    disabled={this.store.state.selectedRows.length === 0}
-                    custom-style=".B2wButton{width: 240px !important;}"
-                    text="Modifica data cancellazione"></b2w-button>
+        <div class="button-container">
+            <b2w-button onB2wButtonClick={() => this.openEditModalClienti()}
+                        type="icon-secondary"
+                        class="button-center"
+                        icon-name="edit"
+                        disabled={this.store.state.selectedRows.length === 0}
+                        customStyle={MAIN_BUTTONS_STYLES}
+                        text="Modifica data cancellazione"></b2w-button>
+        </div>
       </div>
 
       <dashboard-base-table

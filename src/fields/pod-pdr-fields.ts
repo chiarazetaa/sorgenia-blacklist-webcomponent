@@ -31,7 +31,7 @@ export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
     formatter: 'fonts',
     formatterParams: {
       className: 'table-info bold uppercase color-tertiary',
-      color: { 'pod': 'color-accent2', 'pdr': 'color-success' },
+      color: { 'pod': 'color-type-1', 'pdr': 'color-type-2' },
     },
     visible: true,
     hozAlign: 'left',
@@ -49,8 +49,8 @@ export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
     headerSort: true,
     formatter: 'fonts',
     formatterParams: {
-      className: 'table-info bold uppercase color-tertiary',
-      color: { 'manuale': 'color-accent2', 'automatico': 'color-success' },
+      className: 'table-info bold uppercase',
+      color: { 'manuale': 'color-type-1', 'automatico': 'color-type-2' },
     },
     visible: true,
     emitEventOnSorting: true,

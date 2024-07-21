@@ -7,7 +7,7 @@ export type FilterFieldString = {
 
 export type FilterFieldNumber = {
   text: string;
-  value: number;
+  value: string;
   placeholder: string;
   type: "number";
 }

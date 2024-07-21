@@ -70,3 +70,36 @@ html {
   transform: translateY(-50%);
   left: -18px;
 }
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  justify-content: center;
+  border-radius: 20px;
+  border: 1px solid lightgrey;
+}
+
+.button-left {
+  padding: 0.2rem !important;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  width: 100%;
+}
+
+.button-center {
+  padding: 0.2rem !important;
+  width: 100% !important;
+}
+
+.divider {
+  border-left: 1px solid lightgrey;
+  margin: 5px;
+}
+
+.button-right {
+  padding: 0.2rem !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  width: 100% !important;
+}

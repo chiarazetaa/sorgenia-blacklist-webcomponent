@@ -1,5 +1,5 @@
 import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
-import { INTERNAL_EVENTS, MODAL_EVENTS } from '../../utils/utils';
+import { INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from '../../utils/utils';
 import { PodPdrApi } from '../../api/PodPdrApi';
 import { openModal } from '../../services/modal-service';
 import { showSnackbar } from '../../services/snackbar-service';
@@ -94,26 +94,33 @@ export class PodPdrDashboard {
   render() {
     return <Host>
       <dashboard-base-filters storeKey={StoreKey.POD_PDR}></dashboard-base-filters>
-      <div class="d-flex flex-row justify-content-end mb-3 mt-4">
-        <b2w-button onB2wButtonClick={() => this.openNewPodPdrModal()}
-                    type="primary"
-                    custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
-                    text="Aggiungi POD/PDR"></b2w-button>
-        <b2w-button onB2wButtonClick={() => this.openBulkModalPodPdr()}
-                    type="secondary"
-                    custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
-                    text="Import massivo"></b2w-button>
-        <b2w-button onB2wButtonClick={() => this.openEditModalPodPdr()} type="secondary"
-                    disabled={this.store.state?.selectedRows.length === 0}
-                    custom-style=".B2wButton{width: 240px !important;}"
-                    text="Modifica data cancellazione"></b2w-button>
+      <div class="d-flex flex-row justify-content-end mb-5 mt-4">
+        <div class="button-container">
+          <b2w-button class="button-left" onB2wButtonClick={() => this.openNewPodPdrModal()}
+                      type="icon-secondary"
+                      icon-name="add"
+                      customStyle={MAIN_BUTTONS_STYLES}
+                      text="Aggiungi POD/PDR"></b2w-button>
+          <div class="divider"></div>
+          <b2w-button class="button-center" onB2wButtonClick={() => this.openBulkModalPodPdr()}
+                      type="icon-secondary"
+                      icon-name="exportmodel"
+                      customStyle={MAIN_BUTTONS_STYLES}
+                      text="Import massivo"></b2w-button>
+          <div class="divider"></div>
+          <b2w-button class="button-right" onB2wButtonClick={() => this.openEditModalPodPdr()} type="icon-secondary"
+                      icon-name="edit"
+                      disabled={this.store.state?.selectedRows.length === 0}
+                      customStyle={ MAIN_BUTTONS_STYLES}
+                      text="Modifica data cancellazione"></b2w-button>
+        </div>
       </div>
       <dashboard-base-table
         storeKey={StoreKey.POD_PDR}
         isLoading={this.isLoading}
         payloadAction={{
           'align': 'center',
-          'width': 10,
+          'width': 100,
           'fixtoend': true,
           'actions': ['SHOW-USERS'],
           'customImages': [{ 'action': 'SHOW-USERS', 'icon': 'icon-b2w-users', 'color': 'color-accent' }],
