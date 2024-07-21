@@ -63,26 +63,45 @@ export class DashboardBaseTable {
               this.tableActionEvent.emit({ type: e.detail?.type, data: e.detail?.data });
             }}
           ></b2w-table>
-          {this.store.state.tableData.total_items > 0 &&
-            <div class="my-3 d-flex w-full justify-content-end">
-              <b2w-button onB2wButtonClick={this.exportFn} type="icon-secondary"
-                          iconName="download"
-                          custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
-                          text="Download"></b2w-button>
-            </div>}
         </div>
         }
-        {this.store.state.tableData.total_items > 0 &&
-          <div class="d-flex w-100 justify-content-center b2w-align-items-center">
-            <b2w-pagination
-              labelPreview="Prec"
-              labelNext="Succ"
-              class="w-full justify-center"
-              totalPages={this.store.state.tableData?.total_items ? Math.ceil(this.store.state.tableData?.total_items / this.store.state.limit) : 0}
-              currentPageDefault={this.store.state.currentPage}
-              onB2wPaginationEvent={e => this.handlePaginationEvent(e.detail.currentPage)}
-            />
-          </div>}
+        <div class="d-flex justify-content-between w-100 align-items-end mt-4">
+          <div>
+            <b2w-dropdown
+              default-value={10}
+              required={true}
+              custom-style=".B2wDropdown{width: 110px !important} .b2w-dropdown-input{height:30px !important} .b2w-dropdown-required{display:none !important} .b2w-label-form-element{font-size:10px !important}"
+              label="Elementi per pagina"
+              onB2wDropdownChange={e => this.store.state.limit = e.detail.value}
+              options={JSON.stringify([{ text: '10', value: 10 }, { text: '20', value: 20 }, {
+                text: '50',
+                value: 50,
+              }, { text: '100', value: 100 }, { text: '200', value: 200 }])}
+            ></b2w-dropdown>
+          </div>
+          <div>
+            {this.store.state.tableData.total_items > 0 &&
+              <div class="d-flex w-100 justify-content-center b2w-align-items-center">
+                <b2w-pagination
+                  labelPreview="Prec"
+                  labelNext="Succ"
+                  class="w-full justify-center"
+                  totalPages={this.store.state.tableData?.total_items ? Math.ceil(this.store.state.tableData?.total_items / this.store.state.limit) : 0}
+                  currentPageDefault={this.store.state.currentPage}
+                  onB2wPaginationEvent={e => this.handlePaginationEvent(e.detail.currentPage)}
+                />
+              </div>}
+          </div>
+          <div style={{width: '170px'}}>
+            {this.store.state.tableData.total_items > 0 && !this.isLoading &&
+                <b2w-button onB2wButtonClick={this.exportFn} type="icon-secondary"
+                            iconName="download"
+                            custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
+                            text="Download"></b2w-button>
+              }
+          </div>
+        </div>
+
       </Host>
     );
   }
