@@ -88,8 +88,8 @@ export class NewPodPdrModal {
       <div style={{ 'margin-bottom': '1rem' }}>
         <b2w-input-text label="Codice cliente"
                         onB2wInputEvent={e => {
-                          debounce(this.searchCodiceCliente(e.detail.value), 1000);
-                          this.template.codice_cliente = e.detail.value;
+                          debounce(this.searchCodiceCliente(e.detail.value.trim()), 1000);
+                          this.template.codice_cliente = e.detail.value.trim();
                           this.checkFormValidity();
                         }} />
         {this.loadingCustomerData ? <b2w-spinner style={{ 'margin-top': '1rem' }} type="small" visible="true" fixed="false"></b2w-spinner> : <div>
