@@ -2,7 +2,6 @@ import { Component, h, Host, Listen, Prop, State } from '@stencil/core';
 import { handleError, INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from '../../utils/utils';
 import { AbiCabApi } from '../../api/AbiCabApi';
 import { openModal } from '../../services/modal-service';
-import { showSnackbar } from '../../services/snackbar-service';
 import { getStore, StoreKey } from '../../store/shared.store';
 
 @Component({

@@ -1,4 +1,4 @@
-# abi-cab-table
+# single-customer-dashboard
 
 
 
@@ -10,6 +10,7 @@
 | Property     | Attribute     | Description | Type     | Default     |
 | ------------ | ------------- | ----------- | -------- | ----------- |
 | `backendUrl` | `backend-url` |             | `string` | `undefined` |
+| `crmId`      | `crm-id`      |             | `string` | `undefined` |
 
 
 ## Dependencies
@@ -20,21 +21,21 @@
 
 ### Depends on
 
-- [edit-abi-cab-modal](components)
-- [new-abi-cab-modal](components)
-- [dashboard-base-filters](../dashboard-base-filters)
+- [edit-customer-modal](components)
+- [add-customer-modal](components)
+- [edit-customer-date-only-modal](components)
 - [dashboard-base-table](../dashboard-base-table)
 
 ### Graph
 ```mermaid
 graph TD;
-  abi-cab-dashboard --> edit-abi-cab-modal
-  abi-cab-dashboard --> new-abi-cab-modal
-  abi-cab-dashboard --> dashboard-base-filters
-  abi-cab-dashboard --> dashboard-base-table
+  single-customer-dashboard --> edit-customer-modal
+  single-customer-dashboard --> add-customer-modal
+  single-customer-dashboard --> edit-customer-date-only-modal
+  single-customer-dashboard --> dashboard-base-table
   dashboard-base-table --> shared-table-skeleton
-  blacklist-dashboard --> abi-cab-dashboard
-  style abi-cab-dashboard fill:#f9f,stroke:#333,stroke-width:4px
+  blacklist-dashboard --> single-customer-dashboard
+  style single-customer-dashboard fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

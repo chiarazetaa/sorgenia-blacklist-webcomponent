@@ -1,4 +1,4 @@
-# abi-cab-table
+# pod-pdr-dashboard
 
 
 
@@ -20,21 +20,25 @@
 
 ### Depends on
 
-- [edit-abi-cab-modal](components)
-- [new-abi-cab-modal](components)
+- [edit-pod-pdr-modal](components)
+- [new-pod-pdr-modal](components)
+- [bulk-pod-pdr-modal](components)
+- [show-customers-pod-pdr-modal](components)
 - [dashboard-base-filters](../dashboard-base-filters)
 - [dashboard-base-table](../dashboard-base-table)
 
 ### Graph
 ```mermaid
 graph TD;
-  abi-cab-dashboard --> edit-abi-cab-modal
-  abi-cab-dashboard --> new-abi-cab-modal
-  abi-cab-dashboard --> dashboard-base-filters
-  abi-cab-dashboard --> dashboard-base-table
+  pod-pdr-dashboard --> edit-pod-pdr-modal
+  pod-pdr-dashboard --> new-pod-pdr-modal
+  pod-pdr-dashboard --> bulk-pod-pdr-modal
+  pod-pdr-dashboard --> show-customers-pod-pdr-modal
+  pod-pdr-dashboard --> dashboard-base-filters
+  pod-pdr-dashboard --> dashboard-base-table
   dashboard-base-table --> shared-table-skeleton
-  blacklist-dashboard --> abi-cab-dashboard
-  style abi-cab-dashboard fill:#f9f,stroke:#333,stroke-width:4px
+  blacklist-dashboard --> pod-pdr-dashboard
+  style pod-pdr-dashboard fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

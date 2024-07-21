@@ -1,4 +1,4 @@
-# abi-cab-table
+# customers-dashboard
 
 
 
@@ -20,21 +20,19 @@
 
 ### Depends on
 
-- [edit-abi-cab-modal](components)
-- [new-abi-cab-modal](components)
+- [edit-customers-modal](components)
 - [dashboard-base-filters](../dashboard-base-filters)
 - [dashboard-base-table](../dashboard-base-table)
 
 ### Graph
 ```mermaid
 graph TD;
-  abi-cab-dashboard --> edit-abi-cab-modal
-  abi-cab-dashboard --> new-abi-cab-modal
-  abi-cab-dashboard --> dashboard-base-filters
-  abi-cab-dashboard --> dashboard-base-table
+  customers-dashboard --> edit-customers-modal
+  customers-dashboard --> dashboard-base-filters
+  customers-dashboard --> dashboard-base-table
   dashboard-base-table --> shared-table-skeleton
-  blacklist-dashboard --> abi-cab-dashboard
-  style abi-cab-dashboard fill:#f9f,stroke:#333,stroke-width:4px
+  blacklist-dashboard --> customers-dashboard
+  style customers-dashboard fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
