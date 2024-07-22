@@ -54,7 +54,7 @@ export const SNACKBAR_EVENTS = {
 export type SnackbarEvents = typeof SNACKBAR_EVENTS[keyof typeof SNACKBAR_EVENTS]
 
 export const TABLE_STYLES= `
-    .B2wTable .tabulator .tabulator-header {margin-bottom: 5px !important; font-weight: bold !important} .color-type-1 { color: #fd7e14 !important} .color-type-2 { color: #6f42c1 !important}
+    .B2wTable .tabulator .tabulator-header {margin-bottom: 5px !important; font-weight: bold !important} .color-type-1 { color: #34a1eb !important} .color-type-2 { color: #1a2eb8 !important}
     .boolean-dots.dot-red{border-radius:100%; span {border: 1px solid lightgray !important; background-color: transparent !important} }
     .boolean-dots.dot-green{border-radius:100%; span {border: 1px solid transparent !important;} }
 

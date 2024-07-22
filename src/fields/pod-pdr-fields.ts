@@ -49,8 +49,9 @@ export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
     headerSort: true,
     formatter: 'fonts',
     formatterParams: {
-      className: 'table-info bold uppercase',
-      color: { 'manuale': 'color-type-1', 'automatico': 'color-type-2' },
+      className: 'table-info uppercase',
+      // color: { 'manuale': 'color-type-1', 'automatico': 'color-type-2' },
+      color: { 'manuale': 'bold' },
     },
     visible: true,
     emitEventOnSorting: true,
