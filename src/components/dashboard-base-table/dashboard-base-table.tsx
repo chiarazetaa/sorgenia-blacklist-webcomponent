@@ -81,7 +81,7 @@ export class DashboardBaseTable {
           </div>
           <div>
             {this.store.state.tableData.total_items > 0 &&
-              <div class="d-flex w-100 justify-content-center b2w-align-items-center">
+              <div class="d-flex w-100 justify-content-center align-items-end">
                 <b2w-pagination
                   labelPreview="Prec"
                   labelNext="Succ"

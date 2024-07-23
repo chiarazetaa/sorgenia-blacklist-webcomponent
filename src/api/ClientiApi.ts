@@ -5,8 +5,8 @@ import { Method } from './Api';
 
 export class ClientiApi extends ApiImpl{
 
-  constructor(backend: string) {
-    super(backend);
+  constructor(backend: string, additionalHeaders?:any) {
+    super(backend, additionalHeaders);
   }
 
   public async getClientiBlacklist(payload?: any, queryParams?: string | null): Promise<DataTableInterface<BlacklistClienti>> {

@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property     | Attribute     | Description | Type     | Default     |
-| ------------ | ------------- | ----------- | -------- | ----------- |
-| `backendUrl` | `backend-url` |             | `string` | `undefined` |
+| Property            | Attribute            | Description | Type     | Default     |
+| ------------------- | -------------------- | ----------- | -------- | ----------- |
+| `additionalHeaders` | `additional-headers` |             | `any`    | `undefined` |
+| `backendUrl`        | `backend-url`        |             | `string` | `undefined` |
 
 
 ## Dependencies

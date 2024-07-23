@@ -9,6 +9,7 @@
 
 | Property              | Attribute                | Description | Type     | Default     |
 | --------------------- | ------------------------ | ----------- | -------- | ----------- |
+| `additionalHeaders`   | `additional-headers`     |             | `any`    | `undefined` |
 | `backendUrl`          | `backend-url`            |             | `string` | `undefined` |
 | `singleCustomerCrmId` | `single-customer-crm-id` |             | `number` | `undefined` |
 

@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property     | Attribute     | Description | Type     | Default     |
-| ------------ | ------------- | ----------- | -------- | ----------- |
-| `backendUrl` | `backend-url` |             | `string` | `undefined` |
-| `crmId`      | `crm-id`      |             | `string` | `undefined` |
+| Property            | Attribute            | Description | Type     | Default     |
+| ------------------- | -------------------- | ----------- | -------- | ----------- |
+| `additionalHeaders` | `additional-headers` |             | `any`    | `undefined` |
+| `backendUrl`        | `backend-url`        |             | `string` | `undefined` |
+| `crmId`             | `crm-id`             |             | `string` | `undefined` |
 
 
 ## Dependencies

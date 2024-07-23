@@ -5,8 +5,8 @@ import { Method } from './Api';
 
 export class AbiCabApi extends ApiImpl{
 
-  constructor(backend: string) {
-    super(backend);
+  constructor(backend: string, additionalHeaders:any) {
+    super(backend, additionalHeaders);
   }
 
   public async getAbiCabBlacklist(payload?: any, queryParams?: string | null): Promise<DataTableInterface<BlacklistAbiCab>> {

@@ -12,6 +12,7 @@ import { getStore, StoreKey } from '../../store/shared.store';
 export class SingleCustomerDashboard {
   store = getStore(StoreKey.CUSTOMERS);
   @Prop() backendUrl: string;
+  @Prop() additionalHeaders:any;
   @State() isLoading: boolean;
   @Prop() crmId: string;
   api: ClientiApi;
@@ -42,7 +43,7 @@ export class SingleCustomerDashboard {
   }
 
   componentWillLoad() {
-    this.api = new ClientiApi(this.backendUrl);
+    this.api = new ClientiApi(this.backendUrl, this.additionalHeaders);
     this.store.state.filters = [{ key: 'crm_id', operator: '=', value: parseInt(this.crmId) }];
   }
 

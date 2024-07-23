@@ -12,6 +12,7 @@ import { getStore, StoreKey } from '../../store/shared.store';
 export class CustomersDashboard {
   store = getStore(StoreKey.CUSTOMERS);
   @Prop() backendUrl: string;
+  @Prop() additionalHeaders:any;
   @State() isLoading: boolean;
   api: ClientiApi;
 
@@ -31,7 +32,7 @@ export class CustomersDashboard {
   }
 
   componentWillLoad() {
-    this.api = new ClientiApi(this.backendUrl);
+    this.api = new ClientiApi(this.backendUrl, this.additionalHeaders);
     this.loadData();
   }
 

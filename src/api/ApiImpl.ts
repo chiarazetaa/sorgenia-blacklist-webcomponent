@@ -1,8 +1,11 @@
 import Api from './Api';
 export class ApiImpl {
 
-  constructor(backend?: string) {
+  constructor(backend?: string, additionalHeaders?:any) {
     this.apiImpl = new Api(backend);
+    if(additionalHeaders){
+      this.additionalHeaders = {...JSON.parse(additionalHeaders)}
+    }
   }
 
   protected composeQueryparams(originalUrl:string, queryParams?: string): string {

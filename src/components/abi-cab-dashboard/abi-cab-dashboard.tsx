@@ -12,6 +12,7 @@ import { getStore, StoreKey } from '../../store/shared.store';
 export class AbiCabDashboard {
   store = getStore(StoreKey.ABI_CAB);
   @Prop() backendUrl: string;
+  @Prop() additionalHeaders:any;
   @State() isLoading: boolean;
   api: AbiCabApi;
 
@@ -31,7 +32,7 @@ export class AbiCabDashboard {
   }
 
   componentWillLoad() {
-    this.api = new AbiCabApi(this.backendUrl);
+    this.api = new AbiCabApi(this.backendUrl, this.additionalHeaders);
     this.loadData();
   }
 

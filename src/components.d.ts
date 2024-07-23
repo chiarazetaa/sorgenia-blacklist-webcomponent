@@ -17,6 +17,7 @@ export { AbiCabApi } from "./api/AbiCabApi";
 export { CustomerRow } from "./components/single-customer-dashboard/single-customer-dashboard";
 export namespace Components {
     interface AbiCabDashboard {
+        "additionalHeaders": any;
         "backendUrl": string;
     }
     interface AddCustomerModal {
@@ -24,6 +25,7 @@ export namespace Components {
         "crmId": string;
     }
     interface BlacklistDashboard {
+        "additionalHeaders": any;
         "backendUrl": string;
         "singleCustomerCrmId": number;
     }
@@ -33,6 +35,7 @@ export namespace Components {
         "api": PodPdrApi;
     }
     interface CustomersDashboard {
+        "additionalHeaders": any;
         "backendUrl": string;
     }
     interface DashboardBaseFilters {
@@ -71,6 +74,7 @@ export namespace Components {
         "api": PodPdrApi;
     }
     interface PodPdrDashboard {
+        "additionalHeaders": any;
         "backendUrl": string;
     }
     interface SharedModal {
@@ -83,6 +87,7 @@ export namespace Components {
         "customers": any[];
     }
     interface SingleCustomerDashboard {
+        "additionalHeaders": any;
         "backendUrl": string;
         "crmId": string;
     }
@@ -255,6 +260,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface AbiCabDashboard {
+        "additionalHeaders"?: any;
         "backendUrl"?: string;
     }
     interface AddCustomerModal {
@@ -262,6 +268,7 @@ declare namespace LocalJSX {
         "crmId"?: string;
     }
     interface BlacklistDashboard {
+        "additionalHeaders"?: any;
         "backendUrl"?: string;
         "singleCustomerCrmId"?: number;
     }
@@ -271,6 +278,7 @@ declare namespace LocalJSX {
         "api"?: PodPdrApi;
     }
     interface CustomersDashboard {
+        "additionalHeaders"?: any;
         "backendUrl"?: string;
     }
     interface DashboardBaseFilters {
@@ -310,6 +318,7 @@ declare namespace LocalJSX {
         "api"?: PodPdrApi;
     }
     interface PodPdrDashboard {
+        "additionalHeaders"?: any;
         "backendUrl"?: string;
     }
     interface SharedModal {
@@ -322,6 +331,7 @@ declare namespace LocalJSX {
         "customers"?: any[];
     }
     interface SingleCustomerDashboard {
+        "additionalHeaders"?: any;
         "backendUrl"?: string;
         "crmId"?: string;
     }

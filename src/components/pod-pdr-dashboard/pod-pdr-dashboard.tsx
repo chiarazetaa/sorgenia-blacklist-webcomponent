@@ -12,6 +12,7 @@ import { getStore, StoreKey } from '../../store/shared.store';
 export class PodPdrDashboard {
   store = getStore(StoreKey.POD_PDR);
   @Prop() backendUrl: string;
+  @Prop() additionalHeaders:any;
   @State() isLoading: boolean;
   api: PodPdrApi;
 
@@ -42,7 +43,7 @@ export class PodPdrDashboard {
   }
 
   componentWillLoad() {
-    this.api = new PodPdrApi(this.backendUrl);
+    this.api = new PodPdrApi(this.backendUrl, this.additionalHeaders);
     this.loadData();
   }
 

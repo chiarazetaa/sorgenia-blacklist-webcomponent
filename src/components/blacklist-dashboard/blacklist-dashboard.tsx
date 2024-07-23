@@ -8,6 +8,7 @@ import { Component, Host, h, Prop, State } from '@stencil/core';
 export class BlacklistDashboard {
 
   @Prop() backendUrl: string;
+  @Prop() additionalHeaders: any;
   @Prop() singleCustomerCrmId: number;
 
   @State() currentTab: 'CLIENTI' | 'ABI/CAB' | 'POD/PDR' = 'CLIENTI';
@@ -27,14 +28,14 @@ export class BlacklistDashboard {
       <Host class="mx-4 pt-4">
         <blacklist-dashboard-styles></blacklist-dashboard-styles>
         {this.singleCustomerCrmId ?
-          <single-customer-dashboard crm-id={this.singleCustomerCrmId} backend-url={this.backendUrl}></single-customer-dashboard> :
+          <single-customer-dashboard additional-headers={this.additionalHeaders} crm-id={this.singleCustomerCrmId} backend-url={this.backendUrl}></single-customer-dashboard> :
           <div>
             <b2w-tabs selected-tab-path={this.currentTab} payload={JSON.stringify(this.tabs)} disable-history="true"
                       onB2wTabsClick={e => this.selectTab(e)}></b2w-tabs>
             <div class="mt-4">
-              {this.currentTab === 'CLIENTI' && <customers-dashboard backend-url={this.backendUrl}></customers-dashboard>}
-              {this.currentTab === 'POD/PDR' && <pod-pdr-dashboard backend-url={this.backendUrl}></pod-pdr-dashboard>}
-              {this.currentTab === 'ABI/CAB' && <abi-cab-dashboard backend-url={this.backendUrl}></abi-cab-dashboard>}
+              {this.currentTab === 'CLIENTI' && <customers-dashboard additional-headers={this.additionalHeaders} backend-url={this.backendUrl}></customers-dashboard>}
+              {this.currentTab === 'POD/PDR' && <pod-pdr-dashboard additional-headers={this.additionalHeaders} backend-url={this.backendUrl}></pod-pdr-dashboard>}
+              {this.currentTab === 'ABI/CAB' && <abi-cab-dashboard additional-headers={this.additionalHeaders} backend-url={this.backendUrl}></abi-cab-dashboard>}
             </div>
           </div>
         }
