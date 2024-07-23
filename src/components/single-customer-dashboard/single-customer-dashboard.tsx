@@ -12,9 +12,11 @@ import { getStore, StoreKey } from '../../store/shared.store';
 export class SingleCustomerDashboard {
   store = getStore(StoreKey.CUSTOMERS);
   @Prop() backendUrl: string;
-  @Prop() additionalHeaders:any;
+  @Prop() additionalHeaders: any;
   @State() isLoading: boolean;
   @Prop() crmId: string;
+
+  @Prop() isCustomerBlacklisted: boolean = true;
   api: ClientiApi;
 
 
@@ -42,9 +44,18 @@ export class SingleCustomerDashboard {
     }
   }
 
-  componentWillLoad() {
+  async componentWillLoad() {
     this.api = new ClientiApi(this.backendUrl, this.additionalHeaders);
     this.store.state.filters = [{ key: 'crm_id', operator: '=', value: parseInt(this.crmId) }];
+  }
+
+  async checkIfCustomerIsBlacklisted() {
+    try {
+      const res = await this.api.isCustomerBlacklisted(undefined, undefined, parseInt(this.crmId));
+      this.isCustomerBlacklisted = res.response.is_blacklisted;
+    } catch (e) {
+      handleError(e);
+    }
   }
 
   async loadData() {
@@ -55,6 +66,7 @@ export class SingleCustomerDashboard {
         total_items,
       } = await this.api.getClientiBlacklist(this.store.state.parsedFilters, `skip=${(this.store.state.currentPage - 1) * this.store.state.limit}&limit=${this.store.state.limit}&sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
       this.store.state.tableData = { data: [...newData], total_items };
+      this.checkIfCustomerIsBlacklisted();
     } catch (e) {
       handleError(e);
     } finally {
@@ -76,8 +88,10 @@ export class SingleCustomerDashboard {
     openModal(component, MODAL_EVENTS.SAVE_EDIT, `Modifica blacklist ${customerRow.nome || ''} ${customerRow.cognome || ''} `, 'Conferma');
   };
 
-  openNewCustomerModal = () => {
-    // TODO add customer only if is not already in the blacklist
+  openNewCustomerModal = async () => {
+    if (this.isCustomerBlacklisted) {
+      return;
+    }
     const component = <add-customer-modal api={this.api} crm-id={this.crmId}></add-customer-modal>;
     openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi Cliente in Blacklist', 'Conferma');
   };
@@ -92,7 +106,9 @@ export class SingleCustomerDashboard {
     return <Host>
       <div class="d-flex flex-row justify-content-end mb-3 mt-4">
         <div class="button-container">
+
           <b2w-button class="button-left" onB2wButtonClick={() => this.openNewCustomerModal()}
+                      disabled={this.isCustomerBlacklisted}
                       type="icon-secondary"
                       icon-name="add"
                       customStyle={MAIN_BUTTONS_STYLES}

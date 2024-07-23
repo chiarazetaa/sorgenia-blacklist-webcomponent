@@ -108,7 +108,7 @@ export class EditCustomerModal {
         label="Data cancellazione"
         locale="it"
         value={this.formattedDateCancellazione}
-        mindate={this.formattedDateCancellazione}
+        mindate={new Date().toISOString().split('T')[0]}
         format="dd/MM/yyyy"
         onB2wDatePickerEvent={e => {
           this.template.data_cancellazione = e.detail.value;

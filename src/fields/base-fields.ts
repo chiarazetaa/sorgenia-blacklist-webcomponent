@@ -81,4 +81,16 @@ export const baseFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldP
     hozAlign: 'left',
     emitEventOnSorting: true,
   },
+  {
+    text: 'Blacklist attiva',
+    value: 'is_blacklist_active',
+    type: "boolean",
+    title: 'Blacklist attiva',
+    field: 'is_blacklist_active',
+    headerSort: true,
+    formatter: 'boolean_dots',
+    visible: true,
+    hozAlign: 'left',
+    emitEventOnSorting: true,
+  },
 ];

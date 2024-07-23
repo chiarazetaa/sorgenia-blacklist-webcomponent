@@ -90,6 +90,7 @@ export namespace Components {
         "additionalHeaders": any;
         "backendUrl": string;
         "crmId": string;
+        "isCustomerBlacklisted": boolean;
     }
 }
 export interface DashboardBaseTableCustomEvent<T> extends CustomEvent<T> {
@@ -334,6 +335,7 @@ declare namespace LocalJSX {
         "additionalHeaders"?: any;
         "backendUrl"?: string;
         "crmId"?: string;
+        "isCustomerBlacklisted"?: boolean;
     }
     interface IntrinsicElements {
         "abi-cab-dashboard": AbiCabDashboard;

@@ -67,7 +67,7 @@ export class AddCustomerModal {
   async addCustomerInBlacklist() {
     modalLoading();
     try {
-      await this.api.addCustomerInBlacklist({...this.template, causale: "COND_terminated_defaulted"});
+      await this.api.addCustomerInBlacklist({...this.template});
       hideModalAndRefreshData();
     } catch (e) {
       showSnackbar(JSON.parse(e?.message)?.detail || 'Error');
@@ -81,12 +81,27 @@ export class AddCustomerModal {
       <div style={{ 'margin-bottom': '1rem' }}>
         {this.loadingCustomerData ?
           <b2w-spinner style={{ 'margin-top': '1rem' }} type="small" visible="true" fixed="false"></b2w-spinner> : <div>
-            {this.additionalCustomerData && <p><b>Cliente: </b>{this.additionalCustomerData?.displayName} - <b>C.F</b> {this.additionalCustomerData.fiscalCode} - <b>P.IVA</b> {this.additionalCustomerData.vat || 'N/A'}</p>}
+            {this.additionalCustomerData && <p>
+              <b>Cliente: </b>{this.additionalCustomerData?.displayName} - <b>C.F</b> {this.additionalCustomerData.fiscalCode} - <b>P.IVA</b> {this.additionalCustomerData.vat || 'N/A'}
+            </p>}
           </div>}
 
       </div>
+
+      <b2w-dropdown
+        required={true}
+        custom-style=".b2w-dropdown-required{display:none !important}"
+        label="Causale"
+        onB2wDropdownChange={e => {
+          this.template.causale = e.detail.value;
+          this.checkFormValidity();
+        }}
+        options={JSON.stringify([{ text: 'Frode', value: "frauds" }, { text: 'Morosità', value: "COND_terminated_defaulted" }])}
+      ></b2w-dropdown>
+
       <b2w-date-picker
         label="Data inserimento"
+        class="mt-3"
         locale="it"
         value={this.formattedDate}
         mindate={this.formattedDate}
@@ -103,6 +118,7 @@ export class AddCustomerModal {
 export interface NewModalTemplateCustomer {
   data_inserimento?: string;
   codice_cliente?: string;
+  causale?: string
 }
 
 export interface CustomerSearchResult {

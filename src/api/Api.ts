@@ -228,7 +228,7 @@ export default class Api {
         body: body ? JSON.stringify(body) : undefined,
         method: method,
       }).then(response => {
-        if (!response.ok) throw new Error(response.statusText);
+        if (!response.ok) return new Promise((_, reject) => new Response(response.body).json().then(errorResponse => reject(new Error(JSON.stringify(errorResponse)))));
         this.downloadAttachment(response, fileName);
       }),
     };
@@ -257,10 +257,8 @@ export default class Api {
         headers,
         body: formaData,
       }).then(response => {
+          if (!response.ok) return new Promise((_, reject) => new Response(response.body).json().then(errorResponse => reject(new Error(JSON.stringify(errorResponse)))));
           this.downloadAttachment(response, 'scarti.csv')
-          return new Promise((resolve) => {
-             resolve({status: "ok"});
-          })
       }),
     };
   }

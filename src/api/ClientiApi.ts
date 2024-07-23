@@ -3,9 +3,9 @@ import { DataTableInterface } from '../interfaces/data-table.interface';
 import { BlacklistClienti } from '../interfaces/blacklist-clienti.interface';
 import { Method } from './Api';
 
-export class ClientiApi extends ApiImpl{
+export class ClientiApi extends ApiImpl {
 
-  constructor(backend: string, additionalHeaders?:any) {
+  constructor(backend: string, additionalHeaders?: any) {
     super(backend, additionalHeaders);
   }
 
@@ -23,11 +23,23 @@ export class ClientiApi extends ApiImpl{
   public async exportClientiBlacklist(payload?: any, queryParams?: string | null): Promise<any> {
     payload = { filters: payload || [] };
     let url = '/v1/customers/search-and-export-csv';
-    return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${new Date().toISOString()}.csv`,  Method.POST, this.additionalHeaders).promise;
+    return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${new Date().toISOString()}.csv`, Method.POST, this.additionalHeaders).promise;
   }
 
-  public async getAdditionalCustomerData(crmId): Promise<any> {
-    let url = '/v1/customers/additional-crm-data/' + crmId;
+  public async getAdditionalCustomerData(crmId?: string | number, codiceCliente?: string): Promise<any> {
+    if (!crmId && !codiceCliente) {
+      return Promise.reject('crmId or codiceCliente is required');
+    }
+    let url = '/v1/customers/additional-crm-data';
+    if (crmId && !codiceCliente) {
+      url += `?crm_id=${crmId}`;
+    }
+    if (!crmId && codiceCliente) {
+      url += `?codice_cliente=${codiceCliente}`;
+    }
+    if (crmId && codiceCliente) {
+      url += `?crm_id=${crmId}&codice_cliente=${codiceCliente}`;
+    }
     return this.apiImpl.get(url, undefined, this.additionalHeaders).promise;
   }
 
@@ -36,7 +48,22 @@ export class ClientiApi extends ApiImpl{
     return this.apiImpl.post(this.composeQueryparams(url, queryParams), payload || {}, this.additionalHeaders).promise;
   }
 
-  public async editCustomerBlacklist(documentId:string, payload?: any): Promise<any> {
+  public async isCustomerBlacklisted(fiscal_code: string, vat:string, crm_id:number): Promise<any>{
+    let url = '/v1/customers/is-blacklisted';
+    const payload = {}
+    if(fiscal_code){
+      payload['codice_fiscale'] = fiscal_code;
+    }
+    if(vat){
+      payload['p_iva'] = vat;
+    }
+    if(crm_id){
+      payload['crm_id'] = crm_id;
+    }
+    return this.apiImpl.post(url, payload || {}, this.additionalHeaders).promise;
+  }
+
+  public async editCustomerBlacklist(documentId: string, payload?: any): Promise<any> {
     let url = `/v1/customers/${documentId}`;
     return this.apiImpl.patch(url, payload || {}, this.additionalHeaders).promise;
   }
