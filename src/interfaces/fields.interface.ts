@@ -43,7 +43,7 @@ export type FilterFieldDate = {
 export type TableField = {
   title: string
   field: string
-  headerSort: boolean
+  headerSort?: boolean
   formatter?: string,
   hozAlign?: 'left' | 'right',
   frozen?: boolean,

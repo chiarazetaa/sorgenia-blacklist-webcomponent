@@ -33,9 +33,12 @@ export class BlacklistDashboard {
             <b2w-tabs selected-tab-path={this.currentTab} payload={JSON.stringify(this.tabs)} disable-history="true"
                       onB2wTabsClick={e => this.selectTab(e)}></b2w-tabs>
             <div class="mt-4">
-              {this.currentTab === 'CLIENTI' && <customers-dashboard additional-headers={this.additionalHeaders} backend-url={this.backendUrl}></customers-dashboard>}
-              {this.currentTab === 'POD/PDR' && <pod-pdr-dashboard additional-headers={this.additionalHeaders} backend-url={this.backendUrl}></pod-pdr-dashboard>}
-              {this.currentTab === 'ABI/CAB' && <abi-cab-dashboard additional-headers={this.additionalHeaders} backend-url={this.backendUrl}></abi-cab-dashboard>}
+              {this.currentTab === 'CLIENTI' && <customers-dashboard additional-headers={this.additionalHeaders}
+                                                                     backend-url={this.backendUrl}></customers-dashboard>}
+              {this.currentTab === 'POD/PDR' && <pod-pdr-dashboard additional-headers={this.additionalHeaders}
+                                                                   backend-url={this.backendUrl}></pod-pdr-dashboard>}
+              {this.currentTab === 'ABI/CAB' && <abi-cab-dashboard additional-headers={this.additionalHeaders}
+                                                                   backend-url={this.backendUrl}></abi-cab-dashboard>}
             </div>
           </div>
         }

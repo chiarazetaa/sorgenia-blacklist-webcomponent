@@ -84,6 +84,7 @@ export namespace Components {
     interface SharedTableSkeleton {
     }
     interface ShowCustomersPodPdrModal {
+        "customerRequestingActivation": any;
         "customers": any[];
     }
     interface SingleCustomerDashboard {
@@ -329,6 +330,7 @@ declare namespace LocalJSX {
     interface SharedTableSkeleton {
     }
     interface ShowCustomersPodPdrModal {
+        "customerRequestingActivation"?: any;
         "customers"?: any[];
     }
     interface SingleCustomerDashboard {

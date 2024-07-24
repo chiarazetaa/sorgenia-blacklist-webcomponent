@@ -36,8 +36,8 @@ export class PodPdrDashboard {
   handleTableActionEvent(event: {detail:{type:string, data: any}}) {
     switch (event.detail.type.toUpperCase()) {
       case 'SHOW-USERS':
-        const component = <show-customers-pod-pdr-modal customers={event.detail.data.clienti}></show-customers-pod-pdr-modal>;
-        openModal(component, undefined, 'Clienti associati al POD/PDR', undefined, 'Esci');
+        const component = <show-customers-pod-pdr-modal customerRequestingActivation={event?.detail?.data?.last_customer_requesting_activation} customers={event.detail.data.clienti}></show-customers-pod-pdr-modal>;
+        openModal(component, undefined, '', undefined, 'Esci');
         break;
     }
   }
