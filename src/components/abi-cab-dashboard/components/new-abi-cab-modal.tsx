@@ -56,7 +56,7 @@ export class NewAbiCabModal {
 
   render() {
     return <Host>
-      <b2w-radio-button label="Tipologia codice ABI/CAB" style={{ 'margin-bottom': '1rem' }} value="pod"
+      <b2w-radio-button label="Tipologia codice ABI/CAB" style={{ 'margin-bottom': '1rem' }} value="abi"
                         payload={JSON.stringify([{ text: 'ABI', value: 'abi' }, { text: 'CAB', value: 'cab' }])}
                         onB2wRadioButtonEvent={e => {
                           this.template.type = e.detail.value;
@@ -82,7 +82,7 @@ export class NewAbiCabModal {
 }
 
 export interface NewModalTemplateAbiCab {
-  code?: string;
-  type?: 'abi' | 'cab';
-  data_inserimento?: string;
+  code?: string
+  type?: 'abi' | 'cab'
+  data_inserimento?: string
 }
