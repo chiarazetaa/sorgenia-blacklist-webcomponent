@@ -84,7 +84,7 @@ steps:
         path: /root/.ssh
       - name: helm-chart
         path: /helm_chart
-timeout: 600s
+timeout: 1200s
 options:
   logging: CLOUD_LOGGING_ONLY
 availableSecrets:
