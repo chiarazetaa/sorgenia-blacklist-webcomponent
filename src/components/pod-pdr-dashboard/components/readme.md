@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property    | Attribute | Description | Type    | Default     |
-| ----------- | --------- | ----------- | ------- | ----------- |
-| `customers` | --        |             | `any[]` | `undefined` |
+| Property                       | Attribute                        | Description | Type    | Default     |
+| ------------------------------ | -------------------------------- | ----------- | ------- | ----------- |
+| `customerRequestingActivation` | `customer-requesting-activation` |             | `any`   | `undefined` |
+| `customers`                    | --                               |             | `any[]` | `undefined` |
 
 
 ## Dependencies
