@@ -21,7 +21,7 @@ export class PodPdrApi extends ApiImpl {
   }
 
   public async searchCodiceCliente(codiceCliente:string, queryParams?: string | null): Promise<any> {
-    let url = `/v1/customers/additional-crm-data/${codiceCliente}`;
+    let url = `/v1/customers/additional-crm-data?codice_cliente=${codiceCliente}`;
     return this.apiImpl.get(this.composeQueryparams(url, queryParams), this.additionalHeaders).promise;
   }
 
