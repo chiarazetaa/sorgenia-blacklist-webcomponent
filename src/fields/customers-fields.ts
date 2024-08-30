@@ -82,5 +82,27 @@ export const customersFields: ((FilterFieldString | FilterFieldNumber | FilterFi
     visible: true,
     emitEventOnSorting: true,
   },
+  {
+    text: 'Codice fiscale',
+    value: 'codice_fiscale',
+    placeholder: 'Codice fiscale',
+    type: 'string',
+    title: 'Codice fiscale',
+    field: 'codice_fiscale',
+    headerSort: true,
+    visible: true,
+    emitEventOnSorting: true,
+  },
+  {
+    text: 'Causale',
+    value: 'causale',
+    placeholder: 'Causale',
+    type: 'string',
+    title: 'Causale',
+    field: 'causale',
+    headerSort: true,
+    visible: true,
+    emitEventOnSorting: true,
+  },
   ...baseFields
 ];
