@@ -74,12 +74,8 @@ export class SingleCustomerDashboard {
     }
   }
 
-  exportData = async () => {
-    try {
-      await this.api.exportClientiBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
-    } catch (e) {
-      handleError(e);
-    }
+  exportDataFn = (exportType: "csv" | "xls") => {
+    return this.api.exportClientiBlacklist(this.store.state.parsedFilters, exportType, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
   };
 
   openEditCustomerModal = (customerRow: CustomerRow) => {
@@ -133,7 +129,7 @@ export class SingleCustomerDashboard {
           'actions': ['EDIT-CUSTOMER'],
           'customImages': [{ 'action': 'EDIT-CUSTOMER', 'icon': 'icon-b2w-edit', 'color': 'color-accent' }],
         }}
-        exportFn={this.exportData}
+        exportFn={this.exportDataFn}
       ></dashboard-base-table>
     </Host>;
   }

@@ -3,6 +3,7 @@ import { TABLE_STYLES } from '../../utils/utils';
 import { getStore, ObservableMapValue, StoreKeys } from '../../store/shared.store';
 import { Event, EventEmitter } from '@stencil/core';
 import { tableFieldsMapping } from '../../fields/table-fields-mapping';
+import { openModal } from '../../services/modal-service';
 
 @Component({
   tag: 'dashboard-base-table',
@@ -16,7 +17,7 @@ export class DashboardBaseTable {
   @Prop() storeKey: StoreKeys;
   @Prop() payloadAction: any;
   @Prop() isLoading: boolean;
-  @Prop() exportFn: () => void;
+  @Prop() exportFn: (exportType: 'csv' | 'xls') => void;
   @Event() tableActionEvent: EventEmitter<{ type: string, data: any }>;
 
   componentWillLoad() {
@@ -33,6 +34,13 @@ export class DashboardBaseTable {
     this.store.state.currentPage = currentPage;
   };
 
+  openExportModal = () => {
+    const component = <export-table-modal exportFn={this.exportFn}></export-table-modal>;
+    openModal(component, undefined, 'Download risultati', undefined, 'Esci');
+  }
+
+
+
 
   render() {
     return (
@@ -44,6 +52,7 @@ export class DashboardBaseTable {
             use-refresh-data={true}
             customFormatters={{
               'p_iva': (cell) => cell.getValue() || '-',
+              'last_customer_requesting_activation': (cell) => cell.getValue() || '-'
             }}
             id={'shared--table'}
             selectable={true}
@@ -94,7 +103,7 @@ export class DashboardBaseTable {
           </div>
           <div style={{width: '170px'}}>
             {this.store.state.tableData.total_items > 0 && !this.isLoading &&
-                <b2w-button onB2wButtonClick={this.exportFn} type="icon-secondary"
+                <b2w-button onB2wButtonClick={this.openExportModal} type="icon-secondary"
                             iconName="download"
                             custom-style=".B2wButton{width: 160px !important;margin-right:1rem;} "
                             text="Download"></b2w-button>

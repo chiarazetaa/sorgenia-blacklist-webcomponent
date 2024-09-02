@@ -79,12 +79,8 @@ export class PodPdrDashboard {
     openModal(component, MODAL_EVENTS.SAVE_NEW, 'Import massivo POD/PDR in Blacklist', 'Conferma');
   };
 
-  exportData = async () => {
-    try {
-      await this.api.exportPodPdrBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
-    } catch (e) {
-      handleError(e);
-    }
+  exportDataFn = (exportType: "csv" | "xls") => {
+    return this.api.exportPodPdrBlacklist(this.store.state.parsedFilters, exportType, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
   };
 
   disconnectedCallback() {
@@ -125,7 +121,7 @@ export class PodPdrDashboard {
           'actions': ['SHOW-USERS'],
           'customImages': [{ 'action': 'SHOW-USERS', 'icon': 'icon-b2w-users', 'color': 'color-accent' }],
         }}
-        exportFn={this.exportData}
+        exportFn={this.exportDataFn}
       ></dashboard-base-table>
     </Host>;
   }

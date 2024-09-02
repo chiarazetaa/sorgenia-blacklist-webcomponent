@@ -61,13 +61,9 @@ export class AbiCabDashboard {
     openModal(component, MODAL_EVENTS.SAVE_NEW, 'Aggiungi ABI/CAB in Blacklist', "Conferma");
   };
 
-  exportData = async () => {
-    try {
-      await this.api.exportAbiCabBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
-    } catch (e) {
-      handleError(e);
-    }
-  }
+  exportDataFn = (exportType: "csv" | "xls") => {
+    return this.api.exportAbiCabBlacklist(this.store.state.parsedFilters, exportType, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
+  };
 
   disconnectedCallback() {
     this.store.reset();
@@ -97,7 +93,7 @@ export class AbiCabDashboard {
       <dashboard-base-table
         storeKey={StoreKey.ABI_CAB}
         isLoading={this.isLoading}
-        exportFn={this.exportData}
+        exportFn={this.exportDataFn}
       ></dashboard-base-table>
     </Host>;
 

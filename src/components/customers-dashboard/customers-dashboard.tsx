@@ -51,12 +51,8 @@ export class CustomersDashboard {
     }
   }
 
-  exportData = async () => {
-    try {
-      await this.api.exportClientiBlacklist(this.store.state.parsedFilters, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
-    } catch (e) {
-      handleError(e);
-    }
+  exportDataFn = (exportType: "csv" | "xls") => {
+    return this.api.exportClientiBlacklist(this.store.state.parsedFilters, exportType, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
   };
 
   openEditModalClienti = () => {
@@ -88,7 +84,7 @@ export class CustomersDashboard {
       <dashboard-base-table
         storeKey={StoreKey.CUSTOMERS}
         isLoading={this.isLoading}
-        exportFn={this.exportData}
+        exportFn={this.exportDataFn}
       ></dashboard-base-table>
 
     </Host>;

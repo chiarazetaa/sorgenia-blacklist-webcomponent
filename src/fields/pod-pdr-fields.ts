@@ -55,5 +55,16 @@ export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
     },
     visible: true,
     emitEventOnSorting: true,
+  },
+  {
+    text: "Ultimo cliente richiedente l'attivazione",
+    value: 'last_customer_requesting_activation.nome',
+    placeholder: "Ultimo cliente richiedente l'attivazione",
+    type: 'string',
+    title: "Ultimo cliente richiedente l'attivazione",
+    field: 'last_customer_requesting_activation.nome',
+    headerSort: true,
+    visible: true,
+    emitEventOnSorting: true,
   }
 ];

@@ -42,7 +42,7 @@ export namespace Components {
         "storeKey": StoreKeys;
     }
     interface DashboardBaseTable {
-        "exportFn": () => void;
+        "exportFn": (exportType: 'csv' | 'xls') => void;
         "isLoading": boolean;
         "payloadAction": any;
         "storeKey": StoreKeys;
@@ -66,6 +66,9 @@ export namespace Components {
     interface EditPodPdrModal {
         "api": PodPdrApi;
         "documentIds": any[];
+    }
+    interface ExportTableModal {
+        "exportFn": (exportType: 'csv' | 'xls') => void;
     }
     interface NewAbiCabModal {
         "api": AbiCabApi;
@@ -188,6 +191,12 @@ declare global {
         prototype: HTMLEditPodPdrModalElement;
         new (): HTMLEditPodPdrModalElement;
     };
+    interface HTMLExportTableModalElement extends Components.ExportTableModal, HTMLStencilElement {
+    }
+    var HTMLExportTableModalElement: {
+        prototype: HTMLExportTableModalElement;
+        new (): HTMLExportTableModalElement;
+    };
     interface HTMLNewAbiCabModalElement extends Components.NewAbiCabModal, HTMLStencilElement {
     }
     var HTMLNewAbiCabModalElement: {
@@ -250,6 +259,7 @@ declare global {
         "edit-customer-modal": HTMLEditCustomerModalElement;
         "edit-customers-modal": HTMLEditCustomersModalElement;
         "edit-pod-pdr-modal": HTMLEditPodPdrModalElement;
+        "export-table-modal": HTMLExportTableModalElement;
         "new-abi-cab-modal": HTMLNewAbiCabModalElement;
         "new-pod-pdr-modal": HTMLNewPodPdrModalElement;
         "pod-pdr-dashboard": HTMLPodPdrDashboardElement;
@@ -287,7 +297,7 @@ declare namespace LocalJSX {
         "storeKey"?: StoreKeys;
     }
     interface DashboardBaseTable {
-        "exportFn"?: () => void;
+        "exportFn"?: (exportType: 'csv' | 'xls') => void;
         "isLoading"?: boolean;
         "onTableActionEvent"?: (event: DashboardBaseTableCustomEvent<{ type: string, data: any }>) => void;
         "payloadAction"?: any;
@@ -312,6 +322,9 @@ declare namespace LocalJSX {
     interface EditPodPdrModal {
         "api"?: PodPdrApi;
         "documentIds"?: any[];
+    }
+    interface ExportTableModal {
+        "exportFn"?: (exportType: 'csv' | 'xls') => void;
     }
     interface NewAbiCabModal {
         "api"?: AbiCabApi;
@@ -353,6 +366,7 @@ declare namespace LocalJSX {
         "edit-customer-modal": EditCustomerModal;
         "edit-customers-modal": EditCustomersModal;
         "edit-pod-pdr-modal": EditPodPdrModal;
+        "export-table-modal": ExportTableModal;
         "new-abi-cab-modal": NewAbiCabModal;
         "new-pod-pdr-modal": NewPodPdrModal;
         "pod-pdr-dashboard": PodPdrDashboard;
@@ -380,6 +394,7 @@ declare module "@stencil/core" {
             "edit-customer-modal": LocalJSX.EditCustomerModal & JSXBase.HTMLAttributes<HTMLEditCustomerModalElement>;
             "edit-customers-modal": LocalJSX.EditCustomersModal & JSXBase.HTMLAttributes<HTMLEditCustomersModalElement>;
             "edit-pod-pdr-modal": LocalJSX.EditPodPdrModal & JSXBase.HTMLAttributes<HTMLEditPodPdrModalElement>;
+            "export-table-modal": LocalJSX.ExportTableModal & JSXBase.HTMLAttributes<HTMLExportTableModalElement>;
             "new-abi-cab-modal": LocalJSX.NewAbiCabModal & JSXBase.HTMLAttributes<HTMLNewAbiCabModalElement>;
             "new-pod-pdr-modal": LocalJSX.NewPodPdrModal & JSXBase.HTMLAttributes<HTMLNewPodPdrModalElement>;
             "pod-pdr-dashboard": LocalJSX.PodPdrDashboard & JSXBase.HTMLAttributes<HTMLPodPdrDashboardElement>;
