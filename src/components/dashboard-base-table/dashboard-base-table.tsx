@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, Host, h, Prop, State, Watch, Listen } from '@stencil/core';
 import { TABLE_STYLES } from '../../utils/utils';
 import { getStore, ObservableMapValue, StoreKeys } from '../../store/shared.store';
 import { Event, EventEmitter } from '@stencil/core';
@@ -19,10 +19,54 @@ export class DashboardBaseTable {
   @Prop() isLoading: boolean;
   @Prop() exportFn: (exportType: 'csv' | 'xls') => void;
   @Event() tableActionEvent: EventEmitter<{ type: string, data: any }>;
+  @Prop() customFormatters: any
+
+
+  @State() internalPayloadAction: any = {
+    align: 'center',
+    width: 100,
+    fixtoend: true,
+    actions: ['SHOW-HISTORY'],
+    customImages: [{ 'action': 'SHOW-HISTORY', 'icon': 'icon-b2w-info', 'color': 'color-accent' }],
+  };
+
+
+  @Listen('tableActionEvent', { target: 'window' })
+  handleTableActionEvent(event: {detail:{type:string, data: any}}) {
+    switch (event.detail.type.toUpperCase()) {
+      case 'SHOW-HISTORY':
+        const component = <show-history-modal recordWithHistory={event?.detail?.data}></show-history-modal>;
+        openModal(component, undefined, 'Storico record', undefined, 'Esci');
+        break;
+    }
+  }
+
+
+  @Watch('payloadAction')
+  onMyPropChange(newValue: any) {
+    newValue.actions.push('SHOW-HISTORY');
+    newValue.customImages.push({ 'action': 'SHOW-HISTORY', 'icon': 'icon-b2w-info', 'color': 'color-accent' });
+    this.internalPayloadAction = {...newValue};
+  }
 
   componentWillLoad() {
-    this.store = getStore(this.storeKey);
-    this.store.state.visibleColumns = [...tableFieldsMapping[this.storeKey]];
+    const localStorageKey = "visibleColumns-"+this.storeKey;
+    const localStorageItems = localStorage.getItem(localStorageKey)
+    const setFromStore = ()=>{
+      this.store = getStore(this.storeKey);
+      this.store.state.visibleColumns = [...tableFieldsMapping[this.storeKey]];
+    }
+    if(localStorageItems){
+      try{
+        this.store = getStore(this.storeKey);
+        this.store.state.visibleColumns = JSON.parse(localStorageItems);
+      } catch (e) {
+        setFromStore();
+      }
+    } else{
+      setFromStore();
+    }
+    localStorage.setItem(localStorageKey, JSON.stringify(this.store.state.visibleColumns));
   }
 
   handleSortingEvent = (e) => {
@@ -40,8 +84,6 @@ export class DashboardBaseTable {
   }
 
 
-
-
   render() {
     return (
       <Host>
@@ -50,13 +92,10 @@ export class DashboardBaseTable {
             initialSortDirection={this.store.state.sortDirection}
             initialSortField={this.store.state.sortField}
             use-refresh-data={true}
-            customFormatters={{
-              'p_iva': (cell) => cell.getValue() || '-',
-              'last_customer_requesting_activation': (cell) => cell.getValue() || '-'
-            }}
+            customFormatters={this.customFormatters}
             id={'shared--table'}
             selectable={true}
-            horizontalScroll={false}
+            horizontalScroll={true}
             layout={'fitColumns'}
             paginationSize={this.store.state.limit}
             externalPagination={true}
@@ -65,7 +104,7 @@ export class DashboardBaseTable {
             payload-data={JSON.stringify(this.store.state.tableData?.data || [])}
             emitEventOnSorting={true}
             customStyle={TABLE_STYLES}
-            payload-action={JSON.stringify(this.payloadAction)}
+            payload-action={JSON.stringify(this.internalPayloadAction)}
             onB2wHeaderSortEvent={e => this.handleSortingEvent(e.detail)}
             onB2wTableSelectionEvent={e => this.store.state.selectedRows = e.detail.data}
             onB2wTableActionEvent={e => {

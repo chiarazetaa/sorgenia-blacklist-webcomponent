@@ -42,6 +42,7 @@ export class NewPodPdrModal {
 
   searchCodiceCliente = async (codiceCliente: string) => {
     if(!codiceCliente?.length) return;
+    this.checkFormValidity();
     try {
       this.loadingCustomerData = true;
       const rawResult = await this.api.searchCodiceCliente(codiceCliente);
@@ -53,11 +54,12 @@ export class NewPodPdrModal {
     }
     finally {
       this.loadingCustomerData = false;
+      this.checkFormValidity();
     }
   };
 
   checkFormValidity() {
-    if(this.template.type && this.template.data_inserimento && this.template.code && this.template.codice_cliente) {
+    if(this.template.type && this.template.data_inserimento && this.template.code && this.template.codice_cliente && this.customerFiscalCode && !this.loadingCustomerData) {
       modalExitDisable();
     } else modalDisable();
   }
@@ -76,13 +78,13 @@ export class NewPodPdrModal {
 
   render() {
     return <Host>
-      <b2w-radio-button label="Tipologia codice POD/PDR" style={{ 'margin-bottom': '1rem' }} value="pod"
+      <b2w-radio-button label="Tipologia codice" style={{ 'margin-bottom': '1rem' }} value="pod"
                         payload={JSON.stringify([{ text: 'POD', value: 'pod' }, { text: 'PDR', value: 'pdr' }])}
                         onB2wRadioButtonEvent={e => {
                           this.template.type = e.detail.value;
                           this.checkFormValidity();
                         }}></b2w-radio-button>
-      <b2w-input-text label="Codice POD/PDR" style={{ 'margin-bottom': '1rem' }} onB2wInputEvent={e => {
+      <b2w-input-text label="Codice" style={{ 'margin-bottom': '1rem' }} onB2wInputEvent={e => {
         this.template.code = e.detail.value;
         this.checkFormValidity();
       }} />
@@ -93,7 +95,7 @@ export class NewPodPdrModal {
                           this.template.codice_cliente = e.detail.value.trim();
                           this.checkFormValidity();
                         }} />
-        {this.loadingCustomerData ? <b2w-spinner style={{ 'margin-top': '1rem' }} type="small" visible="true" fixed="false"></b2w-spinner> : <div>
+        {this.loadingCustomerData ? <b2w-spinner style={{ 'margin-top': '1rem' }} type="small" visible="true" fixed="false"></b2w-spinner> : <div style={{ 'margin-top': '1rem' }}>
           <p>{this.customerName} {this.customerFiscalCode ? "- " + this.customerFiscalCode : ""}</p>
         </div>}
 

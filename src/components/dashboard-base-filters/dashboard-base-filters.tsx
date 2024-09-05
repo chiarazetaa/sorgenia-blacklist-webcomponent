@@ -25,8 +25,10 @@ export class DashboardBaseFilters {
   };
 
   showAndHideColumns = (keys: string[]) => {
+    const localStorageKey = "visibleColumns-"+this.storeKey;
     this?.store?.state?.visibleColumns.forEach(el => el.visible = keys.includes(el.field));
     this.store.state.visibleColumns = [...this.store.state.visibleColumns];
+    localStorage.setItem(localStorageKey, JSON.stringify(this.store.state.visibleColumns));
   };
 
   showAndHideColumnsDebounced = debounce(this.showAndHideColumns, 100);
@@ -55,6 +57,8 @@ export class DashboardBaseFilters {
             label="Visibilità campi"
             placeholder="Seleziona le colonne"
             enableSearch={true}
+            enabledAll={true}
+            enableAllTitle={'Seleziona tutti'}
             defaultValues={JSON.stringify([...this.store.state.visibleColumns.filter(d => (d.visible)).map(d => (d.field))])}
             options={JSON.stringify(this?.store?.state?.visibleColumns.map(d => ({ text: d.text, value: d.field })))}
             onb2wMultiselectChange={e => this.showAndHideColumnsDebounced(e.detail.values)}

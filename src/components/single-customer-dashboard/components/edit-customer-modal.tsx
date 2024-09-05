@@ -53,9 +53,10 @@ export class EditCustomerModal {
 
   checkFormValidity() {
     if (this.customerBlacklistRow.tipo_inserimento === 'manuale') {
-      if (this.template.data_cancellazione && this.template.causale) {
+      if (this.template.causale) {
         modalExitDisable();
       } else modalDisable();
+      return
     }
     if (this.template.data_cancellazione) {
       modalExitDisable();
@@ -86,17 +87,23 @@ export class EditCustomerModal {
   render() {
     return <Host>
       {this.customerBlacklistRow.tipo_inserimento === 'manuale' && <div>
-        <b2w-input-text value={this.customerBlacklistRow.causale} label="Causale" style={{ 'margin-bottom': '1rem' }}
-                        onB2wInputEvent={e => {
-                          this.template.causale = e.detail.value;
-                          this.checkFormValidity();
-                        }} />
+        <b2w-dropdown
+          required={true}
+          style={{ 'margin-bottom': '1rem' }}
+          default-value={this.customerBlacklistRow.causale}
+          custom-style=".b2w-dropdown-required{display:none !important}"
+          label="Causale"
+          onB2wDropdownChange={e => {
+            this.template.causale = e.detail.value;
+            this.checkFormValidity();
+          }}
+          options={JSON.stringify([{ text: 'Frode', value: 'Frode' }, { text: 'Morosità', value: 'Morosità' }])}
+        ></b2w-dropdown>
         <b2w-date-picker
           style={{ 'margin-bottom': '1rem' }}
           label="Data inserimento"
           locale="it"
           value={this.formattedDateInserimento}
-          mindate={this.formattedDateInserimento}
           format="dd/MM/yyyy"
           onB2wDatePickerEvent={e => {
             this.template.data_inserimento = e.detail.value;

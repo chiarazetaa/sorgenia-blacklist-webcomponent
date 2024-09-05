@@ -96,7 +96,7 @@ export class AddCustomerModal {
           this.template.causale = e.detail.value;
           this.checkFormValidity();
         }}
-        options={JSON.stringify([{ text: 'Frode', value: "frauds" }, { text: 'Morosità', value: "COND_terminated_defaulted" }])}
+        options={JSON.stringify([{ text: 'Frode', value: "Frode" }, { text: 'Morosità', value: "Morosità" }])}
       ></b2w-dropdown>
 
       <b2w-date-picker

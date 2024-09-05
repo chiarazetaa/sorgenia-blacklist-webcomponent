@@ -42,12 +42,13 @@ export namespace Components {
         "storeKey": StoreKeys;
     }
     interface DashboardBaseTable {
+        "customFormatters": any;
         "exportFn": (exportType: 'csv' | 'xls') => void;
         "isLoading": boolean;
         "payloadAction": any;
         "storeKey": StoreKeys;
     }
-    interface EditAbiCabModal {
+    interface EditAbiCabDateOnlyModal {
         "api": AbiCabApi;
         "documentIds": any[];
     }
@@ -59,11 +60,11 @@ export namespace Components {
         "api": ClientiApi;
         "customerBlacklistRow": CustomerRow;
     }
-    interface EditCustomersModal {
+    interface EditCustomersDateOnlyModal {
         "api": ClientiApi;
         "documentIds": any[];
     }
-    interface EditPodPdrModal {
+    interface EditPodPdrDateOnlyModal {
         "api": PodPdrApi;
         "documentIds": any[];
     }
@@ -89,6 +90,9 @@ export namespace Components {
     interface ShowCustomersPodPdrModal {
         "customerRequestingActivation": any;
         "customers": any[];
+    }
+    interface ShowHistoryModal {
+        "recordWithHistory": {created_at:string, created_by:string, update_history: {updated_at:string, updated_by:string, updated_fields: any}[]};
     }
     interface SingleCustomerDashboard {
         "additionalHeaders": any;
@@ -161,11 +165,11 @@ declare global {
         prototype: HTMLDashboardBaseTableElement;
         new (): HTMLDashboardBaseTableElement;
     };
-    interface HTMLEditAbiCabModalElement extends Components.EditAbiCabModal, HTMLStencilElement {
+    interface HTMLEditAbiCabDateOnlyModalElement extends Components.EditAbiCabDateOnlyModal, HTMLStencilElement {
     }
-    var HTMLEditAbiCabModalElement: {
-        prototype: HTMLEditAbiCabModalElement;
-        new (): HTMLEditAbiCabModalElement;
+    var HTMLEditAbiCabDateOnlyModalElement: {
+        prototype: HTMLEditAbiCabDateOnlyModalElement;
+        new (): HTMLEditAbiCabDateOnlyModalElement;
     };
     interface HTMLEditCustomerDateOnlyModalElement extends Components.EditCustomerDateOnlyModal, HTMLStencilElement {
     }
@@ -179,17 +183,17 @@ declare global {
         prototype: HTMLEditCustomerModalElement;
         new (): HTMLEditCustomerModalElement;
     };
-    interface HTMLEditCustomersModalElement extends Components.EditCustomersModal, HTMLStencilElement {
+    interface HTMLEditCustomersDateOnlyModalElement extends Components.EditCustomersDateOnlyModal, HTMLStencilElement {
     }
-    var HTMLEditCustomersModalElement: {
-        prototype: HTMLEditCustomersModalElement;
-        new (): HTMLEditCustomersModalElement;
+    var HTMLEditCustomersDateOnlyModalElement: {
+        prototype: HTMLEditCustomersDateOnlyModalElement;
+        new (): HTMLEditCustomersDateOnlyModalElement;
     };
-    interface HTMLEditPodPdrModalElement extends Components.EditPodPdrModal, HTMLStencilElement {
+    interface HTMLEditPodPdrDateOnlyModalElement extends Components.EditPodPdrDateOnlyModal, HTMLStencilElement {
     }
-    var HTMLEditPodPdrModalElement: {
-        prototype: HTMLEditPodPdrModalElement;
-        new (): HTMLEditPodPdrModalElement;
+    var HTMLEditPodPdrDateOnlyModalElement: {
+        prototype: HTMLEditPodPdrDateOnlyModalElement;
+        new (): HTMLEditPodPdrDateOnlyModalElement;
     };
     interface HTMLExportTableModalElement extends Components.ExportTableModal, HTMLStencilElement {
     }
@@ -239,6 +243,12 @@ declare global {
         prototype: HTMLShowCustomersPodPdrModalElement;
         new (): HTMLShowCustomersPodPdrModalElement;
     };
+    interface HTMLShowHistoryModalElement extends Components.ShowHistoryModal, HTMLStencilElement {
+    }
+    var HTMLShowHistoryModalElement: {
+        prototype: HTMLShowHistoryModalElement;
+        new (): HTMLShowHistoryModalElement;
+    };
     interface HTMLSingleCustomerDashboardElement extends Components.SingleCustomerDashboard, HTMLStencilElement {
     }
     var HTMLSingleCustomerDashboardElement: {
@@ -254,11 +264,11 @@ declare global {
         "customers-dashboard": HTMLCustomersDashboardElement;
         "dashboard-base-filters": HTMLDashboardBaseFiltersElement;
         "dashboard-base-table": HTMLDashboardBaseTableElement;
-        "edit-abi-cab-modal": HTMLEditAbiCabModalElement;
+        "edit-abi-cab-date-only-modal": HTMLEditAbiCabDateOnlyModalElement;
         "edit-customer-date-only-modal": HTMLEditCustomerDateOnlyModalElement;
         "edit-customer-modal": HTMLEditCustomerModalElement;
-        "edit-customers-modal": HTMLEditCustomersModalElement;
-        "edit-pod-pdr-modal": HTMLEditPodPdrModalElement;
+        "edit-customers-date-only-modal": HTMLEditCustomersDateOnlyModalElement;
+        "edit-pod-pdr-date-only-modal": HTMLEditPodPdrDateOnlyModalElement;
         "export-table-modal": HTMLExportTableModalElement;
         "new-abi-cab-modal": HTMLNewAbiCabModalElement;
         "new-pod-pdr-modal": HTMLNewPodPdrModalElement;
@@ -267,6 +277,7 @@ declare global {
         "shared-snackbar": HTMLSharedSnackbarElement;
         "shared-table-skeleton": HTMLSharedTableSkeletonElement;
         "show-customers-pod-pdr-modal": HTMLShowCustomersPodPdrModalElement;
+        "show-history-modal": HTMLShowHistoryModalElement;
         "single-customer-dashboard": HTMLSingleCustomerDashboardElement;
     }
 }
@@ -297,13 +308,14 @@ declare namespace LocalJSX {
         "storeKey"?: StoreKeys;
     }
     interface DashboardBaseTable {
+        "customFormatters"?: any;
         "exportFn"?: (exportType: 'csv' | 'xls') => void;
         "isLoading"?: boolean;
         "onTableActionEvent"?: (event: DashboardBaseTableCustomEvent<{ type: string, data: any }>) => void;
         "payloadAction"?: any;
         "storeKey"?: StoreKeys;
     }
-    interface EditAbiCabModal {
+    interface EditAbiCabDateOnlyModal {
         "api"?: AbiCabApi;
         "documentIds"?: any[];
     }
@@ -315,11 +327,11 @@ declare namespace LocalJSX {
         "api"?: ClientiApi;
         "customerBlacklistRow"?: CustomerRow;
     }
-    interface EditCustomersModal {
+    interface EditCustomersDateOnlyModal {
         "api"?: ClientiApi;
         "documentIds"?: any[];
     }
-    interface EditPodPdrModal {
+    interface EditPodPdrDateOnlyModal {
         "api"?: PodPdrApi;
         "documentIds"?: any[];
     }
@@ -346,6 +358,9 @@ declare namespace LocalJSX {
         "customerRequestingActivation"?: any;
         "customers"?: any[];
     }
+    interface ShowHistoryModal {
+        "recordWithHistory"?: {created_at:string, created_by:string, update_history: {updated_at:string, updated_by:string, updated_fields: any}[]};
+    }
     interface SingleCustomerDashboard {
         "additionalHeaders"?: any;
         "backendUrl"?: string;
@@ -361,11 +376,11 @@ declare namespace LocalJSX {
         "customers-dashboard": CustomersDashboard;
         "dashboard-base-filters": DashboardBaseFilters;
         "dashboard-base-table": DashboardBaseTable;
-        "edit-abi-cab-modal": EditAbiCabModal;
+        "edit-abi-cab-date-only-modal": EditAbiCabDateOnlyModal;
         "edit-customer-date-only-modal": EditCustomerDateOnlyModal;
         "edit-customer-modal": EditCustomerModal;
-        "edit-customers-modal": EditCustomersModal;
-        "edit-pod-pdr-modal": EditPodPdrModal;
+        "edit-customers-date-only-modal": EditCustomersDateOnlyModal;
+        "edit-pod-pdr-date-only-modal": EditPodPdrDateOnlyModal;
         "export-table-modal": ExportTableModal;
         "new-abi-cab-modal": NewAbiCabModal;
         "new-pod-pdr-modal": NewPodPdrModal;
@@ -374,6 +389,7 @@ declare namespace LocalJSX {
         "shared-snackbar": SharedSnackbar;
         "shared-table-skeleton": SharedTableSkeleton;
         "show-customers-pod-pdr-modal": ShowCustomersPodPdrModal;
+        "show-history-modal": ShowHistoryModal;
         "single-customer-dashboard": SingleCustomerDashboard;
     }
 }
@@ -389,11 +405,11 @@ declare module "@stencil/core" {
             "customers-dashboard": LocalJSX.CustomersDashboard & JSXBase.HTMLAttributes<HTMLCustomersDashboardElement>;
             "dashboard-base-filters": LocalJSX.DashboardBaseFilters & JSXBase.HTMLAttributes<HTMLDashboardBaseFiltersElement>;
             "dashboard-base-table": LocalJSX.DashboardBaseTable & JSXBase.HTMLAttributes<HTMLDashboardBaseTableElement>;
-            "edit-abi-cab-modal": LocalJSX.EditAbiCabModal & JSXBase.HTMLAttributes<HTMLEditAbiCabModalElement>;
+            "edit-abi-cab-date-only-modal": LocalJSX.EditAbiCabDateOnlyModal & JSXBase.HTMLAttributes<HTMLEditAbiCabDateOnlyModalElement>;
             "edit-customer-date-only-modal": LocalJSX.EditCustomerDateOnlyModal & JSXBase.HTMLAttributes<HTMLEditCustomerDateOnlyModalElement>;
             "edit-customer-modal": LocalJSX.EditCustomerModal & JSXBase.HTMLAttributes<HTMLEditCustomerModalElement>;
-            "edit-customers-modal": LocalJSX.EditCustomersModal & JSXBase.HTMLAttributes<HTMLEditCustomersModalElement>;
-            "edit-pod-pdr-modal": LocalJSX.EditPodPdrModal & JSXBase.HTMLAttributes<HTMLEditPodPdrModalElement>;
+            "edit-customers-date-only-modal": LocalJSX.EditCustomersDateOnlyModal & JSXBase.HTMLAttributes<HTMLEditCustomersDateOnlyModalElement>;
+            "edit-pod-pdr-date-only-modal": LocalJSX.EditPodPdrDateOnlyModal & JSXBase.HTMLAttributes<HTMLEditPodPdrDateOnlyModalElement>;
             "export-table-modal": LocalJSX.ExportTableModal & JSXBase.HTMLAttributes<HTMLExportTableModalElement>;
             "new-abi-cab-modal": LocalJSX.NewAbiCabModal & JSXBase.HTMLAttributes<HTMLNewAbiCabModalElement>;
             "new-pod-pdr-modal": LocalJSX.NewPodPdrModal & JSXBase.HTMLAttributes<HTMLNewPodPdrModalElement>;
@@ -402,6 +418,7 @@ declare module "@stencil/core" {
             "shared-snackbar": LocalJSX.SharedSnackbar & JSXBase.HTMLAttributes<HTMLSharedSnackbarElement>;
             "shared-table-skeleton": LocalJSX.SharedTableSkeleton & JSXBase.HTMLAttributes<HTMLSharedTableSkeletonElement>;
             "show-customers-pod-pdr-modal": LocalJSX.ShowCustomersPodPdrModal & JSXBase.HTMLAttributes<HTMLShowCustomersPodPdrModalElement>;
+            "show-history-modal": LocalJSX.ShowHistoryModal & JSXBase.HTMLAttributes<HTMLShowHistoryModalElement>;
             "single-customer-dashboard": LocalJSX.SingleCustomerDashboard & JSXBase.HTMLAttributes<HTMLSingleCustomerDashboardElement>;
         }
     }

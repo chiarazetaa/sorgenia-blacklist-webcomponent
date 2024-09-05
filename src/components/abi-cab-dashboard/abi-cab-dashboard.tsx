@@ -3,6 +3,7 @@ import { handleError, INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from 
 import { AbiCabApi } from '../../api/AbiCabApi';
 import { openModal } from '../../services/modal-service';
 import { getStore, StoreKey } from '../../store/shared.store';
+import { CustomerRow } from '../single-customer-dashboard/single-customer-dashboard';
 
 @Component({
   tag: 'abi-cab-dashboard',
@@ -31,6 +32,15 @@ export class AbiCabDashboard {
     this.loadData();
   }
 
+  @Listen('tableActionEvent', { target: 'window' })
+  handleTableActionEvent(event: {detail:{type:string, data: any}}) {
+    switch (event.detail.type.toUpperCase()) {
+      case 'EDIT-SINGLE-ABI-CAB':
+        this.openEditSingleRowModalAbiCab(event.detail.data as CustomerRow);
+        break;
+    }
+  }
+
   componentWillLoad() {
     this.api = new AbiCabApi(this.backendUrl, this.additionalHeaders);
     this.loadData();
@@ -52,9 +62,14 @@ export class AbiCabDashboard {
   }
 
   openEditModalAbiCab = () => {
-    const component = <edit-abi-cab-modal api={this.api} documentIds={this.store.state.selectedRows.map(sr => sr._id)}></edit-abi-cab-modal>;
+    const component = <edit-abi-cab-date-only-modal api={this.api} documentIds={this.store.state.selectedRows.map(sr => sr._id)}></edit-abi-cab-date-only-modal>;
     openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', "Conferma");
   };
+
+  openEditSingleRowModalAbiCab = (customerRow: CustomerRow) => {
+    const component = <edit-abi-cab-date-only-modal api={this.api} documentIds={[customerRow._id]}></edit-abi-cab-date-only-modal>;
+    openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', "Conferma");
+  }
 
   openNewModalAbiCab = () => {
     const component = <new-abi-cab-modal api={this.api}></new-abi-cab-modal>;
@@ -94,6 +109,13 @@ export class AbiCabDashboard {
         storeKey={StoreKey.ABI_CAB}
         isLoading={this.isLoading}
         exportFn={this.exportDataFn}
+        payloadAction={{
+          'align': 'center',
+          'width': 100,
+          'fixtoend': true,
+          'actions': ['EDIT-SINGLE-ABI-CAB'],
+          'customImages': [{ 'action': 'EDIT-SINGLE-ABI-CAB', 'icon': 'icon-b2w-edit', 'color': 'color-accent' }],
+        }}
       ></dashboard-base-table>
     </Host>;
 

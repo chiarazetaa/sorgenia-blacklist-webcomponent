@@ -57,7 +57,16 @@ export const TABLE_STYLES= `
     .B2wTable .tabulator .tabulator-header {margin-bottom: 5px !important; font-weight: bold !important} .color-type-1 { color: #34a1eb !important} .color-type-2 { color: #1a2eb8 !important}
     .boolean-dots.dot-red{border-radius:100%; span {border: 1px solid lightgray !important; background-color: transparent !important} }
     .boolean-dots.dot-green{border-radius:100%; span {border: 1px solid transparent !important;} }
+    .boolean-dots span {box-shadow:none !important}
+    .B2wTable .tabulator-row {padding:2px !important}
 
    `
+
+export const getReadableDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed, so we add 1
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
 export const MAIN_BUTTONS_STYLES= `.B2wButton{font-size: 0.75rem !important; padding:10px 15px !important; border:none !important; .button-text{color:black !important &:disabled{color:grey !important;}}}`

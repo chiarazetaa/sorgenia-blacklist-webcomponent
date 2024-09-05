@@ -6,18 +6,18 @@ import {
   modalExitLoading,
   modalLoading,
 } from '../../../services/modal-service';
-import { ClientiApi } from '../../../api/ClientiApi';
+import { AbiCabApi } from '../../../api/AbiCabApi';
 
 @Component({
-  tag: 'edit-customers-modal',
+  tag: 'edit-abi-cab-date-only-modal',
   shadow: false,
 })
-export class EditCustomersModal {
-  @Prop() api: ClientiApi;
+export class EditAbiCabDateOnlyModal {
+  @Prop() api: AbiCabApi;
   @Prop() documentIds: any[];
   @State() formattedDate: string;
 
-  @State() template: EditModalTemplateClienti = {};
+  @State() template: EditModalTemplateAbiCab = {};
 
   @Listen('modalEvent', { target: 'window' })
   changeContentHandler(event: CustomEvent) {
@@ -29,11 +29,6 @@ export class EditCustomersModal {
   }
 
   componentWillLoad() {
-    const today = new Date();
-    const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    this.formattedDate = new Intl.DateTimeFormat('it-IT', options).format(today);
-    const [day, month, year] = this.formattedDate.split('/');
-    this.template.data_cancellazione = `${year}-${month}-${day}`;
     this.checkFormValidity();
   }
 
@@ -50,7 +45,7 @@ export class EditCustomersModal {
         document_ids: this.documentIds,
         data_cancellazione: this.template.data_cancellazione,
       };
-      await this.api.bulkUpdateClienti(payload);
+      await this.api.bulkUpdateAbiCab(payload);
       hideModalAndRefreshData();
     } catch (e) {
       handleError(e);
@@ -76,6 +71,7 @@ export class EditCustomersModal {
   }
 }
 
-export interface EditModalTemplateClienti {
+
+export interface EditModalTemplateAbiCab {
   data_cancellazione?: string;
 }

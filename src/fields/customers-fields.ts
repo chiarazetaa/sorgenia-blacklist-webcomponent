@@ -8,14 +8,14 @@ import { baseFields } from './base-fields';
 
 export const customersFields: ((FilterFieldString | FilterFieldNumber | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
   {
-    text: 'ID CRM',
+    text: 'CRM ID',
     value: 'crm_id',
-    placeholder: 'ID CRM',
-    type: 'number',
-    title: 'ID CRM',
+    placeholder: 'Id crm',
+    type: 'string',
+    title: 'CRM ID',
     field: 'crm_id',
-    headerSort: false,
-    formatter: 'string',
+    headerSort: true,
+    formatter: 'fonts',
     visible: true,
     emitEventOnSorting: true,
   },

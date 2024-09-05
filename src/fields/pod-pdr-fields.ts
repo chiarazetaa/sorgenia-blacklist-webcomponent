@@ -37,7 +37,6 @@ export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
     hozAlign: 'left',
     emitEventOnSorting: true,
   },
-  ...baseFields,
   {
     text: 'Tipo inserimento',
     value: 'tipo_inserimento',
@@ -57,14 +56,26 @@ export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
     emitEventOnSorting: true,
   },
   {
-    text: "Ultimo cliente richiedente l'attivazione",
-    value: 'last_customer_requesting_activation.nome',
-    placeholder: "Ultimo cliente richiedente l'attivazione",
+    text: 'Causale',
+    value: 'causale',
+    placeholder: 'Causale',
     type: 'string',
-    title: "Ultimo cliente richiedente l'attivazione",
-    field: 'last_customer_requesting_activation.nome',
+    title: 'Causale',
+    field: 'causale',
     headerSort: true,
     visible: true,
     emitEventOnSorting: true,
-  }
+  },
+  {
+    text: "Ultimo cliente richiedente attivazione",
+    value: 'last_customer_requesting_activation.codice_cliente',
+    placeholder: "Ultimo cliente richiedente l'attivazione",
+    type: 'string',
+    title: "Ultimo cliente richiedente attivazione",
+    field: 'last_customer_requesting_activation.codice_cliente',
+    headerSort: true,
+    visible: true,
+    emitEventOnSorting: true,
+  },
+  ...baseFields
 ];

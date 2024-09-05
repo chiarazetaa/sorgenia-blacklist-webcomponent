@@ -45,7 +45,9 @@ export type TableField = {
   field: string
   headerSort?: boolean
   formatter?: string,
-  hozAlign?: 'left' | 'right',
+  widthGrow?: number,
+  hozAlign?: 'left' | 'right' | 'center',
+  headerHozAlign?: 'left' | 'right' | 'center',
   frozen?: boolean,
   visible?: boolean,
   emitEventOnSorting?: boolean,

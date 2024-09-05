@@ -11,11 +11,11 @@ export class EditPodPdrModal {
   componentWillLoad() {
   }
 
+
   columns = [
     {
       title: 'CRM ID',
-      field: 'crm_id',
-      // formatterParams:{labelField:"crm_id",url:`${window.location.hostname}/web#id=${crm_id}`,target:"_self"},
+      field: 'crm_id'
     },
     {
       title: 'Codice cliente',
@@ -33,6 +33,10 @@ export class EditPodPdrModal {
       title: 'Cognome',
       field: 'cognome',
     },
+    {
+      title: 'Partita iva',
+      field: 'p_iva',
+    },
   ];
 
   render() {
@@ -43,6 +47,9 @@ export class EditPodPdrModal {
         placeholder={'Nessun dato trovato'}
         payload-columns={JSON.stringify(this.columns)}
         payload-data={JSON.stringify(this.customers)}
+        customFormatters={{
+          'crm_id': (cell) => `<a target="_blank" href="/web#id=${cell.getValue()}&model=res.partner">${cell.getValue()}</a>`
+        }}
         layout={'fitColumns'}
       ></b2w-table>
 

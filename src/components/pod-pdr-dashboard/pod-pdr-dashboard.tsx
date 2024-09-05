@@ -3,6 +3,7 @@ import { handleError, INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from 
 import { PodPdrApi } from '../../api/PodPdrApi';
 import { openModal } from '../../services/modal-service';
 import { getStore, StoreKey } from '../../store/shared.store';
+import { CustomerRow } from '../single-customer-dashboard/single-customer-dashboard';
 
 @Component({
   tag: 'pod-pdr-dashboard',
@@ -29,8 +30,9 @@ export class PodPdrDashboard {
       return
     }
     this.loadData();
-
   }
+
+
 
   @Listen('tableActionEvent', { target: 'window' })
   handleTableActionEvent(event: {detail:{type:string, data: any}}) {
@@ -38,6 +40,9 @@ export class PodPdrDashboard {
       case 'SHOW-USERS':
         const component = <show-customers-pod-pdr-modal customerRequestingActivation={event?.detail?.data?.last_customer_requesting_activation} customers={event.detail.data.clienti}></show-customers-pod-pdr-modal>;
         openModal(component, undefined, '', undefined, 'Esci');
+        break;
+      case 'EDIT-SINGLE-POD-PDR':
+        this.openEditSingleRowModalPodPdr(event.detail.data as CustomerRow);
         break;
     }
   }
@@ -64,8 +69,14 @@ export class PodPdrDashboard {
   }
 
   openEditModalPodPdr = () => {
-    const component = <edit-pod-pdr-modal api={this.api}
-                                          documentIds={this.store.state.selectedRows.map(sr => sr._id)}></edit-pod-pdr-modal>;
+    const component = <edit-pod-pdr-date-only-modal api={this.api}
+                                          documentIds={this.store.state.selectedRows.map(sr => sr._id)}></edit-pod-pdr-date-only-modal>;
+    openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', 'Conferma');
+  };
+
+  openEditSingleRowModalPodPdr = (customerRow: CustomerRow) => {
+    const component = <edit-pod-pdr-date-only-modal api={this.api}
+                                          documentIds={[customerRow._id]}></edit-pod-pdr-date-only-modal>;
     openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', 'Conferma');
   };
 
@@ -114,12 +125,18 @@ export class PodPdrDashboard {
       <dashboard-base-table
         storeKey={StoreKey.POD_PDR}
         isLoading={this.isLoading}
+        customFormatters={{
+          'p_iva': (cell) => cell.getValue() || '-'
+        }}
         payloadAction={{
           'align': 'center',
           'width': 100,
           'fixtoend': true,
-          'actions': ['SHOW-USERS'],
-          'customImages': [{ 'action': 'SHOW-USERS', 'icon': 'icon-b2w-users', 'color': 'color-accent' }],
+          'actions': ['SHOW-USERS', 'EDIT-SINGLE-POD-PDR'],
+          'customImages': [
+            { 'action': 'EDIT-SINGLE-POD-PDR', 'icon': 'icon-b2w-edit', 'color': 'color-accent' },
+            { 'action': 'SHOW-USERS', 'icon': 'icon-b2w-users', 'color': 'color-accent' },
+          ],
         }}
         exportFn={this.exportDataFn}
       ></dashboard-base-table>

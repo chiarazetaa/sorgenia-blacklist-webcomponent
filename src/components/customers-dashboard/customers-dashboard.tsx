@@ -3,6 +3,7 @@ import { handleError, INTERNAL_EVENTS, MAIN_BUTTONS_STYLES, MODAL_EVENTS } from 
 import { openModal } from '../../services/modal-service';
 import { ClientiApi } from '../../api/ClientiApi';
 import { getStore, StoreKey } from '../../store/shared.store';
+import { CustomerRow } from '../single-customer-dashboard/single-customer-dashboard';
 
 @Component({
   tag: 'customers-dashboard',
@@ -22,6 +23,16 @@ export class CustomersDashboard {
       this.loadData();
     }
   }
+
+  @Listen('tableActionEvent', { target: 'window' })
+  handleTableActionEvent(event: { detail: { type: string, data: any } }) {
+    switch (event.detail.type.toUpperCase()) {
+      case 'EDIT-SINGLE-CUSTOMER':
+        this.openEditCustomerModal(event.detail.data as CustomerRow);
+        break;
+    }
+  }
+
 
   @Listen(INTERNAL_EVENTS.REFRESH_DATA, { target: 'window' })
   reloadDataHandler() {
@@ -55,9 +66,15 @@ export class CustomersDashboard {
     return this.api.exportClientiBlacklist(this.store.state.parsedFilters, exportType, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
   };
 
+  openEditCustomerModal = (customerRow: CustomerRow) => {
+    const component = <edit-customer-modal api={this.api}
+                                           customerBlacklistRow={customerRow}></edit-customer-modal>;
+    openModal(component, MODAL_EVENTS.SAVE_EDIT, `Modifica blacklist ${customerRow.nome || ''} ${customerRow.cognome || ''} `, 'Conferma');
+  };
+
   openEditModalClienti = () => {
-    const component = <edit-customers-modal api={this.api}
-                                            documentIds={this.store.state.selectedRows.map(sr => sr._id)}></edit-customers-modal>;
+    const component = <edit-customers-date-only-modal api={this.api}
+                                            documentIds={this.store.state.selectedRows.map(sr => sr._id)}></edit-customers-date-only-modal>;
     openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', 'Conferma');
   };
 
@@ -84,6 +101,16 @@ export class CustomersDashboard {
       <dashboard-base-table
         storeKey={StoreKey.CUSTOMERS}
         isLoading={this.isLoading}
+        customFormatters={{
+          'crm_id': (cell) => `<a target="_blank" href="/web#id=${cell.getValue()}&model=res.partner">${cell.getValue()}</a>`
+        }}
+        payloadAction={{
+          'align': 'center',
+          'width': 100,
+          'fixtoend': true,
+          'actions': ['EDIT-SINGLE-CUSTOMER'],
+          'customImages': [{ 'action': 'EDIT-SINGLE-CUSTOMER', 'icon': 'icon-b2w-edit', 'color': 'color-accent' }],
+        }}
         exportFn={this.exportDataFn}
       ></dashboard-base-table>
 

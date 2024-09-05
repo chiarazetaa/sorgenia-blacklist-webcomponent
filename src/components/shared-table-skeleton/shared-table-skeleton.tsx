@@ -16,6 +16,11 @@ export class SharedTableSkeleton {
             <div style={{ height: '30px' }} class="col-md-12 skeleton-loader mb-1 "></div>
             <div style={{ height: '30px' }} class="col-md-12 skeleton-loader mb-1 "></div>
             <div style={{ height: '30px' }} class="col-md-12 skeleton-loader mb-1"></div>
+            <div style={{ height: '30px' }} class="col-md-12 skeleton-loader mb-1"></div>
+            <div style={{ height: '30px' }} class="col-md-12 skeleton-loader mb-1"></div>
+            <div style={{ height: '30px' }} class="col-md-12 skeleton-loader mb-1"></div>
+            <div style={{ height: '30px' }} class="col-md-12 skeleton-loader mb-1"></div>
+            <div style={{ height: '30px' }} class="col-md-12 skeleton-loader mb-1"></div>
             <div style={{ height: '30px' }} class="col-md-12 skeleton-loader"></div>
             {/*<div class="col-md-12 justify-content-end d-flex">*/}
             {/*  <div style={{ height: '35px', width: '150px', borderRadius: '100px', overflow: 'hidden' }} class=" skeleton-loader"></div>*/}

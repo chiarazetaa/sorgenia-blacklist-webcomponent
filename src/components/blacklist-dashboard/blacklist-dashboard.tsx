@@ -31,6 +31,7 @@ export class BlacklistDashboard {
           <single-customer-dashboard additional-headers={this.additionalHeaders} crm-id={this.singleCustomerCrmId} backend-url={this.backendUrl}></single-customer-dashboard> :
           <div>
             <b2w-tabs selected-tab-path={this.currentTab} payload={JSON.stringify(this.tabs)} disable-history="true"
+                      customStyle={".B2wTabs .ContainerItemTabs .ItemWrapper-Item:focus{outline: none; box-shadow: none !important}"}
                       onB2wTabsClick={e => this.selectTab(e)}></b2w-tabs>
             <div class="mt-4">
               {this.currentTab === 'CLIENTI' && <customers-dashboard additional-headers={this.additionalHeaders}

@@ -2,6 +2,7 @@ import { ApiImpl } from './ApiImpl';
 import { DataTableInterface } from '../interfaces/data-table.interface';
 import { BlacklistClienti } from '../interfaces/blacklist-clienti.interface';
 import { Method } from './Api';
+import { getReadableDate } from '../utils/utils';
 
 export class ClientiApi extends ApiImpl {
 
@@ -23,7 +24,7 @@ export class ClientiApi extends ApiImpl {
   public async exportClientiBlacklist(filters?: any[], exportType: "xls" | "csv" = "csv", queryParams?: string | null): Promise<any> {
     const payload = { filters: filters || [], exportType };
     let url = '/v1/customers/search-and-export-csv';
-    return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${new Date().toISOString()}.csv`, Method.POST, this.additionalHeaders).promise;
+    return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${getReadableDate(new Date())}.${exportType}`, Method.POST, this.additionalHeaders).promise;
   }
 
   public async getAdditionalCustomerData(crmId?: string | number, codiceCliente?: string): Promise<any> {

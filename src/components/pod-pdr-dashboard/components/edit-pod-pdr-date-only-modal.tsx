@@ -9,10 +9,10 @@ import {
 } from '../../../services/modal-service';
 
 @Component({
-  tag: 'edit-pod-pdr-modal',
+  tag: 'edit-pod-pdr-date-only-modal',
   shadow: false,
 })
-export class EditPodPdrModal {
+export class EditPodPdrDateOnlyModal {
   @Prop() api: PodPdrApi;
   @Prop() documentIds: any[];
   @State() formattedDate: string;

@@ -70,6 +70,7 @@ export class SharedModal {
   resetModal() {
     this.showModal = false;
     this.buttonIsLoading = false;
+    this.modalTitle = undefined;
     this.content = undefined;
     this.eventNameOnSave = undefined;
     this.confirmButtonText = undefined;

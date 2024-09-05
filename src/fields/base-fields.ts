@@ -5,7 +5,22 @@ import {
   TableField,
 } from '../interfaces/fields.interface';
 
-export const baseFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
+export const baseFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate ) & TableField)[] = [
+  {
+    text: 'Blacklist attiva',
+    frozen: false,
+    value: 'is_blacklist_active',
+    type: "boolean",
+    widthGrow: 3,
+    title: 'BL Attiva',
+    field: 'is_blacklist_active',
+    headerSort: true,
+    formatter: 'boolean_dots',
+    visible: true,
+    hozAlign: 'center',
+    headerHozAlign: 'center',
+    emitEventOnSorting: true,
+  },
   {
     text: 'ID',
     value: '_id',
@@ -82,15 +97,28 @@ export const baseFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldP
     emitEventOnSorting: true,
   },
   {
-    text: 'Blacklist attiva',
-    value: 'is_blacklist_active',
-    type: "boolean",
-    title: 'Blacklist attiva',
-    field: 'is_blacklist_active',
+    text: 'Creato il',
+    value: 'created_at',
+    placeholder: 'Crato il',
+    type: 'date',
+    datevalue: {
+      labelstart: "Dal",
+      labelend: "Al",
+      dateFormat: "dd/MM/yyyy",
+      dateOutputFormat: "yyyy-MM-dd",
+    },
+    title: 'Creato il',
+    field: 'created_at',
     headerSort: true,
-    formatter: 'boolean_dots',
+    formatter: 'datetime',
     visible: true,
     hozAlign: 'left',
     emitEventOnSorting: true,
-  },
+    formatterParams: {
+      inputFormat: 'yyyy-MM-dd HH:mm',
+      outputFormat: 'dd/MM/yyyy HH:mm',
+      invalidPlaceholder: '',
+      timezone: 'Europe/Rome',
+    },
+  }
 ];

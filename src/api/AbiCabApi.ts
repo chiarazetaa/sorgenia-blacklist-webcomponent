@@ -2,6 +2,7 @@ import { ApiImpl } from './ApiImpl';
 import { DataTableInterface } from '../interfaces/data-table.interface';
 import { BlacklistAbiCab } from '../interfaces/blacklist-abi-cab.interface';
 import { Method } from './Api';
+import { getReadableDate } from '../utils/utils';
 
 export class AbiCabApi extends ApiImpl{
 
@@ -31,7 +32,7 @@ export class AbiCabApi extends ApiImpl{
   public async exportAbiCabBlacklist(filters?: any[], exportType: "xls" | "csv" = "csv", queryParams?: string | null): Promise<any> {
     const payload = { filters: filters || [], exportType };
     let url = '/v1/abi-cab/search-and-export-csv';
-    return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${new Date().toISOString()}.csv`, Method.POST, this.additionalHeaders).promise;
+    return this.apiImpl.download(this.composeQueryparams(url, queryParams), payload || {}, `Export-${getReadableDate(new Date())}.${exportType}`, Method.POST, this.additionalHeaders).promise;
   }
 
 }
