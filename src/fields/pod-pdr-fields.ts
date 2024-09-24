@@ -77,5 +77,16 @@ export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
     visible: true,
     emitEventOnSorting: true,
   },
+  {
+    text: "Codice PR",
+    value: 'pr_code',
+    placeholder: "Codice PR",
+    type: 'string',
+    title: "Codice PR",
+    field: 'pr_code',
+    headerSort: true,
+    visible: true,
+    emitEventOnSorting: true,
+  },
   ...baseFields
 ];

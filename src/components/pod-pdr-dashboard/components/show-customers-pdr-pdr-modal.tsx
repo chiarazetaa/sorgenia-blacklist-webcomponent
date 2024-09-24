@@ -34,8 +34,16 @@ export class EditPodPdrModal {
       field: 'cognome',
     },
     {
-      title: 'Partita iva',
+      title: 'P.IVA',
       field: 'p_iva',
+    },
+    {
+      title: 'Agente',
+      field: 'agent_code',
+    },
+    {
+      title: 'Agenzia',
+      field: 'agency_code',
     },
   ];
 
@@ -52,9 +60,7 @@ export class EditPodPdrModal {
         }}
         layout={'fitColumns'}
       ></b2w-table>
-
-
-      {this.customerRequestingActivation && <div class="mt-5"><h6>Ultimo Cliente richiedente attivazione contratto con pod in blacklist</h6>
+      {this.customerRequestingActivation?.codice_cliente && <div class="mt-5"><h6>Ultimo Cliente richiedente attivazione contratto con pod in blacklist</h6>
         <b2w-table
           id={'pod-pdr-table-cliente-requesting-activation'}
           placeholder={'Nessun dato trovato'}
