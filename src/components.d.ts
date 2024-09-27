@@ -77,6 +77,10 @@ export namespace Components {
     interface NewPodPdrModal {
         "api": PodPdrApi;
     }
+    interface PermissionCheck {
+        "additionalHeaders": any;
+        "backendUrl": string;
+    }
     interface PodPdrDashboard {
         "additionalHeaders": any;
         "backendUrl": string;
@@ -213,6 +217,12 @@ declare global {
         prototype: HTMLNewPodPdrModalElement;
         new (): HTMLNewPodPdrModalElement;
     };
+    interface HTMLPermissionCheckElement extends Components.PermissionCheck, HTMLStencilElement {
+    }
+    var HTMLPermissionCheckElement: {
+        prototype: HTMLPermissionCheckElement;
+        new (): HTMLPermissionCheckElement;
+    };
     interface HTMLPodPdrDashboardElement extends Components.PodPdrDashboard, HTMLStencilElement {
     }
     var HTMLPodPdrDashboardElement: {
@@ -272,6 +282,7 @@ declare global {
         "export-table-modal": HTMLExportTableModalElement;
         "new-abi-cab-modal": HTMLNewAbiCabModalElement;
         "new-pod-pdr-modal": HTMLNewPodPdrModalElement;
+        "permission-check": HTMLPermissionCheckElement;
         "pod-pdr-dashboard": HTMLPodPdrDashboardElement;
         "shared-modal": HTMLSharedModalElement;
         "shared-snackbar": HTMLSharedSnackbarElement;
@@ -344,6 +355,10 @@ declare namespace LocalJSX {
     interface NewPodPdrModal {
         "api"?: PodPdrApi;
     }
+    interface PermissionCheck {
+        "additionalHeaders"?: any;
+        "backendUrl"?: string;
+    }
     interface PodPdrDashboard {
         "additionalHeaders"?: any;
         "backendUrl"?: string;
@@ -384,6 +399,7 @@ declare namespace LocalJSX {
         "export-table-modal": ExportTableModal;
         "new-abi-cab-modal": NewAbiCabModal;
         "new-pod-pdr-modal": NewPodPdrModal;
+        "permission-check": PermissionCheck;
         "pod-pdr-dashboard": PodPdrDashboard;
         "shared-modal": SharedModal;
         "shared-snackbar": SharedSnackbar;
@@ -413,6 +429,7 @@ declare module "@stencil/core" {
             "export-table-modal": LocalJSX.ExportTableModal & JSXBase.HTMLAttributes<HTMLExportTableModalElement>;
             "new-abi-cab-modal": LocalJSX.NewAbiCabModal & JSXBase.HTMLAttributes<HTMLNewAbiCabModalElement>;
             "new-pod-pdr-modal": LocalJSX.NewPodPdrModal & JSXBase.HTMLAttributes<HTMLNewPodPdrModalElement>;
+            "permission-check": LocalJSX.PermissionCheck & JSXBase.HTMLAttributes<HTMLPermissionCheckElement>;
             "pod-pdr-dashboard": LocalJSX.PodPdrDashboard & JSXBase.HTMLAttributes<HTMLPodPdrDashboardElement>;
             "shared-modal": LocalJSX.SharedModal & JSXBase.HTMLAttributes<HTMLSharedModalElement>;
             "shared-snackbar": LocalJSX.SharedSnackbar & JSXBase.HTMLAttributes<HTMLSharedSnackbarElement>;

@@ -4,6 +4,7 @@ import { openModal } from '../../services/modal-service';
 import { ClientiApi } from '../../api/ClientiApi';
 import { getStore, StoreKey } from '../../store/shared.store';
 import { CustomerRow } from '../single-customer-dashboard/single-customer-dashboard';
+import { canEditRecords } from '../../services/permission-service';
 
 @Component({
   tag: 'customers-dashboard',
@@ -87,7 +88,7 @@ export class CustomersDashboard {
       <dashboard-base-filters storeKey={StoreKey.CUSTOMERS}></dashboard-base-filters>
 
       <div class="d-flex flex-row justify-content-end mb-3 mt-4">
-        <div class="button-container">
+        {canEditRecords() && <div class="button-container">
             <b2w-button onB2wButtonClick={() => this.openEditModalClienti()}
                         type="icon-secondary"
                         class="button-center"
@@ -95,7 +96,7 @@ export class CustomersDashboard {
                         disabled={this.store.state.selectedRows.length === 0}
                         customStyle={MAIN_BUTTONS_STYLES}
                         text="Modifica data cancellazione"></b2w-button>
-        </div>
+        </div>}
       </div>
 
       <dashboard-base-table
@@ -108,7 +109,7 @@ export class CustomersDashboard {
           'align': 'center',
           'width': 100,
           'fixtoend': true,
-          'actions': ['EDIT-SINGLE-CUSTOMER'],
+          'actions': canEditRecords() ? ['EDIT-SINGLE-CUSTOMER'] : [],
           'customImages': [{ 'action': 'EDIT-SINGLE-CUSTOMER', 'icon': 'icon-b2w-edit', 'color': 'color-accent' }],
         }}
         exportFn={this.exportDataFn}

@@ -16,11 +16,34 @@ export interface StorePayload {
   selectedRows: any[];
 }
 
+export interface TokenPayload {
+  session_state?: string;
+  acr?: string;
+  allowed_origins?: string[];
+  realm_access?: {
+    roles: string[];
+  };
+  resource_access?: {
+    [key: string]: {
+      roles: string[];
+    };
+  };
+  scope?: string;
+  email_verified?: boolean;
+  role?: string[];
+  name?: string;
+  groups?: string[];
+  preferred_username?: string;
+  given_name?: string;
+  family_name?: string;
+  email?: string;
+}
+
 export interface StorePayloadWithData<T> extends StorePayload{
   tableData: DataTableInterface<T>;
 }
 
-const sharedStoreFields: StorePayload = {
+const baseBlacklistFields: StorePayload = {
   filters: [],
   parsedFilters: [],
   visibleColumns: [],
@@ -31,18 +54,26 @@ const sharedStoreFields: StorePayload = {
   selectedRows: []
 }
 
+export interface SharedStore {
+  tokenPayload?: TokenPayload;
+  canEditRecords?: boolean;
+  canShowRecords?: boolean;
+}
+
+const sharedStore = createStore<SharedStore>({});
+
 const customerStore = createStore<StorePayloadWithData<BlacklistClienti>>({
-  ...sharedStoreFields,
+  ...baseBlacklistFields,
   tableData: { data: [], total_items: 2 }
 });
 
 const podPdrStore = createStore<StorePayloadWithData<BlacklistPodPdrInterface>>({
-  ...sharedStoreFields,
+  ...baseBlacklistFields,
   tableData: { data: [], total_items: 2 }
 });
 
 const abiCabStore = createStore<StorePayloadWithData<BlacklistAbiCab>>({
-  ...sharedStoreFields,
+  ...baseBlacklistFields,
   tableData: { data: [], total_items: 2 }
 });
 
@@ -82,14 +113,15 @@ export type StoreKeys = typeof StoreKey[keyof typeof StoreKey]
 export type ObservableMapValue =
   | ObservableMap<StorePayloadWithData<BlacklistClienti>>
   | ObservableMap<StorePayloadWithData<BlacklistPodPdrInterface>>
-  | ObservableMap<StorePayloadWithData<BlacklistAbiCab>>;
+  | ObservableMap<StorePayloadWithData<BlacklistAbiCab>>
 
 // @ts-ignore
 const storeMap: Map<StoreKeys, ObservableMapValue> = new Map([[StoreKey.CUSTOMERS, customerStore], [StoreKey.POD_PDR, podPdrStore], [StoreKey.ABI_CAB, abiCabStore]]);
 
 const getStore = (key: StoreKeys): ObservableMapValue | undefined => storeMap.get(key);
+const getSharedStore = (): ObservableMap<SharedStore> => sharedStore;
 
-export { getStore };
+export { getSharedStore, getStore };
 
 
 

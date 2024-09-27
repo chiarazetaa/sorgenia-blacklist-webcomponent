@@ -4,6 +4,7 @@ import { PodPdrApi } from '../../api/PodPdrApi';
 import { openModal } from '../../services/modal-service';
 import { getStore, StoreKey } from '../../store/shared.store';
 import { CustomerRow } from '../single-customer-dashboard/single-customer-dashboard';
+import { canEditRecords } from '../../services/permission-service';
 
 @Component({
   tag: 'pod-pdr-dashboard',
@@ -13,7 +14,7 @@ import { CustomerRow } from '../single-customer-dashboard/single-customer-dashbo
 export class PodPdrDashboard {
   store = getStore(StoreKey.POD_PDR);
   @Prop() backendUrl: string;
-  @Prop() additionalHeaders:any;
+  @Prop() additionalHeaders: any;
   @State() isLoading: boolean;
   api: PodPdrApi;
 
@@ -26,19 +27,20 @@ export class PodPdrDashboard {
 
   @Listen(INTERNAL_EVENTS.REFRESH_DATA, { target: 'window' })
   reloadDataHandler() {
-    if(!this.api){
-      return
+    if (!this.api) {
+      return;
     }
     this.loadData();
   }
 
 
-
   @Listen('tableActionEvent', { target: 'window' })
-  handleTableActionEvent(event: {detail:{type:string, data: any}}) {
+  handleTableActionEvent(event: { detail: { type: string, data: any } }) {
     switch (event.detail.type.toUpperCase()) {
       case 'SHOW-USERS':
-        const component = <show-customers-pod-pdr-modal customerRequestingActivation={event?.detail?.data?.last_customer_requesting_activation} customers={event.detail.data.clienti}></show-customers-pod-pdr-modal>;
+        const component = <show-customers-pod-pdr-modal
+          customerRequestingActivation={event?.detail?.data?.last_customer_requesting_activation}
+          customers={event.detail.data.clienti}></show-customers-pod-pdr-modal>;
         openModal(component, undefined, '', undefined, 'Esci');
         break;
       case 'EDIT-SINGLE-POD-PDR':
@@ -70,13 +72,13 @@ export class PodPdrDashboard {
 
   openEditModalPodPdr = () => {
     const component = <edit-pod-pdr-date-only-modal api={this.api}
-                                          documentIds={this.store.state.selectedRows.map(sr => sr._id)}></edit-pod-pdr-date-only-modal>;
+                                                    documentIds={this.store.state.selectedRows.map(sr => sr._id)}></edit-pod-pdr-date-only-modal>;
     openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', 'Conferma');
   };
 
   openEditSingleRowModalPodPdr = (customerRow: CustomerRow) => {
     const component = <edit-pod-pdr-date-only-modal api={this.api}
-                                          documentIds={[customerRow._id]}></edit-pod-pdr-date-only-modal>;
+                                                    documentIds={[customerRow._id]}></edit-pod-pdr-date-only-modal>;
     openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', 'Conferma');
   };
 
@@ -90,7 +92,7 @@ export class PodPdrDashboard {
     openModal(component, MODAL_EVENTS.SAVE_NEW, 'Import massivo POD/PDR in Blacklist', 'Conferma');
   };
 
-  exportDataFn = (exportType: "csv" | "xls") => {
+  exportDataFn = (exportType: 'csv' | 'xls') => {
     return this.api.exportPodPdrBlacklist(this.store.state.parsedFilters, exportType, `sort=${this.store.state.sortField}%20${this.store.state.sortDirection}`);
   };
 
@@ -102,7 +104,7 @@ export class PodPdrDashboard {
     return <Host>
       <dashboard-base-filters storeKey={StoreKey.POD_PDR}></dashboard-base-filters>
       <div class="d-flex flex-row justify-content-end mb-5 mt-4">
-        <div class="button-container">
+        {canEditRecords() && <div class="button-container">
           <b2w-button class="button-left" onB2wButtonClick={() => this.openNewPodPdrModal()}
                       type="icon-secondary"
                       icon-name="add"
@@ -118,21 +120,21 @@ export class PodPdrDashboard {
           <b2w-button class="button-right" onB2wButtonClick={() => this.openEditModalPodPdr()} type="icon-secondary"
                       icon-name="edit"
                       disabled={this.store.state?.selectedRows.length === 0}
-                      customStyle={ MAIN_BUTTONS_STYLES}
+                      customStyle={MAIN_BUTTONS_STYLES}
                       text="Modifica data cancellazione"></b2w-button>
-        </div>
+        </div>}
       </div>
       <dashboard-base-table
         storeKey={StoreKey.POD_PDR}
         isLoading={this.isLoading}
         customFormatters={{
-          'p_iva': (cell) => cell.getValue() || '-'
+          'p_iva': (cell) => cell.getValue() || '-',
         }}
         payloadAction={{
           'align': 'center',
           'width': 100,
           'fixtoend': true,
-          'actions': ['SHOW-USERS', 'EDIT-SINGLE-POD-PDR'],
+          'actions': canEditRecords() ? ['SHOW-USERS', 'EDIT-SINGLE-POD-PDR'] : ['SHOW-USERS'],
           'customImages': [
             { 'action': 'EDIT-SINGLE-POD-PDR', 'icon': 'icon-b2w-edit', 'color': 'color-accent' },
             { 'action': 'SHOW-USERS', 'icon': 'icon-b2w-users', 'color': 'color-accent' },

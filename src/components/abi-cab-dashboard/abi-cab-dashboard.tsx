@@ -4,6 +4,7 @@ import { AbiCabApi } from '../../api/AbiCabApi';
 import { openModal } from '../../services/modal-service';
 import { getStore, StoreKey } from '../../store/shared.store';
 import { CustomerRow } from '../single-customer-dashboard/single-customer-dashboard';
+import { canEditRecords } from '../../services/permission-service';
 
 @Component({
   tag: 'abi-cab-dashboard',
@@ -90,7 +91,7 @@ export class AbiCabDashboard {
       <dashboard-base-filters storeKey={StoreKey.ABI_CAB}></dashboard-base-filters>
 
       <div class="d-flex flex-row justify-content-end mb-5 mt-4">
-        <div class="button-container">
+        {canEditRecords() && <div class="button-container">
           <b2w-button class="button-left" onB2wButtonClick={() => this.openNewModalAbiCab()}
                       type="icon-secondary"
                       icon-name="add"
@@ -102,7 +103,7 @@ export class AbiCabDashboard {
                       disabled={this.store.state?.selectedRows.length === 0}
                       customStyle={MAIN_BUTTONS_STYLES}
                       text="Modifica data cancellazione"></b2w-button>
-        </div>
+        </div>}
       </div>
 
       <dashboard-base-table
@@ -113,7 +114,7 @@ export class AbiCabDashboard {
           'align': 'center',
           'width': 100,
           'fixtoend': true,
-          'actions': ['EDIT-SINGLE-ABI-CAB'],
+          'actions': canEditRecords() ? ['EDIT-SINGLE-ABI-CAB'] : [],
           'customImages': [{ 'action': 'EDIT-SINGLE-ABI-CAB', 'icon': 'icon-b2w-edit', 'color': 'color-accent' }],
         }}
       ></dashboard-base-table>
