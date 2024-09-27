@@ -2,6 +2,7 @@ import { Component, Host, h, Prop, State } from '@stencil/core';
 import { SharedApi } from '../../api/SharedApi';
 import { getSharedStore } from '../../store/shared.store';
 import { canEditRecords, canShowRecords } from '../../services/permission-service';
+import { handleError } from '../../utils/utils';
 
 @Component({
   tag: 'permission-check',
@@ -24,7 +25,9 @@ export class PermissionCheck {
       this.sharedStore.state.canShowRecords = canShowRecords();
       this.sharedStore.state.canEditRecords = canEditRecords();
       this.showContent = true;
-    });
+    }).catch(err=>{
+      handleError(err);
+    })
   }
 
   render() {
