@@ -69,6 +69,7 @@ export class BulkPodPdrModal {
         />
         {this.file && <p>File selezionato: <b>{this.file.name}</b></p>}
         <p>Nota: Al termine del caricamento viene restituito un file con le eventuali righe contenenti errori.</p>
+        <p>Attenzione: Alcuni programmi di apertura del csv potrebbero manipolare il contenuto del template scaricato: accertarsi che il separatore sia sempre una virgola (,) e che il testo non includa doppi apici </p>
       </div>
     </Host>
   }
