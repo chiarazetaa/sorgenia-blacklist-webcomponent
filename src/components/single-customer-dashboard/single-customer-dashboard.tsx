@@ -99,6 +99,10 @@ export class SingleCustomerDashboard {
     openModal(component, MODAL_EVENTS.SAVE_EDIT, 'Modifica data cancellazione', 'Conferma');
   };
 
+  disconnectedCallback() {
+    this.store.reset();
+  }
+
   render() {
     return <Host>
       <div class="d-flex flex-row justify-content-end mb-3 mt-4">
