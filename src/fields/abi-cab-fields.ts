@@ -8,11 +8,11 @@ import { baseFields } from './base-fields';
 
 export const abiCabFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
   {
-    text: 'Codice',
+    text: 'Codice ABI/CAB',
     value: 'code',
     placeholder: 'Code',
     type: 'string',
-    title: 'Codice',
+    title: 'Codice ABI/CAB',
     field: 'code',
     headerSort: true,
     formatter: 'fonts',

@@ -58,7 +58,7 @@ export class EditPodPdrModal {
         customFormatters={{
           'crm_id': (cell) => `<a target="_blank" href="/web#id=${cell.getValue()}&model=res.partner">${cell.getValue()}</a>`
         }}
-        layout={'fitColumns'}
+        layout={'fitDataStretch'}
       ></b2w-table>
       {this.customerRequestingActivation?.codice_cliente && <div class="mt-5"><h6>Ultimo Cliente richiedente attivazione contratto con pod in blacklist</h6>
         <b2w-table

@@ -8,11 +8,11 @@ import { baseFields } from './base-fields';
 
 export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFieldPicklist | FilterFieldDate) & TableField)[] = [
   {
-    text: 'Codice',
+    text: 'Codice POD/PDR',
     value: 'code',
     placeholder: 'Code',
     type: 'string',
-    title: 'Codice',
+    title: 'Codice POD/PDR',
     field: 'code',
     headerSort: true,
     formatter: 'fonts',
@@ -59,7 +59,8 @@ export const podPdrFields: ((FilterFieldString | FilterFieldBoolean | FilterFiel
     text: 'Causale',
     value: 'causale',
     placeholder: 'Causale',
-    type: 'string',
+    type: 'picklist',
+    picklistvalues: [{ text: 'Frode', value: 'Frode' }, { text: 'Morosità', value: 'Morosità' }],
     title: 'Causale',
     field: 'causale',
     headerSort: true,

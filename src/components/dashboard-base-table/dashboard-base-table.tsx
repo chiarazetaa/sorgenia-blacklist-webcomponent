@@ -96,7 +96,7 @@ export class DashboardBaseTable {
             id={'shared--table'}
             selectable={true}
             horizontalScroll={true}
-            layout={'fitColumns'}
+            layout={'fitDataStretch'}
             paginationSize={this.store.state.limit}
             externalPagination={true}
             placeholder={'Nessun dato trovato'}

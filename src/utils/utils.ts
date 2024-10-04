@@ -70,3 +70,4 @@ export const getReadableDate = (date: Date) => {
 }
 
 export const MAIN_BUTTONS_STYLES= `.B2wButton{font-size: 0.75rem !important; padding:10px 15px !important; border:none !important; .button-text{color:black !important &:disabled{color:grey !important;}}}`
+export const REFRESH_BUTTON_STYLES= `.B2wButton{width: fit-content !important; font-size: 0.4rem !important; padding:3px 3px !important; border:none !important; .button-text{color:black !important &:disabled{color:grey !important;}}}`
